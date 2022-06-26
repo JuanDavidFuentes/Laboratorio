@@ -3,16 +3,8 @@ import mongoose from "mongoose";
 const SeguimientoSchema = new mongoose.Schema({
   fecha: { type: Date, required: true },
   CodigoCotizacion: { type: String, required: true },
-  datosClientes: [
-    {
-      cliente: { type: String, maxlength: 80, required: true },
-      nitCc: { type: String, maxlength: 20, required: true },
-      direccion: { type: String, maxlength: 50, required: true },
-      ciudad: { type: String, maxlength: 30, required: true },
-      departamento: { type: String, maxlength: 30, required: true },
-      telefono: { type: String, maxlength: 20, required: true },
-    },
-  ],
+  datosCliente: {type:mongoose.Schema.ObjectId,ref:"Cotizacion",required:true},
+
   datosContacto: [
     {
       nombre: { type: String, maxlength: 80, required: true },
@@ -20,18 +12,15 @@ const SeguimientoSchema = new mongoose.Schema({
       correo: { type: String, maxlength: 100, required: true },
     },
   ],
+
   solicitud: [
     {
       descripcion: { type: String, required: true },
     },
   ],
-  medioSolicitud: [
-    {
-      persona: { type: String, maxlength: 80, required: true },
-      correo: { type: String, maxlength: 100, required: true },
-    },
-  ],
-  recibidoPor: { type: String, maxlength: 80, required: true },
+
+  medioSolicitud: { type:mongoose.Schema.ObjectId,ref:"Cotizacion",required:true },
+  recibidoPor: { type:mongoose.Schema.ObjectId,ref:"Emleado",required:true },
   porcentajeAceptacion: [
     {
       emitida: { type: String, maxlength: 50 },

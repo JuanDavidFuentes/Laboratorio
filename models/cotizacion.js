@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 
-const OfertaDeServicios = new mongoose.Schema({
+const Cotizacion = new mongoose.Schema({
   cotizacionNo: { type: Number },
   datosDelCliente: [
     {
@@ -10,16 +10,16 @@ const OfertaDeServicios = new mongoose.Schema({
       contacto: { type: String, maxlength: 80, required: true },
       celular: { type: Number, maxlength: 50, required: true },
       validezDeLaOferta: { type: String, maxlength: 50, required: true },
-      elaboradoPor: { type: String, maxlength: 50, required: true },
+      elaboradoPor: { type:mongoose.Schema.ObjectId,ref:"Emleado",required:true },
       NIT_CC: { type: String, maxlength: 20, required: true },
       ciudad: { type: String, maxlength: 50, required: true },
       telefono: { type: String, maxlength: 50, required: true },
       cargo: { type: String, maxlength: 50, required: true },
       correo: { type: String, maxlength: 100, required: true },
-      EntregaDeResultados: { type: String, maxlength: 50, required: true },
-      cargo: { type: String, maxlength: 50, required: true },
+      EntregaDeResultados: { type: Date, required: true },
     },
   ],
+  
   propuestaTecnicaYEconomica: [
     {
       item: [
@@ -46,6 +46,13 @@ const OfertaDeServicios = new mongoose.Schema({
           ],
         },
       ],
+    },
+  ],
+  
+  medioSolicitud: [
+    {
+      persona: { type: String, maxlength: 80, required: true },
+      correo: { type: String, maxlength: 100, required: true },
     },
   ],
   //Observaciones del servicio
@@ -95,4 +102,4 @@ const OfertaDeServicios = new mongoose.Schema({
 // - LABFICAT se encuentra en proceso de habilitación de estandares de calidad ante la Secretaría de Salud Departamental (SSD).
 // - LABFICAT participa en Pruebas de Desempeño anualmente conforme a lo establecido en el inciso a) del numeral 7.7.2. Aseguramiento de la validez de los resultados de la norma NTC ISO/IEC 17025:2017.																			
 });
-export default mongoose.model("Servicios", OfertaDeServicios);
+export default mongoose.model("Cotizacion", Cotizacion);
