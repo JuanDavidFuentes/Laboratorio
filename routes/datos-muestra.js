@@ -2,7 +2,7 @@ import {Router} from "express"
 import { check } from "express-validator";
 import HerlpersCotizacion from "../helpers/cotizacion.js"
 import { validarCampos } from "../middlewares/validar_campos.js";
-import { validarJWT } from "../middlewares/Validar_jwt.js";
+import { validarJWT } from "../middlewares/validar_jwt.js";
 import{datosMuestraPost, muestraCodigoGet, listarMuestrasxIdGet, listarMuestrasGet, editarMuestraPut, activarPut, desactivarPut} from '../controllers/datos-muestra.js'
 const router =Router()
 

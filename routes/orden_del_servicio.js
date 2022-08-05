@@ -2,7 +2,7 @@ import {Router} from "express"
 import {insertarordendeservicioPost,listartodaslasordenesGet,listarordenporcodigoGet,modificardatosdeordenPut} from "../controllers/orden_del_servicio.js";
 import { check } from "express-validator";
 import { validarCampos } from "../middlewares/validar_campos.js";
-import { validarJWT } from "../middlewares/Validar_jwt.js";
+import { validarJWT } from "../middlewares/validar_jwt.js";
 
  
  

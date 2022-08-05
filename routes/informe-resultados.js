@@ -3,7 +3,7 @@ import { check } from "express-validator";
 import { activarPut, buscarInformeRPorCodigoDeMuestraGet, buscarInformeRPorNombreDelUsuarioGet, desactivarPut, editarInformeResultadosPut, insertarInformeRPost, listarTodosLosInformes } from "../controllers/informe-resultados.js";
 import HerlpersDatosMuestra from "../helpers/datos-muestra.js";
 import { validarCampos } from "../middlewares/validar_campos.js";
-import { validarJWT } from "../middlewares/Validar_jwt.js";
+import { validarJWT } from "../middlewares/validar_jwt.js";
 
 const router=Router()
     
