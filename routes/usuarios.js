@@ -6,7 +6,7 @@ import { validarCampos } from "../middlewares/validar_campos.js";
 import { validarJWT } from "../middlewares/validar_jwt.js";
 import validarExistaArchivo from "../middlewares/validar_file.js";
 
-const router=Router()
+const router=Router() 
 
 router.post("/",[
     check('nombre',"El nombre es obligatoro").not().isEmpty(),
