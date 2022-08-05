@@ -1,6 +1,6 @@
 import Usuario from "../models/usuarios.js"
 import bcryptjs from "bcryptjs"
-import {generarJWT} from "../middlewares/Validar_jwt.js"
+import {generarJWT} from "../middlewares/validar_jwt.js"
 import { v2 as cloudinary } from 'cloudinary'
 
 const usuarioPost=async(req,res)=>{
