@@ -3,7 +3,7 @@ import {usuarioPost,usuarioPutdatos,usuarioPutActivar,cargarArchivoCloudPut,most
 import { check } from "express-validator";
 import HerlpersUsuario from "../helpers/usuarios.js";
 import { validarCampos } from "../middlewares/validar_campos.js";
-import { validarJWT } from "../middlewares/Validar_jwt.js";
+import { validarJWT } from "../middlewares/validar_jwt.js";
 import validarExistaArchivo from "../middlewares/validar_file.js";
 
 const router=Router()
