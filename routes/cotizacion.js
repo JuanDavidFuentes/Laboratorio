@@ -8,28 +8,28 @@ import { activarPut, buscarPorCodigoGet, buscarPorNombreGet, cotizacionPost, des
 
 const router=Router()
 router.post("/",[
-    validarJWT,
-    check('datos_cliente').isMongoId(),
-    check('datos_cliente').custom(HerlpersUsuario.existeUsuarioById),
-    check('validez_oferta','La validez de oferta es obligatoria').not().isEmpty(),
-    check('elabordo_por').isMongoId(),
-    check('elabordo_por').custom(HerlpersUsuario.existeUsuarioById),
-    check('items').custom(HerlpersCotizacion.items),
-    check('observaciones_propuesta_tecnica_economica',"Las observaciones_propuesta_tecnica_economica es obligatoria"),
-    check('subtotal',"El subtotal es obligatoro").not().isEmpty(),
-    check('subtotal',"El subtotal debe de ser numerico").isNumeric(),
-    check('iva',"El iva es obligatoro").not().isEmpty(),
-    check('iva',"El iva debe de ser numerico").isNumeric(),
-    check('total','El total es obligatoro').not().isEmpty(),
-    check('total',"El total debe de ser numerico").isNumeric(),
-    check('medio_solicitud',"El medio_solicitud es obligatoro").not().isEmpty(),
-    check('medio_solicitud',"El medio_solicitud debe de tener menos de 100 caracteres").isLength({max:100}),
-    validarCampos
+    // validarJWT,
+    // check('datos_cliente').isMongoId(),
+    // check('datos_cliente').custom(HerlpersUsuario.existeUsuarioById),
+    // check('validez_oferta','La validez de oferta es obligatoria').not().isEmpty(),
+    // check('elabordo_por').isMongoId(),
+    // check('elabordo_por').custom(HerlpersUsuario.existeUsuarioById),
+    // check('items').custom(HerlpersCotizacion.items),
+    // check('observaciones_propuesta_tecnica_economica',"Las observaciones_propuesta_tecnica_economica es obligatoria"),
+    // check('subtotal',"El subtotal es obligatoro").not().isEmpty(),
+    // check('subtotal',"El subtotal debe de ser numerico").isNumeric(),
+    // check('iva',"El iva es obligatoro").not().isEmpty(),
+    // check('iva',"El iva debe de ser numerico").isNumeric(),
+    // check('total','El total es obligatoro').not().isEmpty(),
+    // check('total',"El total debe de ser numerico").isNumeric(),
+    // check('medio_solicitud',"El medio_solicitud es obligatoro").not().isEmpty(),
+    // check('medio_solicitud',"El medio_solicitud debe de tener menos de 100 caracteres").isLength({max:100}),
+    // validarCampos
 ],cotizacionPost);
 
 
 router.post('/CrearConsecutivo',[
-    validarJWT,
+    // validarJWT,
     check('numero_cotizacion',"El numero de cotizacion es requerido").not().isEmpty(),
     validarCampos
 ],crearConsecutivo)
@@ -37,21 +37,21 @@ router.post('/CrearConsecutivo',[
 router.get('/',listarcotizacionesGet)
 
 router.get('/buscarCodigo',[
-    validarJWT,
+    // validarJWT,
     check('numero_cotizacion',"El numero de cotizacion es requerido").not().isEmpty(),
     check('numero_cotizacion').custom(HerlpersCotizacion.existeNumeroCotizacion),
     validarCampos
 ],buscarPorCodigoGet)
 
 router.get('/buscarNombre/:id',[
-    validarJWT,
+    // validarJWT,
     check('id').isMongoId(),
     check('id').custom(HerlpersUsuario.existeUsuarioById),
     validarCampos
 ],buscarPorNombreGet)
 
 router.put("/:id",[
-    validarJWT,
+    // validarJWT,
     check('id').isMongoId(),
     check('id').custom(HerlpersCotizacion.existeCotizacionById),
     check('numero_cotizacion',"El numero de cotizacion es requerido").not().isEmpty(),
@@ -75,14 +75,14 @@ router.put("/:id",[
 ],editarCotizacionPut);
 
 router.put('/activar/:id',[
-    validarJWT,
+    // validarJWT,
     check('id').isMongoId(),
     check('id').custom(HerlpersCotizacion.existeCotizacionById),
     validarCampos
 ],activarPut)
 
 router.put('/desactivar/:id',[
-    validarJWT,
+    // validarJWT,
     check('id').isMongoId(),
     check('id').custom(HerlpersCotizacion.existeCotizacionById),
     validarCampos

@@ -4,7 +4,7 @@ const HerlpersCotizacion = {
   
   items: async (items) => {
     items.forEach(item => {
-      if (!item.codigo_ref){
+      if (!item.item1.itemsEnsayo.ensayo){
         throw new Error(`El codigo_ref es obligatorio`)
       }
       if (!item.descripcion_ensayo){

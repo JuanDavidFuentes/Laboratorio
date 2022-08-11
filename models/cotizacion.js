@@ -1,28 +1,44 @@
 import mongoose from "mongoose";
 
 const CotizacionSchema= new mongoose.Schema({
-    numero_cotizacion:{type:Number},
-    fecha_emision:{type:Date,default:Date.now()},
-    datos_cliente:{type:mongoose.Schema.ObjectId,ref:"Usuario",required:true},
-    validez_oferta:{type:String,required:true},
+    numero_cotizacion:{type:String},
+    fecha_emision:{type:Date,required:true,default:Date.now()},
+    idCliente:{type:mongoose.Schema.ObjectId,ref:"Usuario",required:true},
+    idContacto:{type:mongoose.Schema.ObjectId,ref:"Usuario",required:true},
+    validez_oferta:{type:Date,required:true},
+    entrega_resultados:{type:Date,required:true},
     elabordo_por:{type:mongoose.Schema.ObjectId,ref:"Usuario",required:true},
-    items:[
-        {
-            codigo_ref:{type:String,required:true},
-            descripcion_ensayo:{type:String,required:true},
-            unidades:{type:String,required:true},
-            tecnica_analitica:{type:String,required:true},
-            metodo_analitico:{type:String,required:true},
-            limite_cuantificacion:{type:String,required:true},
-            costo_ensayo:{type:Number,required:true},
-            costo_item:{type:Number,required:true},
-        }
-    ],
-    observaciones_propuesta_tecnica_economica:{type:String,required:true},
+    items: {
+        item1:{
+            itemsEnsayo: [{
+                ensayo: {type: mongoose.Schema.ObjectId, ref: "Ensayo", required: true},
+                limiteCuantificacion: {type: Number, required: true},
+                costoEnsayo: { type: Number, required: true },
+            }], 
+            costo:{type:Number,default:0}          
+        },
+        item2:{
+            itemsEnsayo: [{
+                ensayo: {type: mongoose.Schema.ObjectId, ref: "Ensayo",required: true},
+                limiteCuantificacion: {type: Number, required: true},
+                costoEnsayo: {type: Number,required: true},
+            }], 
+            costo:{type:Number,default:0} 
+        },
+        item3:{
+            itemsEnsayo: [{
+                ensayo: {type: mongoose.Schema.ObjectId, ref: "Ensayo",required: true},
+                limiteCuantificacion: {type: Number, required: true},
+                costoEnsayo: { type: Number, required: true},
+            }], 
+            costo:{type:Number,default:0} 
+        },
+    },
+    observaciones:{type:String,default:""},
     subtotal:{type:Number,required:true},
+    descuento:{type:Number,required:true},
     iva:{type:Number,required:true},
     total:{type:Number,required:true},
-    medio_solicitud:{type:String,maxlength:100,required:true},
     estado:{type:Number,default:1},
     createdAt:{type:Date,default:Date.now()}
 })

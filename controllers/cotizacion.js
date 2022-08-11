@@ -1,12 +1,28 @@
 import Cotizacion from "../models/cotizacion.js";
 import Consecutivo from "../models/consecutivo.js";
+///ej: 0001-2022V1 
+const numeros=(numero_cotizacion)=>{
+    if(numero_cotizacion){
+        let date = new Date();
+        let output = String(date.getFullYear());
+        if(numero_cotizacion.toString().length===1){
+           return `000${numero_cotizacion}-${output}V1`
+        }else if (numero_cotizacion.toString().length===2){
+            return `00${numero_cotizacion}-${output}V1`
+        }else if (numero_cotizacion.toString().length===3){
+            return `0${numero_cotizacion}-${output}V1`
+        }else if (numero_cotizacion.toString().length===4){
+            return `${numero_cotizacion}-${output}V1`
+        }
+    }
+}
 
 const cotizacionPost=async(req,res)=>{
     const consecutivo=await Consecutivo.findOne()
     if(consecutivo){
-        const numero_cotizacion=consecutivo.numero_cotizacion
-        const {fecha_emision,datos_cliente,validez_oferta,elabordo_por,items,observaciones_propuesta_tecnica_economica,subtotal,iva,total,medio_solicitud,estado}=req.body
-        const coti=new Cotizacion({numero_cotizacion,fecha_emision,datos_cliente,validez_oferta,elabordo_por,items,observaciones_propuesta_tecnica_economica,subtotal,iva,total,medio_solicitud,estado})
+        const numero_cotizacion=numeros(consecutivo.numero_cotizacion)
+        const {fecha_emision,idCliente,idContacto,validez_oferta,entrega_resultados,elabordo_por,items,observaciones,subtotal,descuento,iva,total,medio_solicitud,estado}=req.body
+        const coti=new Cotizacion({numero_cotizacion,fecha_emision,idCliente,idContacto,validez_oferta,entrega_resultados,elabordo_por,items,observaciones,subtotal,descuento,iva,total,medio_solicitud,estado})
         await coti.save()
         const nuevo=consecutivo.numero_cotizacion+1
         await Consecutivo.findByIdAndUpdate(consecutivo._id,{numero_cotizacion:nuevo})
@@ -43,9 +59,9 @@ const buscarPorNombreGet=async(req, res)=>{
 }
 
 const editarCotizacionPut=async(req, res)=>{
-    const {numero_cotizacion,fecha_emision,datos_cliente,validez_oferta,elabordo_por,items,observaciones_propuesta_tecnica_economica,subtotal,iva,total,medio_solicitud,estado}=req.body;
+    const {numero_cotizacion,fecha_emision,idCliente,idContacto,validez_oferta,entrega_resultados,elabordo_por,items,observaciones,subtotal,descuento,iva,total,medio_solicitud,estado}=req.body;
     const {id}=req.params;
-    const editar = await Cotizacion.findByIdAndUpdate(id,{numero_cotizacion,fecha_emision,datos_cliente,validez_oferta,elabordo_por,items,observaciones_propuesta_tecnica_economica,subtotal,iva,total,medio_solicitud,estado})
+    const editar = await Cotizacion.findByIdAndUpdate(id,{numero_cotizacion,fecha_emision,idCliente,idContacto,validez_oferta,entrega_resultados,elabordo_por,items,observaciones,subtotal,descuento,iva,total,medio_solicitud,estado})
     res.json({
         "msg":"Cotizacion editada con exito"
     })

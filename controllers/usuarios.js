@@ -4,13 +4,13 @@ import {generarJWT} from "../middlewares/validar_jwt.js"
 import { v2 as cloudinary } from 'cloudinary'
 
 const usuarioPost=async(req,res)=>{
-    const {nombre,apellidos,direccion,email,password,telefono,cedula,departamento,municipio,rol,cargo,empresa,foto,estado,contacto}=req.body
+    const {tipoPersona,nombre,apellidos,documento,direccion,ciudad,contacto,telefono,email,password,rol}=req.body
     const salt=bcryptjs.genSaltSync(10)
-    const usuario = new Usuario ({nombre,apellidos,direccion,email,password,telefono,cedula,departamento,municipio,rol,cargo,empresa,foto,estado,contacto})
+    const usuario = new Usuario ({tipoPersona,nombre,apellidos,documento,direccion,ciudad,contacto,telefono,email,password,rol})
     usuario.password=bcryptjs.hashSync(password,salt)
     await usuario.save()
 
-    res.json({
+    res.json({ 
         msg:"Registro Exitoso"
     })
 }
@@ -71,7 +71,10 @@ const usuarioGetListarid=async(req,res)=>{
 const usuarioGetListarNombre=async(req, res)=>{
     const {nombre}=req.query;
     const usuario=await Usuario.findOne({nombre})
-    res.json({usuario})
+    
+    res.json({
+        usuario
+    })
 }
 
 const mostrarImagenCloud= async (req, res) => {
@@ -118,7 +121,6 @@ const cargarArchivoCloudPut= async (req, res) => {
                     res.json(error)
                 }
             })
-
     } catch (error) {
         res.status(400).json({ error, 'general': 'Controlador' })
     }
@@ -126,9 +128,9 @@ const cargarArchivoCloudPut= async (req, res) => {
 
 const usuarioPutdatos=async(req,res)=>{
     const {id}=req.params
-    const {nombre,apellidos,direccion,email,password,telefono,cedula,departamento,municipio,rol,cargo,empresa,foto,estado,contacto}=req.body
+    const {tipoPersona,nombre,apellidos,documento,direccion,ciudad,contacto,telefono,email,password,rol}=req.body
     
-    const UsuarioEditarDatos=await Usuario.findByIdAndUpdate(id,{nombre,apellidos,direccion,email,password,telefono,cedula,departamento,municipio,rol,cargo,empresa,foto,estado,contacto})
+    const UsuarioEditarDatos=await Usuario.findByIdAndUpdate(id,{tipoPersona,nombre,apellidos,documento,direccion,ciudad,contacto,telefono,email,password,rol})
     res.json({
         "msg":'Actualizacion realizada con exito'
     })
