@@ -1,24 +1,19 @@
 import mongoose from "mongoose";
-const DatosMuestraSchema= new mongoose.Schema({
-    id_cotizacion:{type:mongoose.Schema.ObjectId,ref:"Cotizacion",required:true},
-    codigo_muestra:{type:String,maxlength:15,required:true},
-    municipio_recoleccion:{type:String,required:true},
-    direccion_toma:{type:String,required:true},
-    recoletada_por:{type:String,required:true,maxlength:30},
-    procedimiento:{type:String,required:true},
-    tipo_muestra:{type:String,maxlength:15,required:true},
-    matriz_muestra:{type:String,maxlength:20,required:true},
-    fecha_recoleccion:{type:Date,required:true},
-    observaciones:{type:String,required:true},
-    entregada_por:{type:mongoose.Schema.ObjectId,ref:"Usuario",required:true},
-    cedula:{type:mongoose.Schema.ObjectId,ref:"Usuario",required:true},
-    estado:{type:Number,default:1},
-    // firma:{type:mongoose.Schema.ObjectId,ref:"Usuario",required:true},
-    fecha_recepcion_muestra:{type:Date,required:true},
-    recibida_por:{type:mongoose.Schema.ObjectId,ref:"Usuario",required:true},
-    foto:{type:mongoose.Schema.ObjectId,ref:"Usuario",required:true},
-
-    createdAt:{type:Date,default:Date.now()}
+const DatosMuestraSchema = new mongoose.Schema({
+    solicitante: {type: mongoose.Schema.ObjectId,ref: "Usuario",required: true},///  0001-2022       
+    codMuestra: {type: String},
+    munRecoleccion: {type: mongoose.Schema.ObjectId,ref: "Ciudad",required: true},
+    direccionTomaMuestra: {type: String,required: true},
+    lugarTomaMuestra: {type: String,required: true},
+    muestraRecolectadaPor: {type: String,required: true},
+    procedimientoMuestreo: {type: String,required: true,default:"????????????????"},//averiguar
+    tipoMuestra: {type: mongoose.Schema.ObjectId,ref: "tipoMuestra",required: true},//en bloque  pulverizada
+    matrizMuestra: {type: String,required: true,default:"Panela"},//Panela
+    fechaRecoleccion: {type: Date,required: true},///UTC horario estandar global +5 UTC colombia
+    cotizacion: {type: mongoose.Schema.ObjectId,ref: "Cotizacion",required: true},
+    item: {type: String,required: true,default:"Item1"},
+    estado: {type: Number,default: 1},
+    createdAt: {type: Date,default: Date.now()},
 })
 
 export default mongoose.model("datos-muestra",DatosMuestraSchema)

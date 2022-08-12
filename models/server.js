@@ -6,6 +6,8 @@ import usuario from "../routes/usuarios.js";
 import cotizacion from "../routes/cotizacion.js";
 import dmuestra from "../routes/datos-muestra.js";
 import informeR from "../routes/informe-resultados.js";
+import Departamento from "../routes/departamento.js";
+import Ciudad from "../routes/ciudad.js";
 // import ordenServidor from "../routes/orden_del_servicio.js"
 
 class Server{
@@ -37,6 +39,8 @@ class Server{
         this.app.use("/api/cotizacion",cotizacion)
         this.app.use("/api/DMuestra",dmuestra)
         this.app.use("/api/informeR",informeR)
+        this.app.use("/api/departamentos",Departamento)
+        this.app.use("/api/ciudad",Ciudad)
         // this.app.use("/api/Orden_servicio",ordenServidor)
 
     }

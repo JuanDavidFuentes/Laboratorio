@@ -9,7 +9,7 @@ import { validarJWT } from "../middlewares/validar_jwt.js";
 const router=Router()
 router.post("/insertar_orden",[
     validarJWT,
-    check('codigo_de_la_orden',"el codigo de la orden es requerido ").not().isEmpty(),
+    check('id',"el codigo de la orden es requerido ").not().isEmpty(),
     check('codigo_de_la_orden',"El codigo de la orden debe de tener menos de 25 caracteres ").isLength({max:25}),
     check('codigo_de_muestra','El codigo de la muestra es requerido').custom(),
     check('parametro','se debe agregar un parametro ').not().isEmpty(),

@@ -12,7 +12,6 @@ const CotizacionSchema= new mongoose.Schema({
         item1:{
             itemsEnsayo: [{
                 ensayo: {type: mongoose.Schema.ObjectId, ref: "Ensayo", required: true},
-                limiteCuantificacion: {type: Number, required: true},
                 costoEnsayo: { type: Number, required: true },
             }], 
             costo:{type:Number,default:0}          
@@ -20,7 +19,6 @@ const CotizacionSchema= new mongoose.Schema({
         item2:{
             itemsEnsayo: [{
                 ensayo: {type: mongoose.Schema.ObjectId, ref: "Ensayo",required: true},
-                limiteCuantificacion: {type: Number, required: true},
                 costoEnsayo: {type: Number,required: true},
             }], 
             costo:{type:Number,default:0} 
@@ -28,7 +26,6 @@ const CotizacionSchema= new mongoose.Schema({
         item3:{
             itemsEnsayo: [{
                 ensayo: {type: mongoose.Schema.ObjectId, ref: "Ensayo",required: true},
-                limiteCuantificacion: {type: Number, required: true},
                 costoEnsayo: { type: Number, required: true},
             }], 
             costo:{type:Number,default:0} 
