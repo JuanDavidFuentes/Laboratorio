@@ -3,7 +3,9 @@ import Cotizacion from "../models/cotizacion.js";
 const HerlpersCotizacion = {
   
   items: async (items) => {
-    items.forEach(item => {
+    items.item1.itemsEnsayo.forEach(item => {
+
+      
       if (!item.item1.itemsEnsayo.ensayo){
         throw new Error(`El codigo_ref es obligatorio`)
       }

@@ -16,8 +16,8 @@ const HerlpersUsuario = {
   },
 
   existeUsuarioNombre: async (nombre) => {
-    const existe = await Usuario.findOne({nombre})
-    if (!existe) {
+    const Existe= await Usuario.findOne({nombre})
+    if (!Existe) {
       throw new Error(`El nombre: ${nombre} no existe`)
     }
   },
@@ -43,4 +43,4 @@ const HerlpersUsuario = {
   }
 }
 
-export default HerlpersUsuario;
+export default HerlpersUsuario;              

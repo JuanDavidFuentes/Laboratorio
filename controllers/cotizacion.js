@@ -33,7 +33,6 @@ const cotizacionPost=async(req,res)=>{
     }
 }
 
-
 const crearConsecutivo =async(req, res) => {
     const{numero_cotizacion}=req.body;
     const consecutivoo = new Consecutivo({numero_cotizacion})
@@ -44,17 +43,11 @@ const crearConsecutivo =async(req, res) => {
 
 }
 
-
-
-
 const listarcotizacionesGet=async(req, res)=>{
-    const coti=await Cotizacion.find()
+    const coti=await Cotizacion.find({estado:1})
     res.json({coti})
+
 }
-
-
-
-
 
 const buscarPorCodigoGet=async(req, res)=>{
     const {numero_cotizacion}=req.query;
@@ -62,11 +55,7 @@ const buscarPorCodigoGet=async(req, res)=>{
     res.json({coti})
 }
 
-
-
-
-
-const buscarPorIdGet=async(req, res)=>{
+const buscarPorIdClienteGet=async(req, res)=>{
     const {id}=req.params;
     const coti=await Cotizacion.find().where('idCliente').in(id).exec();
     res.json({coti})
@@ -85,8 +74,10 @@ const buscarFechaGet=async(req, res)=>{
 }
 
 const editarCotizacionPut=async(req, res)=>{
-    const {numero_cotizacion,fecha_emision,idCliente,idContacto,validez_oferta,entrega_resultados,elabordo_por,items,observaciones,subtotal,descuento,iva,total,medio_solicitud}=req.body;
     const {id}=req.params;
+    const a=await Cotizacion.findById(id)
+    const numero_cotizacion=cambiar(a.numero_cotizacion)
+    const {fecha_emision,idCliente,idContacto,validez_oferta,entrega_resultados,elabordo_por,items,observaciones,subtotal,descuento,iva,total,medio_solicitud}=req.body;
     const coti=new Cotizacion({numero_cotizacion,fecha_emision,idCliente,idContacto,validez_oferta,entrega_resultados,elabordo_por,items,observaciones,subtotal,descuento,iva,total,medio_solicitud})
     await coti.save()
     const desactivar=await Cotizacion.findByIdAndUpdate(id,{estado:0})
@@ -111,13 +102,12 @@ const desactivarPut=async(req, res)=>{
     })
 }
 
-const desactivarAlEditar=(id)=>{
-    const desactivar=Cotizacion.findByIdAndUpdate(id,{estado:0})
-    res.json({
-        "msg":"La cotizacion esta desactivada"
-    })
+const cambiar=(numero_cotizacion)=>{
+    const division=Number(numero_cotizacion.split("")[numero_cotizacion.length-1])
+    const sumar=division+1
+    const cambio=numero_cotizacion.replace(/.$/,sumar)
+    return cambio   
 }
-
 
 // API COTIZACIÓN: debe permitir: 
 // GET Listar todas las cotizaciones ++++++++++++
@@ -131,4 +121,4 @@ const desactivarAlEditar=(id)=>{
 // PUT Inactivar cotización +
 
 
-export {cotizacionPost,listarcotizacionesGet,buscarPorCodigoGet,buscarPorIdGet,editarCotizacionPut,activarPut,desactivarPut,crearConsecutivo,buscarPorIdUsuarioGet,buscarFechaGet}
+export {cotizacionPost,listarcotizacionesGet,buscarPorCodigoGet,buscarPorIdClienteGet,editarCotizacionPut,activarPut,desactivarPut,crearConsecutivo,buscarPorIdUsuarioGet,buscarFechaGet}

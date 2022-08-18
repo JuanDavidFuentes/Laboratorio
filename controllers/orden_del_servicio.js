@@ -25,13 +25,6 @@ const listaridMuestraGet=async(req, res)=>{
     res.json({listaridMuestraGet})
 }
 
-//GET buscar orden por codigo
-//   const listarOrdenxIdGet=async(req, res)=>{
-//     const {codigo_de_la_orden}=req.query;
-//     const muestrass=await Orden_del_servicio.find({codigo_de_la_orden})
-//     res.json({muestrass}) 
-// }
-
 //PUT Modificar datos de la orden
 
 const modificarordenPut=async(req,res)=>{

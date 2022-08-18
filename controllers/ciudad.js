@@ -1,8 +1,8 @@
 import Ciudad from "../models/ciudad.js"
 
 const ciudadPost=async(req,res)=>{
-    const {ciudad,codciudad}=req.body
-    const ciudadPost = new Ciudad ({coddepartamento,ciudad,codciudad})
+    const {coddepartamento,departamento,ciudad,codciudad}=req.body
+    const ciudadPost = new Ciudad ({coddepartamento,departamento,ciudad,codciudad})
     await ciudadPost.save()
 
     res.json({
@@ -12,8 +12,8 @@ const ciudadPost=async(req,res)=>{
 
 const ciudadPut=async(req,res)=>{
     const {id}=req.params
-    const {ciudad,codciudad}=req.body
-    const ciudadPut=await Ciudad.findByIdAndUpdate(id,{coddepartamento,ciudad,codciudad})
+    const {coddepartamento,departamento,ciudad,codciudad}=req.body
+    const ciudadPut=await Ciudad.findByIdAndUpdate(id,{coddepartamento,departamento,ciudad,codciudad})
     res.json({
         "msg":`Actualizacion Exitosa!${ciudadPut}`
     })
@@ -27,11 +27,15 @@ const ciudadGetListarTodos=async(req,res)=>{
 }
 
 const ciudadesdepartamentoGet=async(req,res)=>{
-    const {id}=req.params
-    const ciudades= await Ciudad.find({coddepartamento:id})
-    .populate("codciudad")//coddepartamento
-    res.json({
-        "msg":`${ciudades}`
-    })
+    const {coddepartamento}=req.query;
+    const depa= await Ciudad.find({coddepartamento})
+    res.json({depa})
 }
-export {ciudadesdepartamentoGet,ciudadGetListarTodos,ciudadPut,ciudadPost}
+
+const buscarCiudadCodigoGet=async(req,res)=>{
+    const {codciudad}=req.query;
+    const city= await Ciudad.find({codciudad})
+    res.json({city})
+}
+
+export {ciudadesdepartamentoGet,ciudadGetListarTodos,ciudadPut,ciudadPost,buscarCiudadCodigoGet}

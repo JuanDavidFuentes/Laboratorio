@@ -1,7 +1,7 @@
 import mongoose from "mongoose";
 
 const Ordenschema = new mongoose.Schema({
-    idMuestra: {type: mongoose.Schema.ObjectId,ref: "Muestra",required: true},
+    idMuestra: {type: mongoose.Schema.ObjectId,ref: "datos-muestra",required: true},
     ensayo: {type: mongoose.Schema.ObjectId,ref: "Ensayo",required: true},
     realizado: {type: mongoose.Schema.ObjectId,ref: "Usuario",required: true},
     supervisado: {type: mongoose.Schema.ObjectId,ref: "Usuario",required: true},    

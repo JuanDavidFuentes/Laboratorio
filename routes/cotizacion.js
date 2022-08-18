@@ -4,16 +4,21 @@ import HerlpersCotizacion from "../helpers/cotizacion.js"
 import { validarCampos } from "../middlewares/validar_campos.js";
 import { validarJWT } from "../middlewares/validar_jwt.js";
 import HerlpersUsuario from "../helpers/usuarios.js";
-import { activarPut, buscarFechaGet, buscarPorCodigoGet, buscarPorIdGet, cotizacionPost, desactivarPut, editarCotizacionPut, listarcotizacionesGet, crearConsecutivo } from "../controllers/cotizacion.js";
+import { activarPut, buscarFechaGet, buscarPorCodigoGet, buscarPorIdClienteGet, cotizacionPost, desactivarPut, editarCotizacionPut, listarcotizacionesGet, crearConsecutivo } from "../controllers/cotizacion.js";
 
 const router=Router()
 router.post("/",[
-    // validarJWT,
-    // check('datos_cliente').isMongoId(),
-    // check('datos_cliente').custom(HerlpersUsuario.existeUsuarioById),
-    // check('validez_oferta','La validez de oferta es obligatoria').not().isEmpty(),
-    // check('elabordo_por').isMongoId(),
-    // check('elabordo_por').custom(HerlpersUsuario.existeUsuarioById),
+    validarJWT,
+    check('idCliente').isMongoId(),
+    check('idCliente').custom(HerlpersUsuario.existeUsuarioById),
+    check('idContacto').isMongoId(),
+    check('idContacto').custom(HerlpersUsuario.existeUsuarioById),
+    check('validez_oferta',"La fecha es obligatoria").not().isEmpty(),
+    check('validez_oferta',"Debe de ser tipo fecha").isDate(),
+    check('entrega_resultados',"La fecha es obligatoria").not().isEmpty(),
+    check('entrega_resultados',"Debe de ser tipo fecha").isDate(),
+    check('elabordo_por').isMongoId(),
+    check('elabordo_por').custom(HerlpersUsuario.existeUsuarioById),
     // check('items').custom(HerlpersCotizacion.items),
     // check('observaciones_propuesta_tecnica_economica',"Las observaciones_propuesta_tecnica_economica es obligatoria"),
     // check('subtotal',"El subtotal es obligatoro").not().isEmpty(),
@@ -49,7 +54,7 @@ router.get('/buscarNombre/:id',[
     check('id').isMongoId(),
     check('id').custom(HerlpersUsuario.existeUsuarioById),
     validarCampos
-],buscarPorIdGet)
+],buscarPorIdClienteGet)
 
 router.put("/:id",[
     // validarJWT,
