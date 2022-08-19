@@ -43,6 +43,25 @@ const crearConsecutivo =async(req, res) => {
 
 }
 
+const buscarPorId=async(req, res) => {
+    const{id}=req.params;
+    const coti = await Cotizacion.findById(id)
+    const items=[]
+    if(coti.items.item1.itemsEnsayo!=0){
+        items.push("item 1")
+    }
+    if(coti.items.item2.itemsEnsayo!=0){
+        items.push("item 2")
+    }
+    if(coti.items.item3.itemsEnsayo!=0){
+        items.push("item 3")
+    }
+    res.json({
+        items
+    })
+}
+
+
 const listarcotizacionesGet=async(req, res)=>{
     const coti=await Cotizacion.find({estado:1})
     res.json({coti})
@@ -121,4 +140,4 @@ const cambiar=(numero_cotizacion)=>{
 // PUT Inactivar cotización +
 
 
-export {cotizacionPost,listarcotizacionesGet,buscarPorCodigoGet,buscarPorIdClienteGet,editarCotizacionPut,activarPut,desactivarPut,crearConsecutivo,buscarPorIdUsuarioGet,buscarFechaGet}
+export {buscarPorId,cotizacionPost,listarcotizacionesGet,buscarPorCodigoGet,buscarPorIdClienteGet,editarCotizacionPut,activarPut,desactivarPut,crearConsecutivo,buscarPorIdUsuarioGet,buscarFechaGet}

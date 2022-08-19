@@ -4,14 +4,23 @@ import {generarJWT} from "../middlewares/validar_jwt.js"
 import { v2 as cloudinary } from 'cloudinary'
 
 const usuarioPost=async(req,res)=>{
-    const {tipoPersona,nombre,apellidos,documento,direccion,ciudad,contacto,telefono,email,password,rol}=req.body
+    const {tipoPersona,nombre,apellidos,documento,direccion,ciudad,telefono,email,password,rol}=req.body
     const salt=bcryptjs.genSaltSync(10)
-    const usuario = new Usuario ({tipoPersona,nombre,apellidos,documento,direccion,ciudad,contacto,telefono,email,password,rol})
+    const usuario = new Usuario ({tipoPersona,nombre,apellidos,documento,direccion,ciudad,telefono,email,password,rol})
     usuario.password=bcryptjs.hashSync(password,salt)
     await usuario.save()
 
     res.json({ 
         msg:"Registro Exitoso"
+    })
+}
+
+const usuarioPut=async(req,res)=>{
+    const {id} =req.params
+    const {tipoPersona,nombre,apellidos,documento,direccion,ciudad,contacto,telefono,email,password,rol}=req.body
+    const usuario =  Usuario.findByIdAndUpdate(id,{tipoPersona,nombre,apellidos,documento,direccion,ciudad,contacto,telefono,email,password,rol})
+    res.json({
+        usuario
     })
 }
 
@@ -25,22 +34,18 @@ const usuarioLogin=async(req, res)=>{
                     msg: "Usuario / Password no son correctos"
                 })
             }
-
             if (usuario.estado === 0) {
                 return res.status(400).json({
                     msg: "Usuario Inactivo"
                 })
             }
-
             const validPassword = bcryptjs.compareSync(password, usuario.password);
             if (!validPassword) {
                 return res.status(400).json({
                     msg: "Usuario / Password no son correctos"
                 })
             }
-
             const token = await generarJWT(usuario.id);
-
             res.json({
                 usuario,
                 token
@@ -62,7 +67,7 @@ const usuarioGetListarTodos=async(req,res)=>{
 
 const usuarioGetListarid=async(req,res)=>{
     const {id}=req.params
-    const usuario =await Usuario.findById(id)
+    const usuario =await Usuario.findOne(id)
     res.json({
         usuario
     })
@@ -70,11 +75,15 @@ const usuarioGetListarid=async(req,res)=>{
 
 const usuarioGetListarNombre=async(req, res)=>{
     const {nombre}=req.query;
-    const usuario=await Usuario.findOne({nombre})
-    
-    res.json({
-        usuario
-    })
+    const nombres = await Usuario.find(
+        //{nombre:new RegExp(query,"i")}
+        {
+            $or: [
+                { nombre: new RegExp(nombre, "i") },
+            ]
+        }
+    ) 
+    res.json({nombres})
 }
 
 const mostrarImagenCloud= async (req, res) => {

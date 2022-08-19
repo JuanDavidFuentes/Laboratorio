@@ -1,6 +1,7 @@
 import {Router} from "express"
 import { check } from "express-validator";
 import HerlpersCotizacion from "../helpers/cotizacion.js"
+import HerlpersDatosMuestra from "../helpers/datos-muestra.js"
 import { validarCampos } from "../middlewares/validar_campos.js";
 import { validarJWT } from "../middlewares/validar_jwt.js";
 import{DatosMuestraEnsayoMun, DatosMuestraEnsayo, datosMuestraPost1, muestraCodigoGet, listarMuestrasxIdGet, listarMuestrasGet, editarMuestraPut, activarPut, desactivarPut, buscarFechaGet} from '../controllers/datos-muestra.js'
@@ -77,14 +78,14 @@ router.put('/editar/:id',[
 router.put('/activar/:id',[
     validarJWT,
     check('id').isMongoId(),
-    check('id').custom(HerlpersCotizacion.existeCotizacionById),   
+    check('id').custom(HerlpersDatosMuestra.existeDatosMuestraById),   
     validarCampos
 ],activarPut)
 
 router.put('/desactivar/:id',[
     validarJWT,
     check('id').isMongoId(),
-    check('id').custom(HerlpersCotizacion.existeCotizacionById),   
+    check('id').custom(HerlpersDatosMuestra.existeDatosMuestraById),   
     validarCampos
 ],desactivarPut)
 

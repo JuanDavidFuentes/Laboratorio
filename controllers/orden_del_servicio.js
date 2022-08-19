@@ -3,11 +3,11 @@ import Orden_del_servicio from "../models/orden_del_servicio.js"
 //POST insertar orden de servicio
 
  const insertarordendeservicioPost=async(req,res)=>{
-     const {idMuestra,ensayo,realizado,supervisado,observaciones,estadocreatedAD}=req.body
-     const usuario = new Orden_del_servicio({idMuestra,ensayo,realizado,supervisado,observaciones,estadocreatedAD})
+     const {idMuestra,ensayo,realizado,supervisado,observaciones}=req.body
+     const usuario = new Orden_del_servicio({idMuestra,ensayo,realizado,supervisado,observaciones})
      await usuario.save()
      res.json({
-        msg:"Se ha insertado una orden de servicio correctamente"
+        "msg":"Se ha insertado una orden de servicio correctamente"
      })
     }
 
@@ -21,7 +21,8 @@ const listartodaslasordenesGet=async(req, res)=>{
 //GET listar orden de servicio por idMuestra 
 
 const listaridMuestraGet=async(req, res)=>{
-    const listaridMuestraGet=await Orden_del_servicio.find()
+    const {id}=req.params;
+    const listaridMuestraGet=await Orden_del_servicio.findById(id)
     res.json({listaridMuestraGet})
 }
 
@@ -29,9 +30,8 @@ const listaridMuestraGet=async(req, res)=>{
 
 const modificarordenPut=async(req,res)=>{
     const {id}=req.params
-    const {idMuestra,ensayo,realizado,supervisado,observaciones,estadocreatedAD}=req.body
-    
-    const Modificardatosdeorden=await Orden_del_servicio.findByIdAndUpdate(id,{idMuestra,ensayo,realizado,supervisado,observaciones,estadocreatedAD})
+    const {idMuestra,ensayo,realizado,supervisado,observaciones}=req.body
+    const Modificardatosdeorden=await Orden_del_servicio.findByIdAndUpdate(id,{idMuestra,ensayo,realizado,supervisado,observaciones})
     res.json({
         "msg":'Modificacion realizada con exito'
     })
@@ -45,12 +45,20 @@ const OrdenactivarPUt=async(req,res)=>{
         "msg":"Usuario activado con exito"
     })
 }
+//PUT Desactivar orden
+const OrdenDesactivarPUt=async(req,res)=>{
+    const {id}=req.params
+    const activar =await Orden_del_servicio.findByIdAndUpdate(id,{estado:0})
+    res.json({
+        "msg":"Usuario activado con exito"
+    })
+}
 
 //GET realisada por 
 
 const Getrealizadopor=async(req, res)=>{
     const {id}=req.params
-    const Getrealizadopor=await Orden_del_servicio.findByIdAndUpdate(id,{realizado})
+    const Getrealizadopor=await Orden_del_servicio.findById(id)
     res.json({Getrealizadopor})
 }
 
@@ -63,9 +71,9 @@ const supervisadoGet=async(req, res)=>{
 }
 
 //GET observaciones
-const sepervisadoGet=async(req, res)=>{
+const observacionesGet=async(req, res)=>{
     const {id}=req.params
-    const observacionGet=await orden_del_servicio.findByIdAndUpdate(id,{observaciones})
+    const observacionGet=await Orden_del_servicio.findByIdAndUpdate(id,{observaciones})
     res.json({observacionGet})
 }
 
@@ -82,8 +90,10 @@ export{insertarordendeservicioPost,
     listartodaslasordenesGet,
     listaridMuestraGet,
     modificarordenPut,
-    activarordenPUT,
     Getrealizadopor,
     supervisadoGet,
-    fechacreacionGet
+    fechacreacionGet,
+    OrdenactivarPUt,
+    OrdenDesactivarPUt,
+    observacionesGet
     }

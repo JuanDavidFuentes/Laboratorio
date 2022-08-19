@@ -18,15 +18,15 @@ const CotizacionSchema= new mongoose.Schema({
         },
         item2:{
             itemsEnsayo: [{
-                ensayo: {type: mongoose.Schema.ObjectId, ref: "Ensayo",required: true},
-                costoEnsayo: {type: Number,required: true},
+                ensayo: {type: mongoose.Schema.ObjectId, ref: "Ensayo"},
+                costoEnsayo: {type: Number},
             }], 
             costo:{type:Number,default:0} 
         },
         item3:{
             itemsEnsayo: [{
-                ensayo: {type: mongoose.Schema.ObjectId, ref: "Ensayo",required: true},
-                costoEnsayo: { type: Number, required: true},
+                ensayo: {type: mongoose.Schema.ObjectId, ref: "Ensayo"},
+                costoEnsayo: { type: Number},
             }], 
             costo:{type:Number,default:0} 
         },
