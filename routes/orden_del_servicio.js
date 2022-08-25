@@ -1,5 +1,5 @@
 import {Router} from "express"
-import {OrdendesactivarPUt,OrdenactivarPUt,insertarordendeservicioPost,listartodaslasordenesGet,listaridMuestraGet,listarordenporcodigoGet,modificarordenPut} from "../controllers/orden_del_servicio.js";
+import {insertarordendeservicioPost,listartodaslasordenesGet,listaridGet,modificarordenPut,Getrealizadopor,supervisadoGet,OrdenactivarPUt,OrdenDesactivarPUt} from "../controllers/orden_del_servicio.js";
 import { check } from "express-validator";
 import { validarCampos } from "../middlewares/validar_campos.js";
 import { validarJWT } from "../middlewares/validar_jwt.js";
@@ -31,21 +31,39 @@ router.post("/insertar_orden",[
     validarCampos    
 ],insertarordendeservicioPost);
  //listar todo
-router.get("/listartodo",[
+router.get("/listartodo",listartodaslasordenesGet);
+
+//supervisado por 
+router.get("/supervisado/:id",[
     validarJWT,
-    check('idMuestra').custom(HerlpersDatosMuestra.existeDatosMuestraById),
-    check('ensayo').custom(HerlpersEnsayo.existeEnsayoById),
-    check('realizado').custom(HerlpersUsuario.existeUsuarioById),
-    check('supervisado').custom(HerlpersUsuario.existeUsuarioById),
-],listartodaslasordenesGet);
-//listar por idMuestra
+    check('id').isMongoId(),
+    check('id').custom(HerlpersUsuario.existeUsuarioById),
+    validarCampos
+],supervisadoGet)
+
+//listar por id
 router.get("/listar/:id",[
     validarJWT,
     check('id').isMongoId(),
-    check('id').custom(HerlpersDatosMuestra.existeDatosMuestraById),
-    //AA
+    check('id').custom(HerlpersOdenServicio.existeOrdenById),
     validarCampos
-],listaridMuestraGet);
+],listaridGet);
+
+// realizado por
+router.get("/realizado/:id",[
+    validarJWT,
+    check('id').isMongoId(),
+    check('id').custom(HerlpersUsuario.existeUsuarioById),
+    validarCampos
+],Getrealizadopor)
+//supervisado por 
+router.get("/supervisado/:id",[
+    validarJWT,
+    check('id').isMongoId(),
+    check('id').custom(HerlpersUsuario.existeUsuarioById),
+    validarCampos
+],supervisadoGet)
+
 // Modificar datos de la orden 
 router.put("/editar_orden/:id",[
     validarJWT,
@@ -53,8 +71,8 @@ router.put("/editar_orden/:id",[
     check('id').custom(HerlpersOdenServicio.existeOrdenById),
     check('idMuestra').isMongoId(),
     check('idMuestra').custom(HerlpersDatosMuestra.existeDatosMuestraById),
-    check('ensayo').isMongoId(),
-    check('ensayo').custom(HerlpersEnsayo.existeEnsayoById),
+    // check('ensayo').isMongoId(),
+    // check('ensayo').custom(HerlpersEnsayo.existeEnsayoById),
     check('realizado').isMongoId(),
     check('realizado').custom(HerlpersUsuario.existeUsuarioById),
     check('supervisado').isMongoId(),
@@ -74,36 +92,23 @@ router.put("/desactivar/:id",[
     validarJWT,
     check('id').isMongoId(),
     check('id').custom(HerlpersOdenServicio.existeOrdenById),
-    validarCampos
-],OrdendesactivarPUt)
-// realizado por
-router.get("/realizado/:id",[
+    validarCampos    
+],OrdenDesactivarPUt)
+
+// Modificar datos de la orden 
+router.put("/editar_orden/:id",[
     validarJWT,
     check('id').isMongoId(),
-    check('id').custom(HerlpersUsuario.existeUsuarioById),
-    validarCampos
-],Getrealizadopor)
-//supervisado por 
-router.get("/supervisado/:id",[
-    validarJWT,
-    check('id').isMongoId(),
-    check('id').custom(HerlpersUsuario.existeUsuarioById),
-    validarCampos
-],supervisadoGet)
-//observacione
-router.post("/observaciones",[
-    validarJWT,
-    check('observaciones','se debe agregar una observacion').not().isEmpty(),
+    check('id').custom(HerlpersOdenServicio.existeOrdenById),
+    check('idMuestra').isMongoId(),
+    check('idMuestra').custom(HerlpersDatosMuestra.existeDatosMuestraById),
+    // check('ensayo').isMongoId(),
+    // check('ensayo').custom(HerlpersEnsayo.existeEnsayoById),
+    check('realizado').isMongoId(),
+    check('realizado').custom(HerlpersUsuario.existeUsuarioById),
+    check('supervisado').isMongoId(),
+    check('supervisado').custom(HerlpersUsuario.existeUsuarioById),
     validarCampos    
-],observacionesGet);
-//mostrar fecha de creacion
-router.post("/fechacreacion'",[
-    validarJWT,
-    check('fechacreacion','se debe agregar una fecha de creacion').not().isEmpty(),
-    validarCampos    
-],fechacreacionGet);
-
-
-
+],modificarordenPut);
 
 export default router;

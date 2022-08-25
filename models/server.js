@@ -7,7 +7,9 @@ import cotizacion from "../routes/cotizacion.js";
 import dmuestra from "../routes/datos-muestra.js";
 import informeR from "../routes/informe-resultados.js";
 import Ciudad from "../routes/ciudad.js";
-// import ordenServidor from "../routes/orden_del_servicio.js"
+import ordenServidor from "../routes/orden_del_servicio.js";
+import tipo_muestra from "../routes/tipo_muestra.js";
+import ensayo from "../routes/ensayo.js";
 
 class Server{
     constructor(){
@@ -39,8 +41,9 @@ class Server{
         this.app.use("/api/DMuestra",dmuestra)
         this.app.use("/api/informeR",informeR)
         this.app.use("/api/ciudad",Ciudad)
-        // this.app.use("/api/Orden_servicio",ordenServidor)
-
+        this.app.use("/api/Orden_servicio",ordenServidor)
+        this.app.use("/api/Tipo_muestra",tipo_muestra)
+        this.app.use("/api/ensayo",ensayo)
     }
 
     listen(){

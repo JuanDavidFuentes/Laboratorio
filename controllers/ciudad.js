@@ -26,28 +26,16 @@ const ciudadGetListarTodos=async(req,res)=>{
     })
 }
 
+//listar ciudades de departamento
 const ciudadesdepartamentoGet=async(req,res)=>{
     const {coddepartamento}=req.query;
-    const depa= await Ciudad.find({coddepartamento})
-    res.json({depa})
+    const departamentos= await Ciudad.find({coddepartamento})
+    res.json({departamentos})
 }
 
 const buscarCiudadCodigoGet=async(req,res)=>{
     const {codciudad}=req.query;
-    const city= await Ciudad.findOne({codciudad})
-    res.json({city})
-}
-
-const buscarCiudadNombreGet=async(req,res)=>{
-    const {ciudad}=req.query;
-    const ciudades = await Ciudad.find(
-        //{nombre:new RegExp(query,"i")}
-        {
-            $or: [
-                { ciudad: new RegExp(ciudad, "i") },
-            ] 
-        }
-    ) 
+    const ciudades= await Ciudad.findOne({codciudad})
     res.json({ciudades})
 }
 
@@ -62,6 +50,21 @@ const buscarDepartamentoNombreGet=async(req,res)=>{
         }
     ) 
     res.json({departamentos})
+}
+const buscarCiudadNombreGet=async(req,res)=>{
+    const {ciudad}=req.query;
+    const ciudades = await Ciudad.find(
+        //{nombre:new RegExp(query,"i")}
+        {
+            $or: [
+                { ciudad: new RegExp(ciudad, "i") },
+            ],
+            $or:[
+                {c}
+            ]
+        }
+    ) 
+    res.json({ciudades})
 }
 
 export {ciudadesdepartamentoGet,ciudadGetListarTodos,ciudadPut,ciudadPost,buscarCiudadCodigoGet,buscarCiudadNombreGet,buscarDepartamentoNombreGet}

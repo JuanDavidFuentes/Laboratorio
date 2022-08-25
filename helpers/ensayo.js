@@ -1,6 +1,6 @@
 import Ensayo from "../models/ensayo.js";
 
-const HerlpersEnsayo= {
+const HelpersEnsayo= {
   existeEnsayoById: async (id) => {
     const existe = await Ensayo.findById(id)
     if (!existe) {
@@ -9,5 +9,4 @@ const HerlpersEnsayo= {
   },
 }
 
-
-export default HerlpersEnsayo;
+export default HelpersEnsayo;

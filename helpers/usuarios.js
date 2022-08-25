@@ -35,6 +35,7 @@ const HerlpersUsuario = {
       }
     })
   },
+
   noexisteEmail:async(email)=>{
     if(email){
         const existe=await Usuario.findOne({email})

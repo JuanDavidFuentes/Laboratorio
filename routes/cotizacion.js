@@ -35,24 +35,28 @@ router.post("/",[
 router.get('/a',buscarFechaGet) 
 
 router.post('/CrearConsecutivo',[
-    // validarJWT,
+    validarJWT,
     check('numero_cotizacion',"El numero de cotizacion es requerido").not().isEmpty(),
     validarCampos
 ],crearConsecutivo)
 
-router.get('/',buscarPorId)
+// router.get('/',buscarPorId) //ruta de andres
 
-router.get('/listarporIdCoti/:id',buscarPorId)
+router.get('/listarporIdCoti/:id',[
+    validarJWT,
+    check('id').isMongoId(),
+    check('id').custom(HerlpersCotizacion.existeCotizacionById),
+],buscarPorId)
 
 router.get('/buscarCodigo',[
-    // validarJWT,
+    validarJWT,
     check('numero_cotizacion',"El numero de cotizacion es requerido").not().isEmpty(),
     check('numero_cotizacion').custom(HerlpersCotizacion.existeNumeroCotizacion),
     validarCampos
 ],buscarPorCodigoGet)
 
 router.get('/buscarNombre/:id',[
-    // validarJWT,
+    validarJWT,
     check('id').isMongoId(),
     check('id').custom(HerlpersUsuario.existeUsuarioById),
     validarCampos
@@ -86,16 +90,17 @@ router.put("/:id",[
 ],editarCotizacionPut);
 
 router.put('/activar/:id',[
-    // validarJWT,
+    validarJWT,
     check('id').isMongoId(),
     check('id').custom(HerlpersCotizacion.existeCotizacionById),
     validarCampos
 ],activarPut)
 
 router.put('/desactivar/:id',[
-    // validarJWT,
+    validarJWT,
     check('id').isMongoId(),
     check('id').custom(HerlpersCotizacion.existeCotizacionById),
     validarCampos
 ],desactivarPut)
+
 export default router;

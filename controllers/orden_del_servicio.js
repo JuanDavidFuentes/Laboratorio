@@ -20,10 +20,10 @@ const listartodaslasordenesGet=async(req, res)=>{
 
 //GET listar orden de servicio por idMuestra 
 
-const listaridMuestraGet=async(req, res)=>{
+const listaridGet=async(req, res)=>{
     const {id}=req.params;
-    const listaridMuestraGet=await Orden_del_servicio.findById(id)
-    res.json({listaridMuestraGet})
+    const listaridGet=await Orden_del_servicio.findById(id)
+    res.json({listaridGet})
 }
 
 //PUT Modificar datos de la orden
@@ -53,47 +53,39 @@ const OrdenDesactivarPUt=async(req,res)=>{
         "msg":"Usuario activado con exito"
     })
 }
-
-//GET realisada por 
-
+//GET realisada por
 const Getrealizadopor=async(req, res)=>{
     const {id}=req.params
-    const Getrealizadopor=await Orden_del_servicio.findById(id)
-    res.json({Getrealizadopor})
+    const realizadopor=await Orden_del_servicio.find({realizado:id})
+    res.json({realizadopor})
 }
-
 //GET supervisado-por
-
 const supervisadoGet=async(req, res)=>{
     const {id}=req.params
-    const supervisadoGet=await Orden_del_servicio.findByIdAndUpdate(id,{supervisado})
-    res.json({supervisadoGet})
+    const sup=await Orden_del_servicio.find({supervisado:id})
+    res.json({sup})
 }
+// //GET observaciones
+// const observacionesGet=async(req, res)=>{
+//     const {id}=req.params
+//     const observacionGet=await Orden_del_servicio.findByIdAndUpdate(id,{observaciones})
+//     res.json({observacionGet})
+// }
+// //GET mostrar fecha de creacion 
 
-//GET observaciones
-const observacionesGet=async(req, res)=>{
-    const {id}=req.params
-    const observacionGet=await Orden_del_servicio.findByIdAndUpdate(id,{observaciones})
-    res.json({observacionGet})
-}
-
-//GET mostrar fecha de creacion 
-
-const fechacreacionGet=async(req,res)=>{
-    const {id}=req.params
-    const fechacreacion=await Orden_del_servicio.findByIdAndUpdate(id,{createdAt})
-    res.json({fechacreacion})
-}
+// const fechacreacionGet=async(req,res)=>{
+//     const {id}=req.params
+//     const fechacreacion=await Orden_del_servicio.findByIdAndUpdate(id,{createdAt})
+//     res.json({fechacreacion})
+// }
 
 
 export{insertarordendeservicioPost,
     listartodaslasordenesGet,
-    listaridMuestraGet,
+    listaridGet,
     modificarordenPut,
-    Getrealizadopor,
-    supervisadoGet,
-    fechacreacionGet,
     OrdenactivarPUt,
     OrdenDesactivarPUt,
-    observacionesGet
+    Getrealizadopor,
+    supervisadoGet
     }

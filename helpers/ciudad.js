@@ -1,6 +1,6 @@
 import Ciudad from "../models/ciudad.js";
 
-const HerlpersCiudad = {
+const HelpersCiudad = {
 
     existedeoartamentoById: async (coddepartamento) => {
         if (coddepartamento) {
@@ -17,4 +17,4 @@ const HerlpersCiudad = {
     }
 }
 
-export default HerlpersCiudad;  
+export default HelpersCiudad;  

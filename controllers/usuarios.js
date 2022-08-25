@@ -15,14 +15,6 @@ const usuarioPost=async(req,res)=>{
     })
 }
 
-const usuarioPut=async(req,res)=>{
-    const {id} =req.params
-    const {tipoPersona,nombre,apellidos,documento,direccion,ciudad,contacto,telefono,email,password,rol}=req.body
-    const usuario =  Usuario.findByIdAndUpdate(id,{tipoPersona,nombre,apellidos,documento,direccion,ciudad,contacto,telefono,email,password,rol})
-    res.json({
-        usuario
-    })
-}
 
 const usuarioLogin=async(req, res)=>{
     const { email, password } = req.body;
@@ -136,14 +128,15 @@ const cargarArchivoCloudPut= async (req, res) => {
 }
 
 const usuarioPutdatos=async(req,res)=>{
-    const {id}=req.params
+    const {id} =req.params
     const {tipoPersona,nombre,apellidos,documento,direccion,ciudad,contacto,telefono,email,password,rol}=req.body
+    const usuario = await Usuario.findByIdAndUpdate(id,{tipoPersona,nombre,apellidos,documento,direccion,ciudad,contacto,telefono,email,password,rol})
     
-    const UsuarioEditarDatos=await Usuario.findByIdAndUpdate(id,{tipoPersona,nombre,apellidos,documento,direccion,ciudad,contacto,telefono,email,password,rol})
     res.json({
-        "msg":'Actualizacion realizada con exito'
+        usuario
     })
 }
+
 
 const usuarioPutActivar=async(req,res)=>{
     const {id}=req.params
