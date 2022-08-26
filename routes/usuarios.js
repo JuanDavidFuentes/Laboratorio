@@ -14,7 +14,8 @@ router.post("/",[
     check('apellidos',"El apellidos es obligatorio").not().isEmpty(),
     check('apellidos',"Debe tener menos de 50 caracteres").isLength({max:50}),
     check('documento',"El documento es obligatorio").not().isEmpty(),
-    check('documento',"Debe tener menos de 50 caracteres").isLength({max:50}),
+    check('documento',"Debe tener menos de 13 caracteres").isLength({max:13}),
+    check('documento').custom(HerlpersUsuario.existeDocumento),
     check('direccion',"El direccion es obligatorio").not().isEmpty(),
     check('direccion',"Debe tener menos de 50 caracteres").isLength({max:50}),
     check('ciudad',"La ciudad es obligatoria").not().isEmpty(),
@@ -24,8 +25,6 @@ router.post("/",[
     check('email',"No es un email valido").isEmail(),
     check('password',"Es Obligatorio").not().isEmpty(),
     check('password',"Debe tener mas de 8 caracteres").isLength({min:6}),
-    check('rol',"El rol es obligatoro").not().isEmpty(),
-    check('rol',"Debe tener menos de 50 caracteres").isLength({max:50}),
     check('email').custom(HerlpersUsuario.existeEmail),
     validarCampos,
 ],usuarioPost);
@@ -37,18 +36,17 @@ router.put("/datos/:id",[
     check('apellidos',"El apellidos es obligatorio").not().isEmpty(),
     check('apellidos',"Debe tener menos de 50 caracteres").isLength({max:50}),
     check('documento',"El documento es obligatorio").not().isEmpty(),
-    check('documento',"Debe tener menos de 50 caracteres").isLength({max:50}),
+    check('documento',"Debe tener menos de 13 caracteres").isLength({max:13}),
+    check('documento').custom(HerlpersUsuario.existeDocumento),
     check('direccion',"El direccion es obligatorio").not().isEmpty(),
     check('direccion',"Debe tener menos de 50 caracteres").isLength({max:50}),
     check('ciudad',"La ciudad es obligatoria").not().isEmpty(),
-    check('ciudad',"Debe tener menos de 50 caracteres").isLength({max:50}),
     check('telefono',"El telefono es obligatoro").not().isEmpty(),
     check('telefono',"Debe tener menos de 50 caracteres").isLength({max:50}),
     check('email',"Es Obligatorio").not().isEmpty(),
     check('email',"No es un email valido").isEmail(),
     check('password',"Es Obligatorio").not().isEmpty(),
     check('password',"Debe tener mas de 8 caracteres").isLength({min:6}),
-    check('rol',"El rol es obligatoro").not().isEmpty(),
     check('rol',"Debe tener menos de 50 caracteres").isLength({max:50}),
     check('email').custom(HerlpersUsuario.existeEmail),
     validarCampos,
@@ -73,7 +71,6 @@ router.get("/listar/:id",[
 
 router.get("/nombre",[
     check('nombre',"El nombre es obligatorio").not().isEmpty(),
-    check('nombre').custom(HerlpersUsuario.existeUsuarioNombre),
     validarCampos
 ],usuarioGetListarNombre)
 

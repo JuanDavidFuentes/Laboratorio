@@ -41,7 +41,14 @@ const HerlpersUsuario = {
         const existe=await Usuario.findOne({email})
         if(!existe) throw new Error("Correo no existe Base de datos")
     }
-  }
+  },
+
+  existeDocumento: async (documento) => {
+    if (documento) {
+      const existe = await Usuario.findOne({ documento });
+      if (existe) throw new Error("documento ya existe en la bd");
+    }
+  },
 }
 
 export default HerlpersUsuario;              

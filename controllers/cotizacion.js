@@ -1,5 +1,6 @@
 import Cotizacion from "../models/cotizacion.js";
 import Consecutivo from "../models/consecutivo.js";
+import Log from "../models/log.js";
 
 ///ej: 0001-2022V1 
 const numeros=(numero_cotizacion)=>{
@@ -27,6 +28,12 @@ const cotizacionPost=async(req,res)=>{
         await coti.save()
         const nuevo=consecutivo.numero_cotizacion+1
         await Consecutivo.findByIdAndUpdate(consecutivo._id,{numero_cotizacion:nuevo})
+        const idUsuario=req.usuario._id
+        const idPostPut=coti._id
+        const navegador=req.headers['user-agent']
+        const ip=req.socket.remoteAddress
+        const log=new Log({idUsuario,idPostPut,navegador,ip})
+        await log.save()
         res.json({
             "msg":"Cotizacion creada exitosamente."
         })

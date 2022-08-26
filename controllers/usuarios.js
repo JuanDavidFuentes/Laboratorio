@@ -15,10 +15,20 @@ const usuarioPost=async(req,res)=>{
     })
 }
 
+const usuarioPutdatos=async(req,res)=>{
+    const {id} =req.params
+    const {tipoPersona,nombre,apellidos,documento,direccion,ciudad,contacto,telefono,email,password,rol}=req.body
+    let salt=bcryptjs.genSaltSync(10)
+    const usuario = await Usuario.findByIdAndUpdate(id,{tipoPersona,nombre,apellidos,documento,direccion,ciudad,contacto,telefono,email,password,rol})
+    usuario.password=bcryptjs.hashSync(password,salt)
+    await usuario.save()
+    res.json({
+        usuario
+    })
+}
 
 const usuarioLogin=async(req, res)=>{
-    const { email, password } = req.body;
-
+    const {email, password} = req.body;
         try {
             const usuario = await Usuario.findOne({ email })
             if (!usuario) {
@@ -59,11 +69,12 @@ const usuarioGetListarTodos=async(req,res)=>{
 
 const usuarioGetListarid=async(req,res)=>{
     const {id}=req.params
-    const usuario =await Usuario.findOne(id)
+    const usuario =await Usuario.findOne({id})
     res.json({
         usuario
     })
 }
+
 
 const usuarioGetListarNombre=async(req, res)=>{
     const {nombre}=req.query;
@@ -92,6 +103,7 @@ const mostrarImagenCloud= async (req, res) => {
     }
 }
 
+//subir img
 const cargarArchivoCloudPut= async (req, res) => {
     cloudinary.config({
         cloud_name: process.env.CLOUDINARY_NAME,
@@ -127,17 +139,6 @@ const cargarArchivoCloudPut= async (req, res) => {
     }
 }
 
-const usuarioPutdatos=async(req,res)=>{
-    const {id} =req.params
-    const {tipoPersona,nombre,apellidos,documento,direccion,ciudad,contacto,telefono,email,password,rol}=req.body
-    const usuario = await Usuario.findByIdAndUpdate(id,{tipoPersona,nombre,apellidos,documento,direccion,ciudad,contacto,telefono,email,password,rol})
-    
-    res.json({
-        usuario
-    })
-}
-
-
 const usuarioPutActivar=async(req,res)=>{
     const {id}=req.params
     const activar =await Usuario.findByIdAndUpdate(id,{estado:1})
@@ -153,7 +154,6 @@ const usuarioPutDesactivar=async(req,res)=>{
         "msg":"Usuario desactivado con exito"
     })
 }
-
 
 // API USUARIOS: debe permitir: 
 // GET Listar todos los usuario✅
