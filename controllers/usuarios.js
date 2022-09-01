@@ -2,6 +2,7 @@ import Usuario from "../models/usuarios.js"
 import bcryptjs from "bcryptjs"
 import {generarJWT} from "../middlewares/validar_jwt.js"
 import { v2 as cloudinary } from 'cloudinary'
+import Log from "../models/log.js"
 
 const usuarioPost=async(req,res)=>{
     const {tipoPersona,nombre,apellidos,documento,direccion,ciudad,telefono,email,password,rol}=req.body
@@ -9,6 +10,12 @@ const usuarioPost=async(req,res)=>{
     const usuario = new Usuario ({tipoPersona,nombre,apellidos,documento,direccion,ciudad,telefono,email,password,rol})
     usuario.password=bcryptjs.hashSync(password,salt)
     await usuario.save()
+    const idUsuario=usuario._id
+    const idPost=usuario._id
+    const navegador=req.headers['user-agent']
+    const ip=req.socket.remoteAddress
+    const log= new Log({idUsuario,idPost,navegador,ip})
+    await log.save()
 
     res.json({ 
         msg:"Registro Exitoso"
@@ -17,11 +24,18 @@ const usuarioPost=async(req,res)=>{
 
 const usuarioPutdatos=async(req,res)=>{
     const {id} =req.params
-    const {tipoPersona,nombre,apellidos,documento,direccion,ciudad,contacto,telefono,email,password,rol}=req.body
+    const {tipoPersona,nombre,apellidos,direccion,ciudad,contacto,telefono,password,rol}=req.body
     let salt=bcryptjs.genSaltSync(10)
-    const usuario = await Usuario.findByIdAndUpdate(id,{tipoPersona,nombre,apellidos,documento,direccion,ciudad,contacto,telefono,email,password,rol})
+    const usuario = await Usuario.findByIdAndUpdate(id,{tipoPersona,nombre,apellidos,direccion,ciudad,contacto,telefono,password,rol})
     usuario.password=bcryptjs.hashSync(password,salt)
     await usuario.save()
+    const idUsuario=req.usuario._id
+    const idPut= id
+    const navegador=req.headers['user-agent']
+    const ip=req.socket.remoteAddress
+    const log= new Log({idUsuario,idPut,navegador,ip})
+    await log.save()
+
     res.json({
         usuario
     })
@@ -47,7 +61,15 @@ const usuarioLogin=async(req, res)=>{
                     msg: "Usuario / Password no son correctos"
                 })
             }
+
             const token = await generarJWT(usuario.id);
+            const idUsuario=usuario._id
+            const idPost=usuario._id
+            const navegador=req.headers['user-agent']
+            const ip=req.socket.remoteAddress
+            const log= new Log({idUsuario,idPost,navegador,ip})
+            
+            await log.save()
             res.json({
                 usuario,
                 token
@@ -97,6 +119,7 @@ const mostrarImagenCloud= async (req, res) => {
         if (usuario.foto) {
             return res.json({ url: usuario.foto })
         }
+        
         res.status(400).json({ msg: 'Falta Imagen' })
     } catch (error) {
         res.status(400).json({ error })
@@ -128,6 +151,12 @@ const cargarArchivoCloudPut= async (req, res) => {
                         cloudinary.uploader.destroy(public_id)
                     }
                     usuario = await Usuario.findByIdAndUpdate(id, { foto: result.url })
+                    const idUsuario=req.usuario._id
+                    const idPut= id
+                    const navegador=req.headers['user-agent']
+                    const ip=req.socket.remoteAddress
+                    const log=new Log({idUsuario,idPut,navegador,ip})
+                    await log.save()
                     //responder
                     res.json({ url: result.url });
                 } else {
@@ -142,16 +171,30 @@ const cargarArchivoCloudPut= async (req, res) => {
 const usuarioPutActivar=async(req,res)=>{
     const {id}=req.params
     const activar =await Usuario.findByIdAndUpdate(id,{estado:1})
+    const idUsuario=req.usuario._id
+    const idPut=id
+    const navegador=req.headers['user-agent']
+    const ip=req.socket.remoteAddress
+    const log= new Log({idUsuario,idPut,navegador,ip})
+    await log.save()
     res.json({
-        "msg":"Usuario activado con exito"
+        "msg":"Usuario activado con exito",
+        activar
     })
 }
 
 const usuarioPutDesactivar=async(req,res)=>{
     const {id}=req.params
     const desactivar =await Usuario.findByIdAndUpdate(id,{estado:0})
+    const idUsuario=req.usuario._id
+    const idPut=id
+    const navegador=req.headers['user-agent']
+    const ip=req.socket.remoteAddress
+    const log= new Log({idUsuario,idPut,navegador,ip})
+    await log.save()
     res.json({
-        "msg":"Usuario desactivado con exito"
+        "msg":"Usuario desactivado con exito",
+        desactivar
     })
 }
 

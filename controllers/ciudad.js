@@ -1,9 +1,16 @@
 import Ciudad from "../models/ciudad.js"
+import Log from "../models/log.js"
 
 const ciudadPost=async(req,res)=>{
     const {coddepartamento,departamento,ciudad,codciudad}=req.body
     const ciudadPost = new Ciudad ({coddepartamento,departamento,ciudad,codciudad})
     await ciudadPost.save()
+    const idUsuario=req.usuario._id
+    const idPost=coti._id
+    const navegador=req.headers['user-agent']
+    const ip=req.socket.remoteAddress
+    const log= new Log({idUsuario,idPost,navegador,ip})
+    await log.save()
 
     res.json({
         "msg":"Registro Exitoso"

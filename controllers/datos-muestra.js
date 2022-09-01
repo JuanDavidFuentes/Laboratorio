@@ -1,5 +1,7 @@
 import DatosMuestra from "../models/datos-muestras.js"
 import Consecutivo from "../models/consecutivo.js";
+import Log from "../models/log.js";
+
 
 
 const DatosMuestraEnsayo=async(req, res)=>{
@@ -45,6 +47,13 @@ const datosMuestraPost1=async(req,res)=>{
         await coti.save()
         const nuevo=consecutivo.codMuestra+1
         await Consecutivo.findByIdAndUpdate(consecutivo._id,{codMuestra:nuevo})
+        const idUsuario=req.usuario._id
+        const idPost=coti._id
+        const navegador=req.headers['user-agent']
+        const ip=req.socket.remoteAddress
+        const log=new Log({idUsuario,idPost,navegador,ip})
+        await log.save()
+        
         res.json({
             "msg":"Datos Muestra creada exitosamente."
         })
@@ -65,6 +74,7 @@ const muestraCodigoGet=async(req, res)=>{
 
 
 const listarMuestrasxIdGet=async(req, res)=>{
+    
     const muestras=await DatosMuestra.find()
     res.json({muestras}) 
 }
@@ -76,17 +86,32 @@ const listarMuestrasGet=async(req, res)=>{
 }
 
 const editarMuestraPut=async(req, res)=>{
-    const {solicitante,codMuestra,munRecoleccion,direccionTomaMuestra,lugarTomaMuestra,muestraRecolectadaPor,procedimientoMuestreo,tipoMuestra,matrizMuestra,fechaRecoleccion,cotizacion,item,estado}=req.body;
+    const {solicitante,codMuestra,munRecoleccion,direccionTomaMuestra,lugarTomaMuestra,muestraRecolectadaPor,procedimientoMuestreo
+        ,tipoMuestra,matrizMuestra,fechaRecoleccion,cotizacion,item,estado}=req.body;
     const {id}=req.params;
-    const editar = await DatosMuestra.findByIdAndUpdate(id,{solicitante,codMuestra,munRecoleccion,direccionTomaMuestra,lugarTomaMuestra,muestraRecolectadaPor,procedimientoMuestreo,tipoMuestra,matrizMuestra,fechaRecoleccion,cotizacion,item,estado})
+    const editar = await DatosMuestra.findByIdAndUpdate(id,{solicitante,codMuestra,munRecoleccion,direccionTomaMuestra,lugarTomaMuestra,muestraRecolectadaPor,procedimientoMuestreo
+        ,tipoMuestra,matrizMuestra,fechaRecoleccion,cotizacion,item,estado})
+        const idUsuario=req.usuario._id
+        const idPut=id
+        const navegador=req.headers['user-agent']
+        const ip=req.socket.remoteAddress
+        const log=new Log({idUsuario,idPut,navegador,ip})
+        await log.save()
     res.json({
-        "msg":"Datos de la muestra editada con exito"
+        "msg":"Datos de la muestra editada con exito",
+        editar
     })
 }
 
 const activarPut=async(req, res)=>{
     const {id}=req.params;
     const activar=await DatosMuestra.findByIdAndUpdate(id,{estado:1})
+    const idUsuario=req.usuario._id
+    const idPut=id
+    const navegador=req.headers['user-agent']
+    const ip=req.socket.remoteAddress
+    const log=new Log({idUsuario,idPut,navegador,ip})
+    await log.save()
     res.json({
         "msg":"La cotizacion esta activado"
     })
@@ -95,6 +120,12 @@ const activarPut=async(req, res)=>{
 const desactivarPut=async(req, res)=>{
     const {id}=req.params;
     const desactivar=await DatosMuestra.findByIdAndUpdate(id,{estado:0})
+    const idUsuario=req.usuario._id
+    const idPut=id
+    const navegador=req.headers['user-agent']
+    const ip=req.socket.remoteAddress
+    const log=new Log({idUsuario,idPut,navegador,ip})
+    await log.save()
     res.json({
         "msg":"La cotizacion esta desactivado"
     })

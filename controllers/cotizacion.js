@@ -29,10 +29,10 @@ const cotizacionPost=async(req,res)=>{
         const nuevo=consecutivo.numero_cotizacion+1
         await Consecutivo.findByIdAndUpdate(consecutivo._id,{numero_cotizacion:nuevo})
         const idUsuario=req.usuario._id
-        const idPostPut=coti._id
+        const idPost=coti._id
         const navegador=req.headers['user-agent']
         const ip=req.socket.remoteAddress
-        const log=new Log({idUsuario,idPostPut,navegador,ip})
+        const log=new Log({idUsuario,idPost,navegador,ip})
         await log.save()
         res.json({
             "msg":"Cotizacion creada exitosamente."
@@ -44,6 +44,12 @@ const crearConsecutivo =async(req, res) => {
     const{numero_cotizacion}=req.body;
     const consecutivoo = new Consecutivo({numero_cotizacion})
     await consecutivoo.save()
+    const idUsuario=req.usuario._id
+    const idPost=consecutivoo._id
+    const navegador=req.headers['user-agent']
+    const ip=req.socket.remoteAddress
+    const log=new Log({idUsuario,idPost,navegador,ip})
+    await log.save()
     res.json({
         "msg":"Consecutivo Creado"
     })
@@ -67,7 +73,6 @@ const buscarPorId=async(req, res) => {
         items
     })
 }
-
 
 const listarcotizacionesGet=async(req, res)=>{
     const coti=await Cotizacion.find({estado:1})
@@ -107,6 +112,12 @@ const editarCotizacionPut=async(req, res)=>{
     const coti=new Cotizacion({numero_cotizacion,fecha_emision,idCliente,idContacto,validez_oferta,entrega_resultados,elabordo_por,items,observaciones,subtotal,descuento,iva,total,medio_solicitud})
     await coti.save()
     const desactivar=await Cotizacion.findByIdAndUpdate(id,{estado:0})
+    const idUsuario=req.usuario._id
+    const idPut= id
+    const navegador=req.headers['user-agent']
+    const ip=req.socket.remoteAddress
+    const log=new Log({idUsuario,idPut,navegador,ip})
+    await log.save()
     res.json({
         "msg":"Cotizacion editada con exito"
     })
@@ -115,6 +126,14 @@ const editarCotizacionPut=async(req, res)=>{
 const activarPut=async(req, res)=>{
     const {id}=req.params;
     const activar=await Cotizacion.findByIdAndUpdate(id,{estado:1})
+
+    const idUsuario=req.usuario._id
+    const idPut= id
+    const navegador=req.headers['user-agent']
+    const ip=req.socket.remoteAddress
+    const log=new Log({idUsuario,idPut,navegador,ip})
+    await log.save()
+
     res.json({
         "msg":"La cotizacion esta activada"
     })
@@ -123,6 +142,12 @@ const activarPut=async(req, res)=>{
 const desactivarPut=async(req, res)=>{
     const {id}=req.params;
     const desactivar=await Cotizacion.findByIdAndUpdate(id,{estado:0})
+    const idUsuario=req.usuario._id
+    const idPut= id
+    const navegador=req.headers['user-agent']
+    const ip=req.socket.remoteAddress
+    const log=new Log({idUsuario,idPut,navegador,ip})
+    await log.save()
     res.json({
         "msg":"La cotizacion esta desactivada"
     })
