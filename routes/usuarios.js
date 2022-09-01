@@ -5,7 +5,7 @@ import HerlpersUsuario from "../helpers/usuarios.js";
 import { validarCampos } from "../middlewares/validar_campos.js";
 import { validarJWT } from "../middlewares/validar_jwt.js";
 import validarExistaArchivo from "../middlewares/validar_file.js";
-
+import HelpersCiudad from "../helpers/ciudad.js";
 const router=Router() 
 
 router.post("/",[
@@ -19,6 +19,7 @@ router.post("/",[
     check('direccion',"El direccion es obligatorio").not().isEmpty(),
     check('direccion',"Debe tener menos de 50 caracteres").isLength({max:50}),
     check('ciudad',"La ciudad es obligatoria").not().isEmpty(),
+    check('ciudad').custom(HelpersCiudad.existeciudadById),
     check('telefono',"El telefono es obligatoro").not().isEmpty(),
     check('telefono',"Debe tener menos de 50 caracteres").isLength({max:50}),
     check('email',"Es Obligatorio").not().isEmpty(),
