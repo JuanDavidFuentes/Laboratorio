@@ -2,10 +2,9 @@
  import Log from "../models/log.js";
 
 const ensayoPost=async(req,res)=>{
-    const {ensayo,metodo,tecnica,valorMinimo,valorMaximo,unidades,costo,descripcion}=req.body
-    const ensayoPostt = new Ensayo ({ensayo,metodo,tecnica,valorMinimo,valorMaximo,unidades,costo,descripcion})
+    const {ensayo,metodo,tecnica,valorMinimo,valorMaximo,unidades,costo,descripcion,limiteCuantificacion,responsables}=req.body
+    const ensayoPostt = new Ensayo ({ensayo,metodo,tecnica,valorMinimo,valorMaximo,unidades,costo,descripcion,limiteCuantificacion,responsables})
     await ensayoPostt.save()
-
     const idUsuario=req.usuario._id
     const idPost=ensayoPostt._id
     const navegador=req.headers['user-agent']
@@ -19,8 +18,8 @@ const ensayoPost=async(req,res)=>{
 
 const ensayoPut = async (req,res)=>{
     const {id}=req.params
-    const {ensayo,metodo,tecnica,valorMinimo,valorMaximo,unidades,costo,estado,descripcion}=req.body
-    const ensayoput =await Ensayo.findByIdAndUpdate(id,{ensayo,metodo,tecnica,valorMinimo,valorMaximo,unidades,costo,estado,descripcion})
+    const {ensayo,metodo,tecnica,valorMinimo,valorMaximo,unidades,costo,estado,descripcion,limiteCuantificacion,responsables}=req.body
+    const ensayoput =await Ensayo.findByIdAndUpdate(id,{ensayo,metodo,tecnica,valorMinimo,valorMaximo,unidades,costo,estado,descripcion,limiteCuantificacion,responsables})
 
     const idUsuario=req.usuario._id
     const idPut= id

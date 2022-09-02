@@ -1,3 +1,4 @@
+import { validarResponsable } from "../middlewares/validar_mongoid.js";
 import Ensayo from "../models/ensayo.js";
 
 const HelpersEnsayo= {
@@ -14,6 +15,30 @@ const HelpersEnsayo= {
       return false
     }
     return true
+  },
+
+  existeEnsayo: async (ensayo) => {
+    if (ensayo) {
+      const existe = await Ensayo.findOne({ ensayo });
+      if (existe) throw new Error("Ensayo ya existe en la bd");
+    }
+  },
+
+  responsabless: async (responsable) => {
+    if (responsable.titular!="") { 
+      await validarResponsable(responsable.titular).catch(err => {
+        throw new Error("Responsable Titular"+err);
+      });
+    }else{
+      throw new Error("Falta id del Titular");
+    }
+    if (responsable.suplente!="") { 
+      await validarResponsable(responsable.suplente).catch(err => {
+        throw new Error("Responsable Suplente"+err);
+      });
+    }else{
+      throw new Error("Falta id del Suplente");
+    }
   }
 }
 

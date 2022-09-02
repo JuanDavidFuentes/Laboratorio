@@ -29,6 +29,10 @@ router.post('/insertar',[
     check('fechaRecoleccion'," es obligatorio").not().isEmpty(),
     check('cotizacion'," es obligatorio").not().isEmpty(),
     check('item').not().isEmpty(),
+    check('idMuestra').isMongoId(),
+    check('idMuestra').custom(HerlpersCotizacion.existeCotizacionById), 
+    check('ensayo').custom(HerlpersDatosMuestra.orden),
+    check('observaciones').not().isEmpty(),
     validarCampos
 ], datosMuestraPost1)
 
@@ -72,6 +76,10 @@ router.put('/editar/:id',[
     check('fechaRecoleccion'," es obligatorio").not().isEmpty(),
     check('cotizacion'," es obligatorio").not().isEmpty(),
     check('item').not().isEmpty(),
+    check('idMuestra').isMongoId(),
+    check('idMuestra').custom(HerlpersCotizacion.existeCotizacionById), 
+    check('ensayo').custom(HerlpersDatosMuestra.orden),
+    check('observaciones').not().isEmpty(),
     validarCampos
 ],editarMuestraPut)
 

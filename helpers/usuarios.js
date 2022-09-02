@@ -15,6 +15,14 @@ const HerlpersUsuario = {
     }
   },
 
+  existeUsuarioById2: async (id) => {
+    const existe = await Usuario.findById(id)
+    if (!existe) {
+      return false
+    }
+    return true
+  },
+
   existeUsuarioNombre: async (nombre) => {
     const Existe= await Usuario.findOne({nombre})
     if (!Existe) {

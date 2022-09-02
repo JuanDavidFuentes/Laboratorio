@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 import HerlpersEnsayo from "../helpers/ensayo.js";
+import HerlpersUsuario from '../helpers/usuarios.js';
 
 const validarMongoId = async (itemsEnsayo) => {
-
     //promisse
     const valido = mongoose.Types.ObjectId.isValid(itemsEnsayo);
     if (!valido) {
@@ -14,6 +14,22 @@ const validarMongoId = async (itemsEnsayo) => {
         return "id no existe"
     }
     return ""
+}
+
+const validarResponsable = (responsable) => {
+    return new Promise(async (resolve, reject) => {
+        const valido = mongoose.Types.ObjectId.isValid(responsable);
+        if (!valido) {
+            reject("id no valido");
+        } else {
+            const xx = await HerlpersUsuario.existeUsuarioById2(responsable);
+            if (!xx) {
+                reject("id no existe");
+            }
+        }
+        resolve("");
+    })
+
 }
 
 const validarItems = (itemsEnsayo) => {
@@ -32,4 +48,36 @@ const validarItems = (itemsEnsayo) => {
 
 }
 
-export { validarMongoId, validarItems }
+const validarMongoId2 = async (ensayo) => {
+
+    //promisse
+    const valido = mongoose.Types.ObjectId.isValid(ensayo);
+    if (!valido) {
+        return "id no valido"
+    }
+    const xx = await HerlpersEnsayo.existeEnsayoById2(ensayo);
+    console.log(xx);
+    if (!xx) {
+        return "id no existe"
+    }
+    return ""
+}
+
+const validarOrden = (ensayo) => {
+    return new Promise(async (resolve, reject) => {
+        const valido = mongoose.Types.ObjectId.isValid(ensayo);
+        if (!valido) {
+            reject("id no valido");
+        } else {
+            const xx = await HerlpersEnsayo.existeEnsayoById2(ensayo);
+            if (!xx) {
+                reject("id no existe");
+            }
+        }
+        resolve("");
+    })
+
+}
+
+export {validarMongoId, validarItems , validarMongoId2, validarOrden ,validarResponsable}
+

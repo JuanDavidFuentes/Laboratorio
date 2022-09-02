@@ -1,6 +1,12 @@
-import DatosMuestra from "../models/datos-muestras.js"
+import DatosMuestra from "../models/datos-muestras.js";
+import Usuario from "../models/usuarios.js"
 import Consecutivo from "../models/consecutivo.js";
+import Cotizacion from "../models/cotizacion.js";
+import Ensayo from "../models/ensayo.js";
 import Log from "../models/log.js";
+import Orden_del_servicio from "../models/orden_del_servicio.js"
+
+
 
 
 
@@ -53,6 +59,47 @@ const datosMuestraPost1=async(req,res)=>{
         const ip=req.socket.remoteAddress
         const log=new Log({idUsuario,idPost,navegador,ip})
         await log.save()
+
+        const ensayo=[]
+        const cotiza = await Cotizacion.findById(coti.cotizacion)
+        if(item==="item1"){
+            for (let i = 0; i < cotiza.items.item1.itemsEnsayo.length; i++) {
+                const idensayo=cotiza.items.item1.itemsEnsayo[i].ensayo
+                const ensayo=await Ensayo.findById(idensayo)
+                const titular=ensayo.responsables.titular
+                const suplente=ensayo.responsables.suplente
+                const a= await Usuario.findById(titular)
+                const b= await Usuario.findById(suplente)
+                if(a.estado!==1){
+                    if(b.estado!==1){
+                        const realizado=""
+                    }
+                }else{
+
+                }// insertar la informacion al array
+
+
+            }
+        }
+        if(item==="item2"){
+            for (let i = 0; i < cotiza.items.item2.itemsEnsayo.length; i++) {
+                const idensayo=cotiza.items.item2.itemsEnsayo[i].ensayo
+
+            }
+        }
+        if(item==="item3"){
+            for (let i = 0; i < cotiza.items.item3.itemsEnsayo.length; i++) {
+                const idensayo=cotiza.items.item3.itemsEnsayo[i].ensayo
+            }
+        }
+
+        
+
+        const {observaciones}=req.body;
+
+        const ordenServicio=new Orden_del_servicio({idMuestra,ensayo,observaciones})
+        await ordenServicio.save()
+
         
         res.json({
             "msg":"Datos Muestra creada exitosamente."

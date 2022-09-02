@@ -9,15 +9,18 @@ const router =Router ()
 
 router.post("/",[
     validarJWT,
-    check('ensayo',"el aaaa es requerido").not().isEmpty(),
-    check('metodo',"el metodo es requerido","el aaaa es requerido").not().isEmpty(),
-    check('tecnica',"la tecnica es requerido").not().isEmpty(),
+    check('ensayo',"el ensayo es requerido").not().isEmpty(),
+    check('ensayo').custom(HelpersEnsayo.existeEnsayo),
+    check('metodo',"el metodo es requerido").not().isEmpty(),
+    check('tecnica',"la tecnica es requerida").not().isEmpty(),
     check('valorMinimo',"el valorMinimo es requerido").not().isEmpty(),
     check('valorMaximo',"el valorMaximo es requerido").not().isEmpty().not().isEmpty(),
-    check('unidades',"las unidades es requerido").not().isEmpty(),
+    check('unidades',"las unidades son requeridas").not().isEmpty(),
     check('costo',"el costo es requerido").not().isEmpty(),
     check('costo',"el costo es numerico").isNumeric(),
-    check('descripcion',"la descripcion es requerido").not().isEmpty(),
+    check('limiteCuantificacion',"El limite de cuantificacion es requerido").not().isEmpty(),
+    check('limiteCuantificacion',"El limite de cuantificacion debe de ser numero").isNumeric(),
+    check('responsables').custom(HelpersEnsayo.responsabless),
     validarCampos
 ],ensayoPost)
 
@@ -26,14 +29,17 @@ router.put("/:id",[
     check('id').isMongoId(),
     check('id').custom(HelpersEnsayo.existeEnsayoById),
     check('ensayo',"el ensayo es requerido").not().isEmpty(),
-    check('metodo',"el metodo es requerido","el aaaa es requerido").not().isEmpty(),
+    check('ensayo').custom(HelpersEnsayo.existeEnsayo),
+    check('metodo',"el metodo es requerido").not().isEmpty(),
     check('tecnica',"la tecnica es requerido").not().isEmpty(),
     check('valorMinimo',"el valorMinimo es requerido").not().isEmpty(),
     check('valorMaximo',"el valorMaximo es requerido").not().isEmpty().not().isEmpty(),
     check('unidades',"las unidades es requerido").not().isEmpty(),
     check('costo',"el costo es requerido").not().isEmpty(),
     check('costo',"el costo es numerico").isNumeric(),
-    check('descripcion',"la descripcion es requerido").not().isEmpty(),
+    check('limiteCuantificacion',"El limite de cuantificacion es requerido").not().isEmpty(),
+    check('limiteCuantificacion',"El limite de cuantificacion debe de ser numerico").isNumeric(),
+    check('responsables').custom(HelpersEnsayo.responsabless),
     validarCampos
 ],ensayoPut)
 
