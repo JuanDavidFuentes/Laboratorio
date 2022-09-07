@@ -32,7 +32,9 @@ router.post("/",[
     validarCampos
 ],cotizacionPost);
 
-router.get('/a',buscarFechaGet) 
+router.get('/a',buscarFechaGet)
+
+router.get('/listarTodasLasCotizaciones',listarcotizacionesGet)
 
 router.post('/CrearConsecutivo',[
     validarJWT,
