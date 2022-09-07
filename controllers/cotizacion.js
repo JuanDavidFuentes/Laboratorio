@@ -76,6 +76,9 @@ const buscarPorId=async(req, res) => {
 
 const listarcotizacionesGet=async(req, res)=>{
     const coti=await Cotizacion.find({estado:1})
+    .populate('idCliente')
+    .populate('idContacto')
+    .populate('elabordo_por')
     res.json({coti})
 
 }
