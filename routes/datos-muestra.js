@@ -5,6 +5,8 @@ import HerlpersDatosMuestra from "../helpers/datos-muestra.js"
 import { validarCampos } from "../middlewares/validar_campos.js";
 import { validarJWT } from "../middlewares/validar_jwt.js";
 import{DatosMuestraEnsayoMun, DatosMuestraEnsayo, datosMuestraPost1, muestraCodigoGet, listarMuestrasxIdGet, listarMuestrasGet, editarMuestraPut, activarPut, desactivarPut, buscarFechaGet} from '../controllers/datos-muestra.js'
+import Helperstipo_muestra from "../helpers/tipo_muestra.js";
+import HerlpersUsuario from "../helpers/usuarios.js";
 const router =Router()
 
 
@@ -12,9 +14,7 @@ const router =Router()
 router.post('/insertar',[
     validarJWT, 
     check('solicitante').isMongoId(),
-    check('solicitante').custom(HerlpersCotizacion.existeCotizacionById),
-    check('codMuestra'," es obligatorio").not().isEmpty(),
-    check('codMuestra',"El nombre debe tener menos de 15 caracteres").isLength({max:20}),
+    check('solicitante').custom(HerlpersUsuario.existeUsuarioById),
     check('munRecoleccion'," es obligatorio").not().isEmpty(),
     check('direccionTomaMuestra'," es obligatorio").not().isEmpty(),
     check('lugarTomaMuestra'," es obligatorio").not().isEmpty(),
@@ -23,16 +23,12 @@ router.post('/insertar',[
     check('muestraRecolectadaPor',"El nombre debe tener menos de 30 caracteres").isLength({max:30}),
     check('procedimientoMuestreo'," es obligatorio").not().isEmpty(),
     check('tipoMuestra'," es obligatorio").not().isEmpty(),
-    check('tipoMuestra',"El nombre debe tener menos de 15 caracteres").isLength({max:15}),
+    check('tipoMuestra').custom(Helperstipo_muestra.existetipo_muestraById),
     check('matrizMuestra'," es obligatorio").not().isEmpty(),
     check('matrizMuestra',"El nombre debe tener menos de 20 caracteres").isLength({max:20}),
     check('fechaRecoleccion'," es obligatorio").not().isEmpty(),
     check('cotizacion'," es obligatorio").not().isEmpty(),
     check('item').not().isEmpty(),
-    check('idMuestra').isMongoId(),
-    check('idMuestra').custom(HerlpersCotizacion.existeCotizacionById), 
-    check('ensayo').custom(HerlpersDatosMuestra.orden),
-    check('observaciones').not().isEmpty(),
     validarCampos
 ], datosMuestraPost1)
 
@@ -57,11 +53,9 @@ router.get('/listarMuestras',listarMuestrasGet)
 router.put('/editar/:id',[
     validarJWT,
     check('id').isMongoId(),
-    check('id').custom(HerlpersCotizacion.existeCotizacionById),   
+    check('id').custom(HerlpersDatosMuestra.existeDatosMuestraById),   
     check('solicitante').isMongoId(),
-    check('solicitante').custom(HerlpersCotizacion.existeCotizacionById),
-    check('codMuestra'," es obligatorio").not().isEmpty(),
-    check('codMuestra',"El nombre debe tener menos de 15 caracteres").isLength({max:20}),
+    check('solicitante').custom(HerlpersUsuario.existeUsuarioById),
     check('munRecoleccion'," es obligatorio").not().isEmpty(),
     check('direccionTomaMuestra'," es obligatorio").not().isEmpty(),
     check('lugarTomaMuestra'," es obligatorio").not().isEmpty(),
@@ -70,16 +64,12 @@ router.put('/editar/:id',[
     check('muestraRecolectadaPor',"El nombre debe tener menos de 30 caracteres").isLength({max:30}),
     check('procedimientoMuestreo'," es obligatorio").not().isEmpty(),
     check('tipoMuestra'," es obligatorio").not().isEmpty(),
-    check('tipoMuestra',"El nombre debe tener menos de 15 caracteres").isLength({max:15}),
+    check('tipoMuestra').custom(Helperstipo_muestra.existetipo_muestraById),
     check('matrizMuestra'," es obligatorio").not().isEmpty(),
     check('matrizMuestra',"El nombre debe tener menos de 20 caracteres").isLength({max:20}),
     check('fechaRecoleccion'," es obligatorio").not().isEmpty(),
     check('cotizacion'," es obligatorio").not().isEmpty(),
     check('item').not().isEmpty(),
-    check('idMuestra').isMongoId(),
-    check('idMuestra').custom(HerlpersCotizacion.existeCotizacionById), 
-    check('ensayo').custom(HerlpersDatosMuestra.orden),
-    check('observaciones').not().isEmpty(),
     validarCampos
 ],editarMuestraPut)
 

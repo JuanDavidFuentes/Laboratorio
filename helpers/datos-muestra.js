@@ -8,23 +8,23 @@ const HerlpersDatosMuestra = {
     }
   },
 
-  orden: async (orden) => {
-    for (let i = 0; i < ensayo.length; i++) {
-      if (ensayo[i].idensayo != "") {
-        await validarOrden(ensayo[i].idensayo).catch((err) => {
-          throw new Error("idensayo " + err);
-        });
-      } else {
-        throw new Error("Falta id del ensayo idensayo");
-      }
-      if (!ensayo[i].realizado) {
-        throw new Error("El realizado es obligatorio");
-      }
-      if (!ensayo[i].supervisado) {
-        throw new Error("El supervisor es obligatorio");
-      }
-    }
-  },
+  // orden: async (orden) => {
+  //   for (let i = 0; i < ensayo.length; i++) {
+  //     if (ensayo[i].idensayo != "") {
+  //       await validarOrden(ensayo[i].idensayo).catch((err) => {
+  //         throw new Error("idensayo " + err);
+  //       });
+  //     } else {
+  //       throw new Error("Falta id del ensayo idensayo");
+  //     }
+  //     if (!ensayo[i].realizado) {
+  //       throw new Error("El realizado es obligatorio");
+  //     }
+  //     if (!ensayo[i].supervisado) {
+  //       throw new Error("El supervisor es obligatorio");
+  //     }
+  //   }
+  // },
 };
 
 export default HerlpersDatosMuestra;

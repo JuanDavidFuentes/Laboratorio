@@ -1,5 +1,5 @@
 import {Router} from "express"
-import {insertarordendeservicioPost,listartodaslasordenesGet,listaridGet,modificarordenPut,Getrealizadopor,supervisadoGet,OrdenactivarPUt,OrdenDesactivarPUt} from "../controllers/orden_del_servicio.js";
+import {insertarordendeservicioPost,getInformeResultados,listartodaslasordenesGet,listaridGet,modificarordenPut,Getrealizadopor,supervisadoGet,OrdenactivarPUt,OrdenDesactivarPUt} from "../controllers/orden_del_servicio.js";
 import { check } from "express-validator";
 import { validarCampos } from "../middlewares/validar_campos.js";
 import { validarJWT } from "../middlewares/validar_jwt.js";
@@ -10,6 +10,8 @@ import HerlpersOdenServicio from "../helpers/oden_del_servicio.js";
  
  
 const router=Router()
+
+router.get('/InformeResultados/:id',getInformeResultados)
 router.post("/insertar_orden",[
     validarJWT,
     check('idMuestra').isMongoId(),
@@ -67,14 +69,10 @@ router.get("/supervisado/:id",[
 // Modificar datos de la orden 
 router.put("/editar_orden/:id",[
     validarJWT,
-    check('id').isMongoId(),
-    check('id').custom(HerlpersOdenServicio.existeOrdenById),
-    check('idMuestra').isMongoId(),
-    check('idMuestra').custom(HerlpersDatosMuestra.existeDatosMuestraById),
-    // check('ensayo').isMongoId(),
-    // check('ensayo').custom(HerlpersEnsayo.existeEnsayoById),
-    check('realizado').isMongoId(),
-    check('realizado').custom(HerlpersUsuario.existeUsuarioById),
+    // check('id').isMongoId(),
+    // check('id').custom(HerlpersOdenServicio.existeOrdenById),
+    check('ensayo.realzado').isMongoId(),
+    check('ensayo').custom(HerlpersEnsayo.existeEnsayoById),
     check('supervisado').isMongoId(),
     check('supervisado').custom(HerlpersUsuario.existeUsuarioById),
     validarCampos    

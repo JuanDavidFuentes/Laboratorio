@@ -1,5 +1,5 @@
 import {Router} from "express"
-import {usuarioPost,usuarioPutdatos,usuarioPutActivar,cargarArchivoCloudPut,mostrarImagenCloud,usuarioPutDesactivar,usuarioLogin,usuarioGetListarTodos,usuarioGetListarid,usuarioGetListarNombre} from "../controllers/usuarios.js"
+import {usuarioPost,usuarioPutdatos,usuarioPutActivar,usuarioPutRol,cargarArchivoCloudPut,mostrarImagenCloud,usuarioPutDesactivar,usuarioLogin,usuarioGetListarTodos,usuarioGetListarid,usuarioGetListarNombre} from "../controllers/usuarios.js"
 import { check } from "express-validator";
 import HerlpersUsuario from "../helpers/usuarios.js";
 import { validarCampos } from "../middlewares/validar_campos.js";
@@ -20,6 +20,7 @@ router.post("/",[
     check('direccion',"Debe tener menos de 50 caracteres").isLength({max:50}),
     check('ciudad',"La ciudad es obligatoria").not().isEmpty(),
     check('ciudad').custom(HelpersCiudad.existeciudadById),
+
     check('telefono',"El telefono es obligatoro").not().isEmpty(),
     check('telefono',"Debe tener menos de 50 caracteres").isLength({max:50}),
     check('email',"Es Obligatorio").not().isEmpty(),
@@ -36,9 +37,8 @@ router.put("/datos/:id",[
     check('nombre',"Debe tener menos de 50 caracteres").isLength({max:50}),
     check('apellidos',"El apellidos es obligatorio").not().isEmpty(),
     check('apellidos',"Debe tener menos de 50 caracteres").isLength({max:50}),
-    // check('documento',"El documento es obligatorio").not().isEmpty(),
-    // check('documento',"Debe tener menos de 13 caracteres").isLength({max:13}),
-    // check('documento').custom(HerlpersUsuario.existeDocumento),
+
+    
     check('direccion',"El direccion es obligatorio").not().isEmpty(),
     check('direccion',"Debe tener menos de 50 caracteres").isLength({max:50}),
     check('ciudad',"La ciudad es obligatoria").not().isEmpty(),
@@ -51,6 +51,14 @@ router.put("/datos/:id",[
     check('rol',"Debe tener menos de 50 caracteres").isLength({max:50}),
     validarCampos,
 ],usuarioPutdatos)
+
+router.put("/rol/:id",[
+    validarJWT,
+    check('rol',"Debe tener menos de 50 caracteres").not().isEmpty(),
+
+    validarCampos,
+],usuarioPutRol)
+
 
 router.post("/login",[
     check('email').custom(HerlpersUsuario.noexisteEmail),
@@ -101,5 +109,13 @@ router.put("/desactivar/:id",[
     check('id').custom(HerlpersUsuario.existeUsuarioById),
     validarCampos
 ],usuarioPutDesactivar)
+
+router.put("/rol/:id",[
+    validarJWT,
+    check('id').isMongoId(),
+    check('id').custom(HerlpersUsuario.existeUsuarioById),
+    check('rol').not().isEmpty(),
+    validarCampos
+],usuarioPutRol)
 
 export default router;

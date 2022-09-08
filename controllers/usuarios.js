@@ -24,10 +24,28 @@ const usuarioPost=async(req,res)=>{
 
 const usuarioPutdatos=async(req,res)=>{
     const {id} =req.params
-    const {tipoPersona,nombre,apellidos,direccion,ciudad,contacto,telefono,password,rol}=req.body
+    const {tipoPersona,nombre,apellidos,direccion,ciudad,contacto,telefono,password}=req.body
     let salt=bcryptjs.genSaltSync(10)
-    const usuario = await Usuario.findByIdAndUpdate(id,{tipoPersona,nombre,apellidos,direccion,ciudad,contacto,telefono,password,rol})
+    const usuario = await Usuario.findByIdAndUpdate(id,{tipoPersona,nombre,apellidos,direccion,ciudad,contacto,telefono,password})
     usuario.password=bcryptjs.hashSync(password,salt)
+    await usuario.save()
+    const idUsuario=req.usuario._id
+    const idPut= id
+    const navegador=req.headers['user-agent']
+    const ip=req.socket.remoteAddress
+    const log= new Log({idUsuario,idPut,navegador,ip})
+    await log.save()
+
+    res.json({
+        usuario
+    })
+}
+
+
+const usuarioPutRol=async(req,res)=>{
+    const {id} =req.params
+    const {rol}=req.body
+    const usuario = await Usuario.findByIdAndUpdate(id,{rol})
     await usuario.save()
     const idUsuario=req.usuario._id
     const idPut= id
@@ -210,4 +228,4 @@ const usuarioPutDesactivar=async(req,res)=>{
 // PUT Activar usuario✅
 // PUT Inactivar usuario✅
 
-export {usuarioPost,usuarioPutdatos,usuarioPutActivar,usuarioPutDesactivar,cargarArchivoCloudPut,usuarioLogin,usuarioGetListarTodos,mostrarImagenCloud,usuarioGetListarid,usuarioGetListarNombre}
+export {usuarioPost,usuarioPutdatos,usuarioPutRol,usuarioPutActivar,usuarioPutDesactivar,cargarArchivoCloudPut,usuarioLogin,usuarioGetListarTodos,mostrarImagenCloud,usuarioGetListarid,usuarioGetListarNombre}

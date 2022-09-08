@@ -47,21 +47,36 @@ const Getrealizadopor=async(req, res)=>{
     res.json({realizadopor})
 }
 
-//PUT Modificar datos de la orden
+//PUT Modificar datos de la orden realizado por 
 
 const modificarordenPut=async(req,res)=>{
     const {id}=req.params
-    const {idMuestra,ensayo,realizado,supervisado,observaciones}=req.body
-    const Modificardatosdeorden=await Orden_del_servicio.findByIdAndUpdate(id,{idMuestra,ensayo,realizado,supervisado,observaciones})
-    const idUsuario=req.usuario._id
-    const idPost=id
-    const navegador=req.headers['user-agent']
-    const ip=req.socket.remoteAddress
-    const log=new Log({idUsuario,idPut,navegador,ip})
-    await log.save
-    res.json({
-        "msg":'Modificacion realizada con exito'
-    })
+    const orden= await Orden_del_servicio.findById(id)
+    for (let i = 0; i < orden.ensayo.length; i++) {
+        const {realizado}=req.body
+        const editar= await Orden_del_servicio.findByIdAndUpdate(id,{realizado})
+        res.json({
+            "msg":'Modificacion realizada con exito',
+            editar
+        })
+    }// falta log
+
+}
+
+//PUT Modificar datos de la orden supervisado por
+
+const modificarsupervisadoPut=async(req,res)=>{
+    const {id}=req.params
+    const orden=await Orden_del_servicio.findById(id)
+    for (let i = 0; i < orden.ensayolength; i++) {
+        const {supervisado}=req.body
+        const editar=await Orden_del_servicio.findByIdAndUpdate(id,{supervisado})
+        res.json({
+            "msg":"se ha cambiado el supervisor",
+            editar
+        })//falta log
+        
+    }
 }
 
 //PUT Activar orden
@@ -73,17 +88,18 @@ const OrdenactivarPUt=async(req,res)=>{
         "msg":"Usuario activado con exito"
     })
 }
+
 //PUT Desactivar orden
 const OrdenDesactivarPUt=async(req,res)=>{
     const {id}=req.params
-    const activar =await Orden_del_servicio.findByIdAndUpdate(id,{estado:0})
+    const desactivar =await Orden_del_servicio.findByIdAndUpdate(id,{estado:0})
     const idUsuario=req.usuario._id
     const idPut= id
     const navegador=req.headers['user-agent']
     const ip=req.socket.remoteAddress
     const log=new Log({idUsuario,idPut,navegador,ip})
     res.json({
-        "msg":"Usuario activado con exito"
+        "msg":"Usuario desactivado con exito"
     })
 }
 
@@ -102,12 +118,29 @@ const OrdenDesactivarPUt=async(req,res)=>{
 // }
 
 
+const getInformeResultados=async(req, res)=>{
+    const {id}=req.params;
+    const orden= await Orden_del_servicio.findById(id)
+    .populate({
+        path:"idMuestra",
+        populate:{
+            path:"solicitante"
+        }
+    })
+    res.json({
+        orden
+    })
+}
+
+
 export{insertarordendeservicioPost,
     listartodaslasordenesGet,
     listaridGet,
     modificarordenPut,
+    modificarsupervisadoPut,
     OrdenactivarPUt,
     OrdenDesactivarPUt,
     Getrealizadopor,
-    supervisadoGet
-    }
+    supervisadoGet,
+    getInformeResultados,
+    } 
