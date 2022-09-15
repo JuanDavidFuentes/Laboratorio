@@ -53,6 +53,7 @@ const datosMuestraPost1 = async (req, res) => {
         await coti.save()
         const nuevo = consecutivo.codMuestra + 1
         await Consecutivo.findByIdAndUpdate(consecutivo._id, { codMuestra: nuevo })
+        
         const idUsuario = req.usuario._id
         const idPost = coti._id
         const navegador = req.headers['user-agent']

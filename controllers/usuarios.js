@@ -5,9 +5,10 @@ import { v2 as cloudinary } from 'cloudinary'
 import Log from "../models/log.js"
 
 const usuarioPost=async(req,res)=>{
-    const {tipoPersona,nombre,apellidos,documento,direccion,ciudad,telefono,email,password,rol}=req.body
+    const {tipoPersona,nombre,apellidos,documento,direccion,ciudad,telefono,email,password,rol,contacto}=req.body
     const salt=bcryptjs.genSaltSync(10)
-    const usuario = new Usuario ({tipoPersona,nombre,apellidos,documento,direccion,ciudad,telefono,email,password,rol})
+    const usuario = new Usuario ({tipoPersona,nombre,apellidos,documento,direccion,ciudad,telefono,email,password,rol,contacto})
+    usuario.email=email.toUpperCase()
     usuario.password=bcryptjs.hashSync(password,salt)
     await usuario.save()
     const idUsuario=usuario._id
@@ -16,7 +17,6 @@ const usuarioPost=async(req,res)=>{
     const ip=req.socket.remoteAddress
     const log= new Log({idUsuario,idPost,navegador,ip})
     await log.save()
-
     res.json({ 
         msg:"Registro Exitoso"
     })
@@ -41,7 +41,6 @@ const usuarioPutdatos=async(req,res)=>{
     })
 }
 
-
 const usuarioPutRol=async(req,res)=>{
     const {id} =req.params
     const {rol}=req.body
@@ -53,7 +52,6 @@ const usuarioPutRol=async(req,res)=>{
     const ip=req.socket.remoteAddress
     const log= new Log({idUsuario,idPut,navegador,ip})
     await log.save()
-
     res.json({
         usuario
     })
@@ -61,8 +59,9 @@ const usuarioPutRol=async(req,res)=>{
 
 const usuarioLogin=async(req, res)=>{
     const {email, password} = req.body;
-        try {
+        try {            
             const usuario = await Usuario.findOne({ email })
+
             if (!usuario) {
                 return res.status(400).json({
                     msg: "Usuario / Password no son correctos"
@@ -79,20 +78,17 @@ const usuarioLogin=async(req, res)=>{
                     msg: "Usuario / Password no son correctos"
                 })
             }
-
             const token = await generarJWT(usuario.id);
             const idUsuario=usuario._id
             const idPost=usuario._id
             const navegador=req.headers['user-agent']
             const ip=req.socket.remoteAddress
             const log= new Log({idUsuario,idPost,navegador,ip})
-            
             await log.save()
             res.json({
                 usuario,
                 token
             })
-
         } catch (error) {
             return res.status(500).json({
                 msg: "Hable con el WebMaster"

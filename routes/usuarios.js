@@ -6,7 +6,7 @@ import { validarCampos } from "../middlewares/validar_campos.js";
 import { validarJWT } from "../middlewares/validar_jwt.js";
 import validarExistaArchivo from "../middlewares/validar_file.js";
 import HelpersCiudad from "../helpers/ciudad.js";
-const router=Router() 
+const router=Router()
 
 router.post("/",[
     check('nombre',"El nombre es obligatorio").not().isEmpty(),
@@ -20,7 +20,6 @@ router.post("/",[
     check('direccion',"Debe tener menos de 50 caracteres").isLength({max:50}),
     check('ciudad',"La ciudad es obligatoria").not().isEmpty(),
     check('ciudad').custom(HelpersCiudad.existeciudadById),
-
     check('telefono',"El telefono es obligatoro").not().isEmpty(),
     check('telefono',"Debe tener menos de 50 caracteres").isLength({max:50}),
     check('email',"Es Obligatorio").not().isEmpty(),
@@ -55,7 +54,6 @@ router.put("/datos/:id",[
 router.put("/rol/:id",[
     validarJWT,
     check('rol',"Debe tener menos de 50 caracteres").not().isEmpty(),
-
     validarCampos,
 ],usuarioPutRol)
 

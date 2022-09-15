@@ -1,5 +1,5 @@
 import {Router} from "express"
-import {insertarordendeservicioPost,getInformeResultados,listartodaslasordenesGet,listaridGet,modificarordenPut,Getrealizadopor,supervisadoGet,OrdenactivarPUt,OrdenDesactivarPUt} from "../controllers/orden_del_servicio.js";
+import {getInformeResultados,listartodaslasordenesGet,listaridGet,modificarordenPut,modificarsupervisadoPut,Getrealizadopor,supervisadoGet,OrdenactivarPUt,OrdenDesactivarPUt} from "../controllers/orden_del_servicio.js";
 import { check } from "express-validator";
 import { validarCampos } from "../middlewares/validar_campos.js";
 import { validarJWT } from "../middlewares/validar_jwt.js";
@@ -11,17 +11,21 @@ import HerlpersOdenServicio from "../helpers/oden_del_servicio.js";
  
 const router=Router()
 
+
+// Infrome de resultados
 router.get('/InformeResultados/:id',getInformeResultados)
-router.post("/insertar_orden",[
-    validarJWT,
-    check('idMuestra').isMongoId(),
-    check('idMuestra').custom(HerlpersDatosMuestra.existeDatosMuestraById),
-    check('ensayo').isMongoId(),
-    check('ensayo').custom(HerlpersEnsayo.existeEnsayoById),
-    check('realizado').isMongoId(),
-    check('realizado').custom(HerlpersUsuario.existeUsuarioById),
-    check('supervisado').isMongoId(),
-    check('supervisado').custom(HerlpersUsuario.existeUsuarioById),
+
+
+// router.post("/insertar_orden",[
+//     validarJWT,
+//     check('idMuestra').isMongoId(),
+//     check('idMuestra').custom(HerlpersDatosMuestra.existeDatosMuestraById),
+//     check('ensayo').isMongoId(),
+//     check('ensayo').custom(HerlpersEnsayo.existeEnsayoById),
+//     check('realizado').isMongoId(),
+//     check('realizado').custom(HerlpersUsuario.existeUsuarioById),
+//     check('supervisado').isMongoId(),
+//     check('supervisado').custom(HerlpersUsuario.existeUsuarioById),
     // check('tecnica','se debe agregar una tecnica').not().isEmpty(),
     // check('tecnica',"La tecnica debe tener menos de 25 caracteres").isLength({max:25}),
     // check('metodo','se debe agregar un metodo').not().isEmpty(),
@@ -30,10 +34,14 @@ router.post("/insertar_orden",[
     // check('realizado_por',"el usuario debe tener menos de 30  caracteres").isLength({max:30}),
     // check('supervisado_por',"el usuario debe tener menos de 30 caracteres").isLength({max:25}),
     // check('estado','se dede agregrar un estado').not().isEmpty(),
-    validarCampos    
-],insertarordendeservicioPost);
+//     validarCampos    
+// ],insertarordendeservicioPost);
+
+
+
  //listar todo
 router.get("/listartodo",listartodaslasordenesGet);
+
 
 //supervisado por 
 router.get("/supervisado/:id",[
@@ -66,17 +74,26 @@ router.get("/supervisado/:id",[
     validarCampos
 ],supervisadoGet)
 
-// Modificar datos de la orden 
-router.put("/editar_orden/:id",[
+// Modificar datos de la orden realizado por
+router.put("/editarRealizadoPor/:id",[
     validarJWT,
-    // check('id').isMongoId(),
-    // check('id').custom(HerlpersOdenServicio.existeOrdenById),
-    check('ensayo.realzado').isMongoId(),
-    check('ensayo').custom(HerlpersEnsayo.existeEnsayoById),
-    check('supervisado').isMongoId(),
-    check('supervisado').custom(HerlpersUsuario.existeUsuarioById),
+    check('id').isMongoId(),
+    check('id').custom(HerlpersOdenServicio.existeOrdenById),
+    check('ensayo.realizado').isMongoId(),
+    check('ensayo.realizado').custom(HerlpersUsuario.existeUsuarioById),
     validarCampos    
 ],modificarordenPut);
+
+//Modificar datos de la orden supervisado por
+
+router.put("EditarSuoervisadoDpor/:id",[
+    validarJWT,
+    check('id').isMongoId(),
+    check('id').custom(HerlpersOdenServicio.existeOrdenById),
+    check('ensayo.supervisado').isMongoId(),
+    check('ensayo.supervisado').custom(HerlpersUsuario.existeUsuarioById),
+    validarCampos
+],modificarsupervisadoPut);
 
 //Activar orden
 router.put("/activar/:id",[

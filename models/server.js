@@ -10,6 +10,7 @@ import Ciudad from "../routes/ciudad.js";
 import ordenServidor from "../routes/orden_del_servicio.js";
 import tipo_muestra from "../routes/tipo_muestra.js";
 import ensayo from "../routes/ensayo.js";
+import calidad from "../routes/calidad.js";
 
 class Server{
     constructor(){
@@ -44,6 +45,7 @@ class Server{
         this.app.use("/api/Orden_servicio",ordenServidor)
         this.app.use("/api/Tipo_muestra",tipo_muestra)
         this.app.use("/api/ensayo",ensayo)
+        this.app.use("/api/calidad",calidad)
     }
 
     listen(){

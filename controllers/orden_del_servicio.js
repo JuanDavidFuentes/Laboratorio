@@ -1,22 +1,22 @@
 import Orden_del_servicio from "../models/orden_del_servicio.js"
-import log from "../models/log.js";
+import Log from "../models/log.js";
 
 //POST insertar orden de servicio
 
- const insertarordendeservicioPost=async(req,res)=>{
-     const {idMuestra,ensayo,realizado,supervisado,observaciones}=req.body
-     const usuario = new Orden_del_servicio({idMuestra,ensayo,realizado,supervisado,observaciones})
-     await usuario.save()
-     const idUsuario=req.usuario._id
-     const idPost=usuario._id
-     const navegador=req.headers['user-agent']
-     const ip=req.socket.remoteAddress
-     const log=new Log({idUsuario,idPost,navegador,ip})
-     await log.save()
-     res.json({
-        "msg":"Se ha insertado una orden de servicio correctamente"
-     })
-    }
+//  const insertarordendeservicioPost=async(req,res)=>{
+//      const {idMuestra,ensayo,realizado,supervisado,observaciones}=req.body
+//      const usuario = new Orden_del_servicio({idMuestra,ensayo,realizado,supervisado,observaciones})
+//      await usuario.save()
+//      const idUsuario=req.usuario._id
+//      const idPost=usuario._id
+//      const navegador=req.headers['user-agent']
+//      const ip=req.socket.remoteAddress
+//      const log=new Log({idUsuario,idPost,navegador,ip})
+//      await log.save()
+//      res.json({
+//         "msg":"Se ha insertado una orden de servicio correctamente"
+//      })
+//     }
 
 //GET listar todas las ordenes del servicio
 
@@ -32,6 +32,7 @@ const listaridGet=async(req, res)=>{
     const listaridGet=await Orden_del_servicio.findById(id)
     res.json({listaridGet})
 }
+
 
 //GET supervisado-por
 const supervisadoGet=async(req, res)=>{
@@ -51,16 +52,24 @@ const Getrealizadopor=async(req, res)=>{
 
 const modificarordenPut=async(req,res)=>{
     const {id}=req.params
+    const {idensayo}=req.query
     const orden= await Orden_del_servicio.findById(id)
-    for (let i = 0; i < orden.ensayo.length; i++) {
-        const {realizado}=req.body
-        const editar= await Orden_del_servicio.findByIdAndUpdate(id,{realizado})
+    const {realizado}=req.body
+    const index= orden.ensayo.findIndex(item => item.idensayo==idensayo)
+    if (index>0){
+        orden.ensayo[index].realizado=realizado
+        const editar=await Orden_del_servicio.findByIdAndUpdate(id,{ensayo:orden.ensayo})
+        const idUsuario=req.usuario._id
+        const idPost=id
+        const navegador=req.headers['user-agent']
+        const ip=req.socket.remoteAddress
+        const log=new Log({idUsuario,idPost,navegador,ip})
+        await log.save()
         res.json({
             "msg":'Modificacion realizada con exito',
             editar
         })
-    }// falta log
-
+    }
 }
 
 //PUT Modificar datos de la orden supervisado por
@@ -71,6 +80,12 @@ const modificarsupervisadoPut=async(req,res)=>{
     for (let i = 0; i < orden.ensayolength; i++) {
         const {supervisado}=req.body
         const editar=await Orden_del_servicio.findByIdAndUpdate(id,{supervisado})
+        const idUsuario=req.usuario._id
+        const idPost=id
+        const navegador=req.headers['user-agent']
+        const ip=req.socket.remoteAddress
+        const log=new Log({idUsuario,idPost,navegador,ip})
+        await log.save()
         res.json({
             "msg":"se ha cambiado el supervisor",
             editar
@@ -83,7 +98,11 @@ const modificarsupervisadoPut=async(req,res)=>{
 const OrdenactivarPUt=async(req,res)=>{
     const {id}=req.params
     const activar =await Orden_del_servicio.findByIdAndUpdate(id,{estado:1})
-    
+    const idUsuario=req.usuario._id
+    const idPut= id
+    const navegador=req.headers['user-agent']
+    const ip=req.socket.remoteAddress
+    const log=new Log({idUsuario,idPut,navegador,ip})
     res.json({
         "msg":"Usuario activado con exito"
     })
@@ -132,9 +151,15 @@ const getInformeResultados=async(req, res)=>{
     })
 }
 
+const resultadosPut=async(req, res)=>{
+    const {id}=req.params;
+    const orden=await Orden_del_servicio.findById(id)
+    for (let i = 0; i < orden.ensayo.length; i++) {
+        const {resultado,incertidumbre}=req.body
+    }
+}
 
-export{insertarordendeservicioPost,
-    listartodaslasordenesGet,
+export{listartodaslasordenesGet,
     listaridGet,
     modificarordenPut,
     modificarsupervisadoPut,

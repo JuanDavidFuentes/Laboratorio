@@ -53,7 +53,6 @@ const crearConsecutivo =async(req, res) => {
     res.json({
         "msg":"Consecutivo Creado"
     })
-
 }
 
 const buscarPorId=async(req, res) => {
@@ -73,14 +72,32 @@ const buscarPorId=async(req, res) => {
         items
     })
 }
-
+//Listar con populate los datos del idcliente dentro de este trae "ciudad"
+//
 const listarcotizacionesGet=async(req, res)=>{
     const coti=await Cotizacion.find({estado:1})
-    .populate('idCliente')
-    .populate('idContacto')
-    .populate('elabordo_por')
+    .populate({
+        path:'idCliente',
+        populate:{
+            path:"ciudad"
+        }
+    })
+    .populate({
+        path:"idCliente",
+        populate:{
+            path:"contacto",
+            populate:{
+                path:"ciudad"
+            }
+        }
+    })
+    .populate({
+        path:'elabordo_por',
+        populate:{
+            path:"ciudad"
+        }
+    })
     res.json({coti})
-
 }
 
 const buscarPorCodigoGet=async(req, res)=>{
@@ -155,6 +172,21 @@ const desactivarPut=async(req, res)=>{
         "msg":"La cotizacion esta desactivada"
     })
 }
+const actualizarInfo=async(req, res)=>{
+    const {id}=req.params;
+    const {descripcion,nit,direccion,telefono,correo}=req.body;
+    const actualizar=await Consecutivo.findByIdAndUpdate(id,{descripcion,nit,direccion,telefono,correo})
+    const idUsuario=req.usuario._id
+    const idPut= id
+    const navegador=req.headers['user-agent']
+    const ip=req.socket.remoteAddress
+    const log=new Log({idUsuario,idPut,navegador,ip})
+    await log.save()
+    res.json({
+        "msg":"Actualizacion con exito",
+        actualizar
+    })
+}
 
 const cambiar=(numero_cotizacion)=>{
     const division=Number(numero_cotizacion.split("")[numero_cotizacion.length-1])
@@ -175,4 +207,4 @@ const cambiar=(numero_cotizacion)=>{
 // PUT Inactivar cotización +
 
 
-export {buscarPorId,cotizacionPost,listarcotizacionesGet,buscarPorCodigoGet,buscarPorIdClienteGet,editarCotizacionPut,activarPut,desactivarPut,crearConsecutivo,buscarPorIdUsuarioGet,buscarFechaGet}
+export {actualizarInfo,buscarPorId,cotizacionPost,listarcotizacionesGet,buscarPorCodigoGet,buscarPorIdClienteGet,editarCotizacionPut,activarPut,desactivarPut,crearConsecutivo,buscarPorIdUsuarioGet,buscarFechaGet}

@@ -4,7 +4,7 @@ import HerlpersCotizacion from "../helpers/cotizacion.js"
 import HerlpersDatosMuestra from "../helpers/datos-muestra.js"
 import { validarCampos } from "../middlewares/validar_campos.js";
 import { validarJWT } from "../middlewares/validar_jwt.js";
-import{DatosMuestraEnsayoMun, DatosMuestraEnsayo, datosMuestraPost1, muestraCodigoGet, listarMuestrasxIdGet, listarMuestrasGet, editarMuestraPut, activarPut, desactivarPut, buscarFechaGet} from '../controllers/datos-muestra.js'
+import{ DatosMuestraEnsayoMun, DatosMuestraEnsayo, datosMuestraPost1, muestraCodigoGet, listarMuestrasxIdGet, listarMuestrasGet, editarMuestraPut, activarPut, desactivarPut, buscarFechaGet} from '../controllers/datos-muestra.js'
 import Helperstipo_muestra from "../helpers/tipo_muestra.js";
 import HerlpersUsuario from "../helpers/usuarios.js";
 const router =Router()

@@ -4,9 +4,14 @@ import HerlpersCotizacion from "../helpers/cotizacion.js"
 import { validarCampos } from "../middlewares/validar_campos.js";
 import { validarJWT } from "../middlewares/validar_jwt.js";
 import HerlpersUsuario from "../helpers/usuarios.js";
-import {buscarPorId, activarPut, buscarFechaGet, buscarPorCodigoGet, buscarPorIdClienteGet, cotizacionPost, desactivarPut, editarCotizacionPut, listarcotizacionesGet, crearConsecutivo } from "../controllers/cotizacion.js";
+import {actualizarInfo,buscarPorId, activarPut, buscarFechaGet, buscarPorCodigoGet, buscarPorIdClienteGet, cotizacionPost, desactivarPut, editarCotizacionPut, listarcotizacionesGet, crearConsecutivo } from "../controllers/cotizacion.js";
 
 const router=Router()
+router.put('/actualizarInfo/:id',[
+    validarJWT,
+    validarCampos,
+],actualizarInfo)
+
 router.post("/",[
     validarJWT,
     check('idCliente').isMongoId(),

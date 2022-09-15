@@ -20,7 +20,9 @@ const HerlpersCotizacion = {
       if (!items.item1.costo) {
         throw new Error("El costo del item 1 es obligatorio")
       }
+      
     }
+
     for (let i = 0; i < items.item2.itemsEnsayo.length; i++){
       
       if (items.item2.itemsEnsayo[i].ensayo !="") {
@@ -38,6 +40,7 @@ const HerlpersCotizacion = {
         throw new Error("El costo del item 2 es obligatorio")
       }
     }
+
     for (let i = 0; i < items.item3.itemsEnsayo.length; i++){
       
       if (items.item3.itemsEnsayo[i].ensayo !="") {
