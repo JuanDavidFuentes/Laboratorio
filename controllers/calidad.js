@@ -1,4 +1,4 @@
-import Calidad from "../models/Calidad.js"
+import Calidad from "../models/calidad.js"
 import Log from "../models/log.js"
 
 const listadoPut=async(req,res)=>{
