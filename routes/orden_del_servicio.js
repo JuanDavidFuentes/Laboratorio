@@ -79,19 +79,19 @@ router.put("/editarRealizadoPor/:id",[
     validarJWT,
     check('id').isMongoId(),
     check('id').custom(HerlpersOdenServicio.existeOrdenById),
-    check('ensayo.realizado').isMongoId(),
-    check('ensayo.realizado').custom(HerlpersUsuario.existeUsuarioById),
+    check('realizado').isMongoId(),
+    check('realizado').custom(HerlpersUsuario.existeUsuarioById),
     validarCampos    
 ],modificarordenPut);
 
 //Modificar datos de la orden supervisado por
 
-router.put("EditarSuoervisadoDpor/:id",[
+router.put("/EditarSuoervisadoDpor/:id",[
     validarJWT,
     check('id').isMongoId(),
     check('id').custom(HerlpersOdenServicio.existeOrdenById),
-    check('ensayo.supervisado').isMongoId(),
-    check('ensayo.supervisado').custom(HerlpersUsuario.existeUsuarioById),
+    check('supervisado').isMongoId(),
+    check('supervisado').custom(HerlpersUsuario.existeUsuarioById),
     validarCampos
 ],modificarsupervisadoPut);
 

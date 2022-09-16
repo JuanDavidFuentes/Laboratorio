@@ -1,22 +1,6 @@
 import Orden_del_servicio from "../models/orden_del_servicio.js"
 import Log from "../models/log.js";
 
-//POST insertar orden de servicio
-
-//  const insertarordendeservicioPost=async(req,res)=>{
-//      const {idMuestra,ensayo,realizado,supervisado,observaciones}=req.body
-//      const usuario = new Orden_del_servicio({idMuestra,ensayo,realizado,supervisado,observaciones})
-//      await usuario.save()
-//      const idUsuario=req.usuario._id
-//      const idPost=usuario._id
-//      const navegador=req.headers['user-agent']
-//      const ip=req.socket.remoteAddress
-//      const log=new Log({idUsuario,idPost,navegador,ip})
-//      await log.save()
-//      res.json({
-//         "msg":"Se ha insertado una orden de servicio correctamente"
-//      })
-//     }
 
 //GET listar todas las ordenes del servicio
 
@@ -52,11 +36,11 @@ const Getrealizadopor=async(req, res)=>{
 
 const modificarordenPut=async(req,res)=>{
     const {id}=req.params
-    const {idensayo}=req.query
     const orden= await Orden_del_servicio.findById(id)
+    const {idensayo} = req.body
     const {realizado}=req.body
     const index= orden.ensayo.findIndex(item => item.idensayo==idensayo)
-    if (index>0){
+    if (index>=0){
         orden.ensayo[index].realizado=realizado
         const editar=await Orden_del_servicio.findByIdAndUpdate(id,{ensayo:orden.ensayo})
         const idUsuario=req.usuario._id
@@ -76,10 +60,13 @@ const modificarordenPut=async(req,res)=>{
 
 const modificarsupervisadoPut=async(req,res)=>{
     const {id}=req.params
-    const orden=await Orden_del_servicio.findById(id)
-    for (let i = 0; i < orden.ensayolength; i++) {
-        const {supervisado}=req.body
-        const editar=await Orden_del_servicio.findByIdAndUpdate(id,{supervisado})
+    const orden= await Orden_del_servicio.findById(id)
+    const {idensayo} = req.body
+    const {supervisado}=req.body
+    const index= orden.ensayo.findIndex(item => item.idensayo==idensayo)
+    if (index>=0){
+        orden.ensayo[index].supervisado=supervisado
+        const editar=await Orden_del_servicio.findByIdAndUpdate(id,{ensayo:orden.ensayo})
         const idUsuario=req.usuario._id
         const idPost=id
         const navegador=req.headers['user-agent']
@@ -87,10 +74,9 @@ const modificarsupervisadoPut=async(req,res)=>{
         const log=new Log({idUsuario,idPost,navegador,ip})
         await log.save()
         res.json({
-            "msg":"se ha cambiado el supervisor",
+            "msg":'Modificacion realizada con exito',
             editar
-        })//falta log
-        
+        })
     }
 }
 
@@ -143,8 +129,50 @@ const getInformeResultados=async(req, res)=>{
     .populate({
         path:"idMuestra",
         populate:{
-            path:"solicitante"
+            path:"solicitante",
+            populate:{
+                path:"ciudad"
+            }
         }
+    })
+    .populate({
+        path:"idMuestra",
+        populate:{
+            path:"munRecoleccion"
+        }
+    })
+    .populate({
+        path:"idMuestra",
+        populate:{
+            path:"tipoMuestra"
+        }
+    })
+    .populate({
+        path:"idMuestra",
+        populate:{
+            path:"solicitante",
+            populate:{
+                path:"contacto",
+                populate:{
+                    path:"ciudad"
+                }
+            }
+        }
+    })
+    .populate({
+        path:"idMuestra",
+        populate:{
+            path:"cotizacion"
+        }
+    })
+    .populate({
+        path:"ensayo.idensayo"
+    })
+    .populate({
+        path:"ensayo.realizado"
+    })
+    .populate({
+        path:"ensayo.supervisado"
     })
     res.json({
         orden

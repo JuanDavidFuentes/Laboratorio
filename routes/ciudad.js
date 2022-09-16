@@ -1,11 +1,23 @@
 import {Router} from "express"
-import {ciudadPut,ciudadesdepartamentoGet,ciudadGetListarTodos,buscarCiudadCodigoGet,buscarCiudadNombreGet,buscarDepartamentoNombreGet} from "../controllers/ciudad.js"
+import {ciudadPut,ciudadesdepartamentoGet,ciudadGetListarTodos,buscarCiudadCodigoGet,buscarCiudadNombreGet,buscarDepartamentoNombreGet,ciudadPost} from "../controllers/ciudad.js"
 import { check } from "express-validator";
 import { validarCampos } from "../middlewares/validar_campos.js";
 import { validarJWT } from "../middlewares/validar_jwt.js";
 import HelpersCiudad from "../helpers/ciudad.js"
 
 const router=Router() 
+
+router.post("/",[
+    validarJWT,
+    check('coddepartamento',"El coddepartamento es obligatorio").not().isEmpty(),
+    check('coddepartamento').isNumeric(),
+    check('departamento',"El departamento es obligatorio").not().isEmpty(),
+    check('ciudad',"La ciudad es obligatoria").not().isEmpty(),
+    check('codciudad',"El codciudad es obligatorio").not().isEmpty(),
+    check('codciudad').isNumeric(),
+    check('codciudad').custom(HelpersCiudad.existeciudadPorCodigo),
+    validarCampos,
+],ciudadPost)
 
 router.put("/:id",[
     validarJWT,
@@ -24,17 +36,18 @@ router.get("/departamento",[
 ],ciudadesdepartamentoGet)
 
 router.get("/ciudadnombre",[
-    check('codciudad',"el codigo de la ciudad es obligatorio").not().isEmpty(),
-    check('codciudad').custom(HelpersCiudad.existeciudadById)
+    check('ciudad',"el nombre de la ciudad es obligatorio").not().isEmpty(),
+    validarCampos
 ],buscarCiudadNombreGet)
 
 router.get("/departamentonombre",[
-    check('departamento',"El nombre del departamento es requerido")
+    check('departamento',"El nombre del departamento es requerido").not().isEmpty(),
+    validarCampos
 ],buscarDepartamentoNombreGet)
 
 router.get("/municipio",[
-check('ciudad',"La ciudad es obligatoria").not().isEmpty(),
-validarCampos
+    check('codciudad',"La ciudad es obligatoria").not().isEmpty(),
+    validarCampos
 ],buscarCiudadCodigoGet)
 
 export default router

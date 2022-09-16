@@ -6,7 +6,7 @@ const ciudadPost=async(req,res)=>{
     const ciudadPost = new Ciudad ({coddepartamento,departamento,ciudad,codciudad})
     await ciudadPost.save()
     const idUsuario=req.usuario._id
-    const idPost=coti._id
+    const idPost=ciudadPost._id
     const navegador=req.headers['user-agent']
     const ip=req.socket.remoteAddress
     const log= new Log({idUsuario,idPost,navegador,ip})
@@ -21,6 +21,12 @@ const ciudadPut=async(req,res)=>{
     const {id}=req.params
     const {coddepartamento,departamento,ciudad,codciudad}=req.body
     const ciudadPut=await Ciudad.findByIdAndUpdate(id,{coddepartamento,departamento,ciudad,codciudad})
+    const idUsuario=req.usuario._id
+    const idPut=id
+    const navegador=req.headers['user-agent']
+    const ip=req.socket.remoteAddress
+    const log= new Log({idUsuario,idPut,navegador,ip})
+    await log.save()
     res.json({
         "msg":`Actualizacion Exitosa!${ciudadPut}`
     })
@@ -58,6 +64,7 @@ const buscarDepartamentoNombreGet=async(req,res)=>{
     ) 
     res.json({departamentos})
 }
+
 const buscarCiudadNombreGet=async(req,res)=>{
     const {ciudad}=req.query;
     const ciudades = await Ciudad.find(
@@ -66,9 +73,6 @@ const buscarCiudadNombreGet=async(req,res)=>{
             $or: [
                 { ciudad: new RegExp(ciudad, "i") },
             ],
-            $or:[
-                {c}
-            ]
         }
     ) 
     res.json({ciudades})

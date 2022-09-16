@@ -213,10 +213,9 @@ const listarMuestrasGet = async (req, res) => {
 }
 
 const editarMuestraPut = async (req, res) => {
-    const { solicitante, codMuestra, munRecoleccion, direccionTomaMuestra, lugarTomaMuestra, muestraRecolectadaPor, procedimientoMuestreo, tipoMuestra, matrizMuestra, fechaRecoleccion, cotizacion, item, estado } = req.body;
     const { id } = req.params;
-    const editar = await DatosMuestra.findByIdAndUpdate(id, {solicitante, codMuestra, munRecoleccion, direccionTomaMuestra, lugarTomaMuestra, muestraRecolectadaPor, procedimientoMuestreo, tipoMuestra, matrizMuestra, fechaRecoleccion, cotizacion, item, estado  })
-    
+    const desactivar = await Orden_del_servicio.findByIdAndUpdate(id, { estado: 0 })    
+    const desactivarM =  await DatosMuestra.findByIdAndUpdate(desactivar.idMuestra, {estado:0})
     const idUsuario = req.usuario._id
     const idPut = id
     const navegador = req.headers['user-agent']
@@ -224,14 +223,14 @@ const editarMuestraPut = async (req, res) => {
     const log = new Log({ idUsuario, idPut, navegador, ip })
     await log.save()
     res.json({
-        "msg": "Datos de la muestra editada con exito",
-        editar
+        "msg": "Vuelve a activar la muestra",
     })
 }
 
 const activarPut = async (req, res) => {
     const { id } = req.params;
-    const activar = await DatosMuestra.findByIdAndUpdate(id, { estado: 1 })
+    const desactivar = await Orden_del_servicio.findByIdAndUpdate(id, { estado: 1 })    
+    const desactivarM =  await DatosMuestra.findByIdAndUpdate(desactivar.idMuestra, {estado:1})
     const idUsuario = req.usuario._id
     const idPut = id
     const navegador = req.headers['user-agent']
@@ -239,24 +238,9 @@ const activarPut = async (req, res) => {
     const log = new Log({ idUsuario, idPut, navegador, ip })
     await log.save()
     res.json({
-        "msg": "La cotizacion esta activado"
+        "msg": "Muestra activada",
     })
 }
-
-const desactivarPut = async (req, res) => {
-    const { id } = req.params;
-    const desactivar = await DatosMuestra.findByIdAndUpdate(id, { estado: 0 })
-    const idUsuario = req.usuario._id
-    const idPut = id
-    const navegador = req.headers['user-agent']
-    const ip = req.socket.remoteAddress
-    const log = new Log({ idUsuario, idPut, navegador, ip })
-    await log.save()
-    res.json({
-        "msg": "La cotizacion esta desactivado"
-    })
-}
-
 
 
 // GET Listar todas las muestras YA
@@ -267,4 +251,4 @@ const desactivarPut = async (req, res) => {
 // PUT Activar muestra YA 
 // PUT Inactivar muestra YA
 
-export { datosMuestraPost1, muestraCodigoGet, listarMuestrasGet, listarMuestrasxIdGet, editarMuestraPut, activarPut, desactivarPut, buscarFechaGet, DatosMuestraEnsayo, DatosMuestraEnsayoMun }
+export { datosMuestraPost1, muestraCodigoGet, listarMuestrasGet, listarMuestrasxIdGet, editarMuestraPut, activarPut, buscarFechaGet, DatosMuestraEnsayo, DatosMuestraEnsayoMun }

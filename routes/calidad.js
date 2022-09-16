@@ -5,9 +5,9 @@ import { validarCampos } from "../middlewares/validar_campos.js";
 import { validarJWT } from "../middlewares/validar_jwt.js";
 
 const router=Router() 
-router.put("/calidadPut",[
 
-],listadoPut)
+//post
+router.put("/calidadPut/id:",listadoPut)
 
 router.get("/listar",listarGet)
 
