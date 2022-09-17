@@ -1,6 +1,14 @@
 import Calidad from "../models/calidad.js"
 import Log from "../models/log.js"
 
+
+const listadoPost=async(req,res)=>{
+    const {ListadoMuestras,InformeResultado,RecepcionMuestras,OrdenServicio,InstructivoTomaMuestras,Seguimiento,OfertaServicios}=req.body;
+    const listado = new Calidad ({ListadoMuestras,InformeResultado,RecepcionMuestras,OrdenServicio,InstructivoTomaMuestras,Seguimiento,OfertaServicios})
+    await listado.save()
+    res.json(listado)
+}
+
 const listadoPut=async(req,res)=>{
     const {id}=req.params
     const {listadoMuestras,InformeResultado,RecepcionMuestras,OrdenServicio,InstructivoTomaMuestras,Seguimiento,OfertaServicios}=req.body
@@ -25,4 +33,4 @@ const listarGet=async(req, res)=>{
 }
 
 
-export{listadoPut,listarGet}
+export{listadoPut,listarGet,listadoPost}
