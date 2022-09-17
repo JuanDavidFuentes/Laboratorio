@@ -66,6 +66,7 @@ router.post("/login",[
 
 router.get("/",[
     validarJWT,
+    validarCampos
 ],usuarioGetListarTodos)
 
 router.get("/listar/:id",[
