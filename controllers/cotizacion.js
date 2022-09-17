@@ -1,6 +1,16 @@
 import Cotizacion from "../models/cotizacion.js";
 import Consecutivo from "../models/consecutivo.js";
 import Log from "../models/log.js";
+import calidad from "../models/calidad.js";
+
+
+
+const infoCali=async(req,res)=>{
+    const info= await Consecutivo.find()
+    res.json({
+        info
+    })
+}
 
 ///ej: 0001-2022V1 
 const numeros=(numero_cotizacion)=>{
@@ -207,4 +217,4 @@ const cambiar=(numero_cotizacion)=>{
 // PUT Inactivar cotización +
 
 
-export {actualizarInfo,buscarPorId,cotizacionPost,listarcotizacionesGet,buscarPorCodigoGet,buscarPorIdClienteGet,editarCotizacionPut,activarPut,desactivarPut,crearConsecutivo,buscarPorIdUsuarioGet,buscarFechaGet}
+export {infoCali,actualizarInfo,buscarPorId,cotizacionPost,listarcotizacionesGet,buscarPorCodigoGet,buscarPorIdClienteGet,editarCotizacionPut,activarPut,desactivarPut,crearConsecutivo,buscarPorIdUsuarioGet,buscarFechaGet}

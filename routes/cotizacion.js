@@ -1,75 +1,77 @@
-import {Router} from "express"
+import { Router } from "express"
 import { check } from "express-validator";
 import HerlpersCotizacion from "../helpers/cotizacion.js"
 import { validarCampos } from "../middlewares/validar_campos.js";
 import { validarJWT } from "../middlewares/validar_jwt.js";
 import HerlpersUsuario from "../helpers/usuarios.js";
-import {actualizarInfo,buscarPorId, activarPut, buscarFechaGet, buscarPorCodigoGet, buscarPorIdClienteGet, cotizacionPost, desactivarPut, editarCotizacionPut, listarcotizacionesGet, crearConsecutivo } from "../controllers/cotizacion.js";
+import { infoCali, actualizarInfo, buscarPorId, activarPut, buscarFechaGet, buscarPorCodigoGet, buscarPorIdClienteGet, cotizacionPost, desactivarPut, editarCotizacionPut, listarcotizacionesGet, crearConsecutivo } from "../controllers/cotizacion.js";
 
-const router=Router()
-router.put('/actualizarInfo/:id',[
+const router = Router()
+router.put('/actualizarInfo/:id', [
     validarJWT,
     validarCampos,
-],actualizarInfo)
+], actualizarInfo)
 
-router.post("/",[
+router.get('/traerInfo',infoCali)
+
+router.post("/", [
     validarJWT,
     check('idCliente').isMongoId(),
     check('idCliente').custom(HerlpersUsuario.existeUsuarioById),
     check('idContacto').isMongoId(),
     check('idContacto').custom(HerlpersUsuario.existeUsuarioById),
-    check('validez_oferta',"La fecha es obligatoria").not().isEmpty(),
-    check('validez_oferta',"Debe de ser tipo fecha").isDate(),
-    check('entrega_resultados',"La fecha es obligatoria").not().isEmpty(),
-    check('entrega_resultados',"Debe de ser tipo fecha").isDate(),
+    check('validez_oferta', "La fecha es obligatoria").not().isEmpty(),
+    check('validez_oferta', "Debe de ser tipo fecha").isDate(),
+    check('entrega_resultados', "La fecha es obligatoria").not().isEmpty(),
+    check('entrega_resultados', "Debe de ser tipo fecha").isDate(),
     check('elabordo_por').isMongoId(),
     check('elabordo_por').custom(HerlpersUsuario.existeUsuarioById),
     check('items').custom(HerlpersCotizacion.items),
-    check('observaciones',"Las observaciones es obligatoria"),
-    check('subtotal',"El subtotal es obligatoro").not().isEmpty(),
-    check('subtotal',"El subtotal debe de ser numerico").isNumeric(),
-    check('descuento',"El descuento es obligatoro").not().isEmpty(),
-    check('descuento',"El descuento debe de ser numerico").isNumeric(),
-    check('iva',"El iva es obligatoro").not().isEmpty(),
-    check('iva',"El iva debe de ser numerico").isNumeric(),
-    check('total','El total es obligatoro').not().isEmpty(),
-    check('total',"El total debe de ser numerico").isNumeric(),
+    check('observaciones', "Las observaciones es obligatoria"),
+    check('subtotal', "El subtotal es obligatoro").not().isEmpty(),
+    check('subtotal', "El subtotal debe de ser numerico").isNumeric(),
+    check('descuento', "El descuento es obligatoro").not().isEmpty(),
+    check('descuento', "El descuento debe de ser numerico").isNumeric(),
+    check('iva', "El iva es obligatoro").not().isEmpty(),
+    check('iva', "El iva debe de ser numerico").isNumeric(),
+    check('total', 'El total es obligatoro').not().isEmpty(),
+    check('total', "El total debe de ser numerico").isNumeric(),
     validarCampos
-],cotizacionPost);
+], cotizacionPost);
 
-router.get('/a',buscarFechaGet)
+router.get('/a', buscarFechaGet)
 
-router.get('/listarTodasLasCotizaciones',listarcotizacionesGet)
+router.get('/listarTodasLasCotizaciones', listarcotizacionesGet)
 
-router.post('/CrearConsecutivo',[
+router.post('/CrearConsecutivo', [
     validarJWT,
-    check('numero_cotizacion',"El numero de cotizacion es requerido").not().isEmpty(),
+    check('numero_cotizacion', "El numero de cotizacion es requerido").not().isEmpty(),
     validarCampos
-],crearConsecutivo)
+], crearConsecutivo)
 
 // router.get('/',buscarPorId) //ruta de andres
 
-router.get('/listarporIdCoti/:id',[
+router.get('/listarporIdCoti/:id', [
     validarJWT,
     check('id').isMongoId(),
     check('id').custom(HerlpersCotizacion.existeCotizacionById),
-],buscarPorId)
+], buscarPorId)
 
-router.get('/buscarCodigo',[
+router.get('/buscarCodigo', [
     validarJWT,
-    check('numero_cotizacion',"El numero de cotizacion es requerido").not().isEmpty(),
+    check('numero_cotizacion', "El numero de cotizacion es requerido").not().isEmpty(),
     check('numero_cotizacion').custom(HerlpersCotizacion.existeNumeroCotizacion),
     validarCampos
-],buscarPorCodigoGet)
+], buscarPorCodigoGet)
 
-router.get('/buscarNombre/:id',[
+router.get('/buscarNombre/:id', [
     validarJWT,
     check('id').isMongoId(),
     check('id').custom(HerlpersUsuario.existeUsuarioById),
     validarCampos
-],buscarPorIdClienteGet)
+], buscarPorIdClienteGet)
 
-router.put("/:id",[
+router.put("/:id", [
     validarJWT,
     check('id').isMongoId(),
     check('id').custom(HerlpersCotizacion.existeCotizacionById),
@@ -77,37 +79,37 @@ router.put("/:id",[
     check('idCliente').custom(HerlpersUsuario.existeUsuarioById),
     check('idContacto').isMongoId(),
     check('idContacto').custom(HerlpersUsuario.existeUsuarioById),
-    check('validez_oferta',"La fecha es obligatoria").not().isEmpty(),
-    check('validez_oferta',"Debe de ser tipo fecha").isDate(),
-    check('entrega_resultados',"La fecha es obligatoria").not().isEmpty(),
-    check('entrega_resultados',"Debe de ser tipo fecha").isDate(),
+    check('validez_oferta', "La fecha es obligatoria").not().isEmpty(),
+    check('validez_oferta', "Debe de ser tipo fecha").isDate(),
+    check('entrega_resultados', "La fecha es obligatoria").not().isEmpty(),
+    check('entrega_resultados', "Debe de ser tipo fecha").isDate(),
     check('elabordo_por').isMongoId(),
     check('elabordo_por').custom(HerlpersUsuario.existeUsuarioById),
     check('items').custom(HerlpersCotizacion.items),
-    check('observaciones',"Las observaciones es obligatoria"),
-    check('subtotal',"El subtotal es obligatoro").not().isEmpty(),
-    check('subtotal',"El subtotal debe de ser numerico").isNumeric(),
-    check('descuento',"El descuento es obligatoro").not().isEmpty(),
-    check('descuento',"El descuento debe de ser numerico").isNumeric(),
-    check('iva',"El iva es obligatoro").not().isEmpty(),
-    check('iva',"El iva debe de ser numerico").isNumeric(),
-    check('total','El total es obligatoro').not().isEmpty(),
-    check('total',"El total debe de ser numerico").isNumeric(),
+    check('observaciones', "Las observaciones es obligatoria"),
+    check('subtotal', "El subtotal es obligatoro").not().isEmpty(),
+    check('subtotal', "El subtotal debe de ser numerico").isNumeric(),
+    check('descuento', "El descuento es obligatoro").not().isEmpty(),
+    check('descuento', "El descuento debe de ser numerico").isNumeric(),
+    check('iva', "El iva es obligatoro").not().isEmpty(),
+    check('iva', "El iva debe de ser numerico").isNumeric(),
+    check('total', 'El total es obligatoro').not().isEmpty(),
+    check('total', "El total debe de ser numerico").isNumeric(),
     validarCampos
-],editarCotizacionPut);
+], editarCotizacionPut);
 
-router.put('/activar/:id',[
+router.put('/activar/:id', [
     validarJWT,
     check('id').isMongoId(),
     check('id').custom(HerlpersCotizacion.existeCotizacionById),
     validarCampos
-],activarPut)
+], activarPut)
 
-router.put('/desactivar/:id',[
+router.put('/desactivar/:id', [
     validarJWT,
     check('id').isMongoId(),
     check('id').custom(HerlpersCotizacion.existeCotizacionById),
     validarCampos
-],desactivarPut)
+], desactivarPut)
 
 export default router;
