@@ -1,5 +1,5 @@
 import {Router} from "express"
-import {usuarioPost,usuarioPutdatos,usuarioPutActivar,usuarioPutRol,cargarArchivoCloudPut,mostrarImagenCloud,usuarioPutDesactivar,usuarioLogin,usuarioGetListarTodos,usuarioGetListarid,usuarioGetListarNombre} from "../controllers/usuarios.js"
+import {usuarioGetListarTodosClientes,usuarioPost,usuarioPutdatos,usuarioPutActivar,usuarioPutRol,cargarArchivoCloudPut,mostrarImagenCloud,usuarioPutDesactivar,usuarioLogin,usuarioGetListarTodos,usuarioGetListarid,usuarioGetListarNombre} from "../controllers/usuarios.js"
 import { check } from "express-validator";
 import HerlpersUsuario from "../helpers/usuarios.js";
 import { validarCampos } from "../middlewares/validar_campos.js";
@@ -68,6 +68,11 @@ router.get("/",[
     validarJWT,
     validarCampos
 ],usuarioGetListarTodos)
+
+router.get("/listarClientes",[
+    validarJWT,
+    validarCampos
+],usuarioGetListarTodosClientes)
 
 router.get("/listar/:id",[
     validarJWT,

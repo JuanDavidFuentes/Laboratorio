@@ -103,6 +103,13 @@ const usuarioGetListarTodos=async(req,res)=>{
     })
 }
 
+const usuarioGetListarTodosClientes=async(req,res)=>{
+    const usuarios= await Usuario.find({rol:"CLIENTE"})
+    res.json({
+        usuarios
+    })
+}
+
 const usuarioGetListarid=async(req,res)=>{
     const {id}=req.params
     const usuario =await Usuario.findOne({id})
@@ -224,4 +231,4 @@ const usuarioPutDesactivar=async(req,res)=>{
 // PUT Activar usuario✅
 // PUT Inactivar usuario✅
 
-export {usuarioPost,usuarioPutdatos,usuarioPutRol,usuarioPutActivar,usuarioPutDesactivar,cargarArchivoCloudPut,usuarioLogin,usuarioGetListarTodos,mostrarImagenCloud,usuarioGetListarid,usuarioGetListarNombre}
+export {usuarioGetListarTodosClientes,usuarioPost,usuarioPutdatos,usuarioPutRol,usuarioPutActivar,usuarioPutDesactivar,cargarArchivoCloudPut,usuarioLogin,usuarioGetListarTodos,mostrarImagenCloud,usuarioGetListarid,usuarioGetListarNombre}
