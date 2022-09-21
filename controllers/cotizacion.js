@@ -205,6 +205,10 @@ const cambiar=(numero_cotizacion)=>{
     return cambio   
 }
 
+const ListarConsecutivo=async(req, res)=>{
+    const consecutivo=await Consecutivo.find()
+    res.json({consecutivo})
+}
 // API COTIZACIÓN: debe permitir: 
 // GET Listar todas las cotizaciones ++++++++++++
 // GET Buscar cotización por Num Cotización +++++++++
@@ -217,4 +221,4 @@ const cambiar=(numero_cotizacion)=>{
 // PUT Inactivar cotización +
 
 
-export {infoCali,actualizarInfo,buscarPorId,cotizacionPost,listarcotizacionesGet,buscarPorCodigoGet,buscarPorIdClienteGet,editarCotizacionPut,activarPut,desactivarPut,crearConsecutivo,buscarPorIdUsuarioGet,buscarFechaGet}
+export {ListarConsecutivo,infoCali,actualizarInfo,buscarPorId,cotizacionPost,listarcotizacionesGet,buscarPorCodigoGet,buscarPorIdClienteGet,editarCotizacionPut,activarPut,desactivarPut,crearConsecutivo,buscarPorIdUsuarioGet,buscarFechaGet}

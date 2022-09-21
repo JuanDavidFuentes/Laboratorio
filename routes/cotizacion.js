@@ -4,7 +4,7 @@ import HerlpersCotizacion from "../helpers/cotizacion.js"
 import { validarCampos } from "../middlewares/validar_campos.js";
 import { validarJWT } from "../middlewares/validar_jwt.js";
 import HerlpersUsuario from "../helpers/usuarios.js";
-import { infoCali, actualizarInfo, buscarPorId, activarPut, buscarFechaGet, buscarPorCodigoGet, buscarPorIdClienteGet, cotizacionPost, desactivarPut, editarCotizacionPut, listarcotizacionesGet, crearConsecutivo } from "../controllers/cotizacion.js";
+import {ListarConsecutivo, infoCali, actualizarInfo, buscarPorId, activarPut, buscarFechaGet, buscarPorCodigoGet, buscarPorIdClienteGet, cotizacionPost, desactivarPut, editarCotizacionPut, listarcotizacionesGet, crearConsecutivo } from "../controllers/cotizacion.js";
 
 const router = Router()
 router.put('/actualizarInfo/:id', [
@@ -13,6 +13,8 @@ router.put('/actualizarInfo/:id', [
 ], actualizarInfo)
 
 router.get('/traerInfo',infoCali)
+
+router.get('/traerConsecutivo',ListarConsecutivo)
 
 router.post("/", [
     validarJWT,
