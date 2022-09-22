@@ -14,10 +14,8 @@ const UsuarioSchema= new mongoose.Schema({
     email:{type:String,required:true,unique:true},
     password:{type:String,required:true,minlength:8},
 
-    
     rol: { type: String,default:"CLIENTE"},
-    //ADMIN,TECNICO,SUPERVISOR,CIENTIFICO,RECEPCIONISTA
-
+    //ADMIN,TECNICO,SUPERVISOR,CIENTIFICO,RECEPCIONISTA,CONTACTO
     foto:{type: String},
     estado:{type:Number,default:1},
     createdAt:{type:Date,default:Date.now()}

@@ -184,8 +184,8 @@ const desactivarPut=async(req, res)=>{
 }
 const actualizarInfo=async(req, res)=>{
     const {id}=req.params;
-    const {descripcion,nit,direccion,telefono,correo}=req.body;
-    const actualizar=await Consecutivo.findByIdAndUpdate(id,{descripcion,nit,direccion,telefono,correo})
+    const {numero_cotizacion,informe_No,codMuestra,iva,descripcion,nit,direccion,telefono,correo}=req.body;
+    const actualizar=await Consecutivo.findByIdAndUpdate(id,{numero_cotizacion,informe_No,codMuestra,iva,descripcion,nit,direccion,telefono,correo})
     const idUsuario=req.usuario._id
     const idPut= id
     const navegador=req.headers['user-agent']
