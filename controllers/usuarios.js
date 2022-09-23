@@ -98,6 +98,9 @@ const usuarioLogin=async(req, res)=>{
 
 const usuarioGetListarTodos=async(req,res)=>{
     const usuarios= await Usuario.find()
+    .populate({
+        path:"ciudad",
+    })
     res.json({
         usuarios
     })
@@ -105,6 +108,15 @@ const usuarioGetListarTodos=async(req,res)=>{
 
 const usuarioGetListarTodosClientes=async(req,res)=>{
     const usuarios= await Usuario.find({rol:"CLIENTE"})
+    .populate({
+        path:"ciudad",
+    })
+    .populate({
+        path:"contacto",
+        populate:{
+            path:"ciudad"
+        }
+    })
     res.json({
         usuarios
     })
