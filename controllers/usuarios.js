@@ -5,9 +5,9 @@ import { v2 as cloudinary } from 'cloudinary'
 import Log from "../models/log.js"
 
 const usuarioPost=async(req,res)=>{
-    const {tipoPersona,nombre,apellidos,documento,direccion,ciudad,telefono,email,password,rol,contacto}=req.body
+    const {tipoPersona,nombre,apellidos,documento,direccion,ciudad,celular,telefono,cargo,email,password,rol,contacto}=req.body
     const salt=bcryptjs.genSaltSync(10)
-    const usuario = new Usuario ({tipoPersona,nombre,apellidos,documento,direccion,ciudad,telefono,email,password,rol,contacto})
+    const usuario = new Usuario ({tipoPersona,nombre,apellidos,documento,direccion,ciudad,celular,telefono,cargo,email,password,rol,contacto})
     usuario.email=email.toUpperCase()
     usuario.password=bcryptjs.hashSync(password,salt)
     await usuario.save()

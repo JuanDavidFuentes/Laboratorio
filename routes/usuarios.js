@@ -20,7 +20,7 @@ router.post("/",[
     check('direccion',"Debe tener menos de 50 caracteres").isLength({max:50}),
     check('ciudad',"La ciudad es obligatoria").not().isEmpty(),
     check('ciudad').custom(HelpersCiudad.existeciudadById),
-    check('celular',"El Celular es obligatoro").not().isEmpty(),
+    check('celular',"El celular es obligatoro").not().isEmpty(),
     check('celular',"Debe tener menos de 50 caracteres").isLength({max:50}),
     check('email',"Es Obligatorio").not().isEmpty(),
     check('email',"No es un email valido").isEmail(),
