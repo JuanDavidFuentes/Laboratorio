@@ -12,6 +12,13 @@ const infoCali=async(req,res)=>{
     })
 }
 
+const Bitacora=async(req,res)=>{
+    const bitacora= await Log.find()
+    res.json({
+        bitacora
+    })
+}
+
 ///ej: 0001-2022V1 
 const numeros=(numero_cotizacion)=>{
     if(numero_cotizacion){
@@ -221,4 +228,4 @@ const ListarConsecutivo=async(req, res)=>{
 // PUT Inactivar cotización +
 
 
-export {ListarConsecutivo,infoCali,actualizarInfo,buscarPorId,cotizacionPost,listarcotizacionesGet,buscarPorCodigoGet,buscarPorIdClienteGet,editarCotizacionPut,activarPut,desactivarPut,crearConsecutivo,buscarPorIdUsuarioGet,buscarFechaGet}
+export {Bitacora,ListarConsecutivo,infoCali,actualizarInfo,buscarPorId,cotizacionPost,listarcotizacionesGet,buscarPorCodigoGet,buscarPorIdClienteGet,editarCotizacionPut,activarPut,desactivarPut,crearConsecutivo,buscarPorIdUsuarioGet,buscarFechaGet}
