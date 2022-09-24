@@ -14,7 +14,7 @@ router.put('/actualizarInfo/:id', [
 
 router.get('/traerInfo',infoCali)
 
-router.get('/traerInfo',Bitacora)
+router.get('/traerBitacora',Bitacora)
 
 router.get('/traerConsecutivo',ListarConsecutivo)
 
