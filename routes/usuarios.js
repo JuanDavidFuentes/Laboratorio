@@ -24,9 +24,9 @@ router.post("/",[
     check('celular',"Debe tener menos de 50 caracteres").isLength({max:50}),
     check('email',"Es Obligatorio").not().isEmpty(),
     check('email',"No es un email valido").isEmail(),
+    check('email').custom(HerlpersUsuario.existeEmail),
     check('password',"Es Obligatorio").not().isEmpty(),
     check('password',"Debe tener mas de 8 caracteres").isLength({min:6}),
-    check('email').custom(HerlpersUsuario.existeEmail),
     validarCampos,
 ],usuarioPost);
 
