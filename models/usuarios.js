@@ -10,7 +10,9 @@ const UsuarioSchema= new mongoose.Schema({
 
     departamento: { type: mongoose.Schema.ObjectId, ref: "Ciudad"},
     contacto: {type: mongoose.Schema.ObjectId, ref: "Usuario"},
-    telefono:{type:String,maxlength:50,required:true},
+    celular:{type:String,maxlength:50,required:true},
+    telefono:{type:String},
+    cargo:{type:String},
     email:{type:String,required:true,unique:true},
     password:{type:String,required:true,minlength:8},
 
