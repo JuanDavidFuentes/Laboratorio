@@ -18,7 +18,8 @@ const usuarioPost=async(req,res)=>{
     const log= new Log({idUsuario,idPost,navegador,ip})
     await log.save()
     res.json({ 
-        msg:"Registro Exitoso"
+        msg:"Registro Exitoso",
+        usuario
     })
 }
 
