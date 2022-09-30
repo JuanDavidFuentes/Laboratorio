@@ -107,6 +107,16 @@ const usuarioGetListarTodos=async(req,res)=>{
     })
 }
 
+const usuarioGetListarTodosContactos=async(req,res)=>{
+    const usuarios= await Usuario.find({rol:"CONTACTO"})
+    .populate({
+        path:"ciudad",
+    })
+    res.json({
+        usuarios
+    })
+}
+
 const usuarioGetListarTodosClientes=async(req,res)=>{
     const usuarios= await Usuario.find({rol:"CLIENTE"})
     .populate({
@@ -244,4 +254,4 @@ const usuarioPutDesactivar=async(req,res)=>{
 // PUT Activar usuario✅
 // PUT Inactivar usuario✅
 
-export {usuarioGetListarTodosClientes,usuarioPost,usuarioPutdatos,usuarioPutRol,usuarioPutActivar,usuarioPutDesactivar,cargarArchivoCloudPut,usuarioLogin,usuarioGetListarTodos,mostrarImagenCloud,usuarioGetListarid,usuarioGetListarNombre}
+export {usuarioGetListarTodosContactos,usuarioGetListarTodosClientes,usuarioPost,usuarioPutdatos,usuarioPutRol,usuarioPutActivar,usuarioPutDesactivar,cargarArchivoCloudPut,usuarioLogin,usuarioGetListarTodos,mostrarImagenCloud,usuarioGetListarid,usuarioGetListarNombre}
