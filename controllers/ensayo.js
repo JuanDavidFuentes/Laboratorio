@@ -62,6 +62,18 @@ const ensayoPutDesactivar=async(req,res)=>{
 
 const ensayoGetTodos=async(req,res)=>{
     const ensayo= await Ensayo.find()
+    .populate({
+        path:"titular",
+        populate:{
+            path:"ciudad"
+        }
+    })
+    .populate({
+        path:"suplente",
+        populate:{
+            path:"ciudad"
+        }
+    })
     res.json({
         ensayo
     }) 
