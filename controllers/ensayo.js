@@ -65,7 +65,7 @@ const ensayoGetTodos=async(req,res)=>{
     .populate({
         path:"titular",
         populate:{
-            path:"ciudad"
+            path:"ciudad"    
         }
     })
     .populate({
