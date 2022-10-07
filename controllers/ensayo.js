@@ -63,13 +63,13 @@ const ensayoPutDesactivar=async(req,res)=>{
 const ensayoGetTodos=async(req,res)=>{
     const ensayo= await Ensayo.find()
     .populate({
-        path:"titular",
+        path:"responsables.titular",
         populate:{
             path:"ciudad"    
         }
     })
     .populate({        
-        path:"suplente",
+        path:"responsables.suplente",
         populate:{
             path:"ciudad"
         }
