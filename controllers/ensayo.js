@@ -68,7 +68,7 @@ const ensayoGetTodos=async(req,res)=>{
             path:"ciudad"    
         }
     })
-    .populate({
+    .populate({        
         path:"suplente",
         populate:{
             path:"ciudad"
