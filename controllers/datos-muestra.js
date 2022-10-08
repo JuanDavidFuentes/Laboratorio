@@ -182,7 +182,8 @@ const datosMuestraPost1 = async (req, res) => {
         }
 
         res.json({
-            "msg": "Datos Muestra creada exitosamente."
+            "msg": "Datos Muestra creada exitosamente.",
+            coti
         })
     }
 }
