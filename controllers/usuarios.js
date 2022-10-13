@@ -25,9 +25,9 @@ const usuarioPost=async(req,res)=>{
 
 const usuarioPutdatos=async(req,res)=>{
     const {id} =req.params
-    const {tipoPersona,nombre,apellidos,direccion,ciudad,contacto,telefono,password}=req.body
+    const {tipoPersona,nombre,apellidos,documento,direccion,ciudad,celular,telefono,cargo,email,password,rol,contacto}=req.body
     let salt=bcryptjs.genSaltSync(10)
-    const usuario = await Usuario.findByIdAndUpdate(id,{tipoPersona,nombre,apellidos,direccion,ciudad,contacto,telefono,password})
+    const usuario = await Usuario.findByIdAndUpdate(id,{tipoPersona,nombre,apellidos,documento,direccion,ciudad,celular,telefono,cargo,email,password,rol,contacto})
     usuario.password=bcryptjs.hashSync(password,salt)
     await usuario.save()
     const idUsuario=req.usuario._id
