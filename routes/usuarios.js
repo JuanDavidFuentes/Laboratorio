@@ -8,7 +8,7 @@ import validarExistaArchivo from "../middlewares/validar_file.js";
 import HelpersCiudad from "../helpers/ciudad.js";
 const router=Router()
 
-router.get('/',usuarioGetListarTodosUsuariosmenoslosclientesporquejholmannoquierequelollamecomolollame)
+router.get('/ListarSoloUsuarios',usuarioGetListarTodosUsuariosmenoslosclientesporquejholmannoquierequelollamecomolollame)
 
 router.post("/",[
     check('nombre',"El nombre es obligatorio").not().isEmpty(),
