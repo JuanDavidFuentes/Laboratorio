@@ -1,5 +1,5 @@
 import {Router} from "express"
-import {usuarioGetListarTodosContactos,usuarioGetListarTodosClientes,usuarioPost,usuarioPutdatos,usuarioPutActivar,usuarioPutRol,cargarArchivoCloudPut,mostrarImagenCloud,usuarioPutDesactivar,usuarioLogin,usuarioGetListarTodos,usuarioGetListarid,usuarioGetListarNombre} from "../controllers/usuarios.js"
+import {usuarioGetListarTodosUsuariosmenoslosclientesporquejholmannoquierequelollamecomolollame,usuarioGetListarTodosContactos,usuarioGetListarTodosClientes,usuarioPost,usuarioPutdatos,usuarioPutActivar,usuarioPutRol,cargarArchivoCloudPut,mostrarImagenCloud,usuarioPutDesactivar,usuarioLogin,usuarioGetListarTodos,usuarioGetListarid,usuarioGetListarNombre} from "../controllers/usuarios.js"
 import { check } from "express-validator";
 import HerlpersUsuario from "../helpers/usuarios.js";
 import { validarCampos } from "../middlewares/validar_campos.js";
@@ -7,6 +7,8 @@ import { validarJWT } from "../middlewares/validar_jwt.js";
 import validarExistaArchivo from "../middlewares/validar_file.js";
 import HelpersCiudad from "../helpers/ciudad.js";
 const router=Router()
+
+router.get("/listarDiferenteUsuario")
 
 router.post("/",[
     check('nombre',"El nombre es obligatorio").not().isEmpty(),
