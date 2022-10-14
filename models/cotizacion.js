@@ -4,7 +4,7 @@ const CotizacionSchema= new mongoose.Schema({
     numero_cotizacion:{type:String},
     fecha_emision:{type:Date,required:true,default:Date.now()},
     idCliente:{type:mongoose.Schema.ObjectId,ref:"Usuario",required:true},
-    idContacto:{type:mongoose.Schema.ObjectId,ref:"Usuario",required:true},
+    idContacto:{type:mongoose.Schema.ObjectId,ref:"Usuario"},
     validez_oferta:{type:Date,required:true},
     entrega_resultados:{type:Date,required:true},
     elabordo_por:{type:mongoose.Schema.ObjectId,ref:"Usuario",required:true},
