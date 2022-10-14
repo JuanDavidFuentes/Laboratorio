@@ -42,7 +42,7 @@ router.post("/", [
     check('total', "El total debe de ser numerico").isNumeric(),
     validarCampos
 ], cotizacionPost);
-
+   
 router.get('/a', buscarFechaGet)
 
 router.get('/listarTodasLasCotizaciones', listarcotizacionesGet)
