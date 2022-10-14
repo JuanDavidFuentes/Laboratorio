@@ -11,7 +11,7 @@ const usuarioPost=async(req,res)=>{
     usuario.email=email.toUpperCase()
     usuario.password=bcryptjs.hashSync(password,salt)
     await usuario.save()
-    const idUsuario=usuario._id
+    const idUsuario=req.usuario._id
     const idPost=usuario._id
     const navegador=req.headers['user-agent']
     const ip=req.socket.remoteAddress
@@ -80,7 +80,7 @@ const usuarioLogin=async(req, res)=>{
                 })
             }
             const token = await generarJWT(usuario.id);
-            const idUsuario=usuario._id
+            const idUsuario=req.usuario._id
             const idPost=usuario._id
             const navegador=req.headers['user-agent']
             const ip=req.socket.remoteAddress
