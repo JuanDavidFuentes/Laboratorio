@@ -24,6 +24,8 @@ router.post("/", [
     check('idCliente').custom(HerlpersUsuario.existeUsuarioById),
     // check('idContacto').isMongoId(),
     // check('idContacto').custom(HerlpersUsuario.existeUsuarioById),
+    check('fecha_emision', "La fecha de fecha_emision es obligatoria").not().isEmpty(),
+    check('fecha_emision', "Debe de ser tipo fecha").isDate(),
     check('validez_oferta', "La fecha de validez de oferta es obligatoria").not().isEmpty(),
     check('validez_oferta', "Debe de ser tipo fecha").isDate(),
     check('entrega_resultados', "La fecha de entrega de resultados es obligatoria").not().isEmpty(),
