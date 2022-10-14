@@ -59,6 +59,7 @@ router.get('/listarporIdCoti/:id', [
     validarJWT,
     check('id').isMongoId(),
     check('id').custom(HerlpersCotizacion.existeCotizacionById),
+    validarCampos
 ], buscarPorId)
 
 router.get('/buscarCodigo', [      
