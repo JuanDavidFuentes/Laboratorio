@@ -28,7 +28,7 @@ const CotizacionSchema= new mongoose.Schema({
                 ensayo: {type: mongoose.Schema.ObjectId, ref: "Ensayo"},
                 costoEnsayo: { type: Number},
             }], 
-            costo:{type:Number,default:0} 
+            costo:{type:Number,default:0}      
         },
     },
     observaciones:{type:String,default:""},
