@@ -23,7 +23,7 @@ const CotizacionSchema= new mongoose.Schema({
             }], 
             costo:{type:Number,default:0}      
         },
-        item3:{
+        item3:{     
             itemsEnsayo: [{
                 ensayo: {type: mongoose.Schema.ObjectId, ref: "Ensayo"},
                 costoEnsayo: { type: Number},
