@@ -61,7 +61,7 @@ router.get('/listarporIdCoti/:id', [
     check('id').custom(HerlpersCotizacion.existeCotizacionById),
 ], buscarPorId)
 
-router.get('/buscarCodigo', [
+router.get('/buscarCodigo', [      
     validarJWT,
     check('numero_cotizacion', "El numero de cotizacion es requerido").not().isEmpty(),
     check('numero_cotizacion').custom(HerlpersCotizacion.existeNumeroCotizacion),
