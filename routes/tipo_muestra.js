@@ -17,4 +17,4 @@ router.put('/:id',[
 ],putTipoMuestra)
 
 
-export default router;
+export default router;          
