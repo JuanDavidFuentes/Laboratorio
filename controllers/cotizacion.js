@@ -77,13 +77,13 @@ const buscarPorId=async(req, res) => {
     const coti = await Cotizacion.findById(id)
     const items=[]
     if(coti.items.item1.itemsEnsayo!=0){
-        items.push("Item1")
+        items.push("item1")
     }
     if(coti.items.item2.itemsEnsayo!=0){
-        items.push("Item2")
+        items.push("item2")
     }
     if(coti.items.item3.itemsEnsayo!=0){
-        items.push("Item3")
+        items.push("item3")
     }
     res.json({
         items
