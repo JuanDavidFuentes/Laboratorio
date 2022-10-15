@@ -80,7 +80,7 @@ const datosMuestraPost1 = async (req, res) => {
                         const oferta = new Orden_del_servicio({ idMuestra, ensayo })
                         await oferta.save()
                     } else {
-
+   
                         const ensayo = []
                         const idMuestra = coti._id
                         const realizado = b._id
