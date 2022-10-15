@@ -93,7 +93,7 @@ router.put("/:id", [
     check('elabordo_por').isMongoId(),
     check('elabordo_por').custom(HerlpersUsuario.existeUsuarioById),
     check('items').custom(HerlpersCotizacion.items),
-    check('observaciones', "Las observaciones es obligatoria"),
+    // check('observaciones', "Las observaciones es obligatoria"),
     check('subtotal', "El subtotal es obligatoro").not().isEmpty(),
     check('subtotal', "El subtotal debe de ser numerico").isNumeric(),
     check('descuento', "El descuento es obligatoro").not().isEmpty(),
