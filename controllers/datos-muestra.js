@@ -140,7 +140,7 @@ const datosMuestraPost1 = async (req, res) => {
                     await oferta.save()
                 }
             }
-        }
+        }     
         if (item === "item3") {
             for (let i = 0; i < cotiza.items.item3.itemsEnsayo.length; i++) {
                 const idensayo = cotiza.items.item3.itemsEnsayo[i].ensayo
