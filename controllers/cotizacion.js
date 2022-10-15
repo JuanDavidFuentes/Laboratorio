@@ -121,7 +121,7 @@ const listarcotizacionesGet=async(req, res)=>{
 }
 
 const listarTodasCotizacionesGet=async(req, res)=>{
-    const coti=await Cotizacion.find()
+    const coti=await Cotizacion.find({estado:0})
     .populate({
         path:'idCliente',
         populate:{
