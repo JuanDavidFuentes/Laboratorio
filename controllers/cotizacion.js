@@ -114,6 +114,9 @@ const listarcotizacionesGet=async(req, res)=>{
             path:"ciudad"
         }
     })
+    .populate("items.item1.itemsEnsayo.ensayo")
+    .populate("items.item2.itemsEnsayo.ensayo")
+    .populate("items.item3.itemsEnsayo.ensayo")
     res.json({coti})
 }
 
