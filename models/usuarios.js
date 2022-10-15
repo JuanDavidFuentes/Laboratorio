@@ -4,7 +4,8 @@ const UsuarioSchema= new mongoose.Schema({
     //Natural  Juridica
     nombre:{type:String,maxlength:50,required:true},
     apellidos:{type:String,maxlength:50,required:true},
-    documento: { type: String, required: true ,maxlength:13, unique:true},
+    // tipo de documento
+    documento: { type: String, required: true ,minlength:5, unique:true},
     direccion:{type:String,maxlength:50,required:true},
     ciudad: { type: mongoose.Schema.ObjectId, ref: "Ciudad", required: true },
 

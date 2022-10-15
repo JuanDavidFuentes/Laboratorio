@@ -16,7 +16,7 @@ router.post("/",[
     check('apellidos',"El apellidos es obligatorio").not().isEmpty(),
     check('apellidos',"Debe tener menos de 50 caracteres").isLength({max:50}),
     check('documento',"El documento es obligatorio").not().isEmpty(),
-    check('documento',"Debe tener menos de 13 caracteres").isLength({max:13}),
+    check('documento',"Debe tener menos de 13 caracteres").isLength({min:5}),
     check('documento').custom(HerlpersUsuario.existeDocumento),
     check('direccion',"El direccion es obligatorio").not().isEmpty(),
     check('direccion',"Debe tener menos de 50 caracteres").isLength({max:50}),
