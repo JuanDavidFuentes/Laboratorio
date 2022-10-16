@@ -128,7 +128,7 @@ const usuarioGetListarTodosUsuariosmenoslosclientesporquejholmannoquierequelolla
 }
 
 const usuarioGet=async(req,res)=>{
-    const usuarios= await Usuario.find({$and:[{rol:"CLIENTE"},{rol:"CONTACTO"}]})
+    const usuarios= await Usuario.find({$or:[{rol:"CLIENTE"},{rol:"CONTACTO"}]})
     .populate({
         path:"ciudad",
     })
