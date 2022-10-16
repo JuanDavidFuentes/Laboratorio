@@ -1,5 +1,5 @@
 import {Router} from "express"
-import {usuarioGetListarTodosContactos,usuarioGetListarTodosClientes,usuarioPost,usuarioPutdatos,usuarioPutActivar,usuarioPutRol,cargarArchivoCloudPut,mostrarImagenCloud,usuarioPutDesactivar,usuarioLogin,usuarioGetListarTodos,usuarioGetListarid,usuarioGetListarNombre,usuarioGetListarTodosUsuariosmenoslosclientesporquejholmannoquierequelollamecomolollame} from "../controllers/usuarios.js"
+import {usuarioGetListarContactosUsuarios,usuarioGetListarTodosContactos,usuarioGetListarTodosClientes,usuarioPost,usuarioPutdatos,usuarioPutActivar,usuarioPutRol,cargarArchivoCloudPut,mostrarImagenCloud,usuarioPutDesactivar,usuarioLogin,usuarioGetListarTodos,usuarioGetListarid,usuarioGetListarNombre,usuarioGetListarTodosUsuariosmenoslosclientesporquejholmannoquierequelollamecomolollame} from "../controllers/usuarios.js"
 import { check } from "express-validator";
 import HerlpersUsuario from "../helpers/usuarios.js";
 import { validarCampos } from "../middlewares/validar_campos.js";
@@ -9,7 +9,7 @@ import HelpersCiudad from "../helpers/ciudad.js";
 const router=Router()
 
 router.get('/ListarSoloUsuarios',usuarioGetListarTodosUsuariosmenoslosclientesporquejholmannoquierequelollamecomolollame)
-
+router.get('/ListarSoloUsuariosContactos',usuarioGetListarContactosUsuarios)
 router.post("/",[
     check('nombre',"El nombre es obligatorio").not().isEmpty(),
     check('nombre',"Debe tener menos de 50 caracteres").isLength({max:50}),
