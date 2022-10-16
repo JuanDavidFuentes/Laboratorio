@@ -80,8 +80,8 @@ const usuarioLogin=async(req, res)=>{
                 })
             }
             const token = await generarJWT(usuario.id);
-            const idUsuario=req.usuario._id
-            const idPost=req.usuario._id
+            const idUsuario=usuario._id
+            const idPost=usuario._id
             const navegador=req.headers['user-agent']
             const ip=req.socket.remoteAddress
             const log= new Log({idUsuario,idPost,navegador,ip})
@@ -126,18 +126,6 @@ const usuarioGetListarTodosUsuariosmenoslosclientesporquejholmannoquierequelolla
         usuarios
     })
 }
-
-
-const usuarioGetListarContactosUsuarios=async(req,res)=>{
-    const usuarios= await Usuario.find({$and:[{rol:"CLIENTE"},{rol:"CONTACTO"}]})
-    .populate({
-        path:"ciudad",
-    })
-    res.json({
-        usuarios
-    })
-}
-
 
 const usuarioGetListarTodosClientes=async(req,res)=>{
     const usuarios= await Usuario.find({rol:"CLIENTE"})
@@ -276,4 +264,4 @@ const usuarioPutDesactivar=async(req,res)=>{
 // PUT Activar usuario✅
 // PUT Inactivar usuario✅
 
-export {usuarioGetListarContactosUsuarios,usuarioGetListarTodosUsuariosmenoslosclientesporquejholmannoquierequelollamecomolollame,usuarioGetListarTodosContactos,usuarioGetListarTodosClientes,usuarioPost,usuarioPutdatos,usuarioPutRol,usuarioPutActivar,usuarioPutDesactivar,cargarArchivoCloudPut,usuarioLogin,usuarioGetListarTodos,mostrarImagenCloud,usuarioGetListarid,usuarioGetListarNombre}
+export {usuarioGetListarTodosUsuariosmenoslosclientesporquejholmannoquierequelollamecomolollame,usuarioGetListarTodosContactos,usuarioGetListarTodosClientes,usuarioPost,usuarioPutdatos,usuarioPutRol,usuarioPutActivar,usuarioPutDesactivar,cargarArchivoCloudPut,usuarioLogin,usuarioGetListarTodos,mostrarImagenCloud,usuarioGetListarid,usuarioGetListarNombre}
