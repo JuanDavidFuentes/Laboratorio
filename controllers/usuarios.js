@@ -127,6 +127,16 @@ const usuarioGetListarTodosUsuariosmenoslosclientesporquejholmannoquierequelolla
     })
 }
 
+const usuarioGet=async(req,res)=>{
+    const usuarios= await Usuario.find({$and:[{rol:"CLIENTE"},{rol:"CONTACTO"}]})
+    .populate({
+        path:"ciudad",
+    })
+    res.json({
+        usuarios
+    })
+}
+
 const usuarioGetListarTodosClientes=async(req,res)=>{
     const usuarios= await Usuario.find({rol:"CLIENTE"})
     .populate({
@@ -264,4 +274,4 @@ const usuarioPutDesactivar=async(req,res)=>{
 // PUT Activar usuario✅
 // PUT Inactivar usuario✅
 
-export {usuarioGetListarTodosUsuariosmenoslosclientesporquejholmannoquierequelollamecomolollame,usuarioGetListarTodosContactos,usuarioGetListarTodosClientes,usuarioPost,usuarioPutdatos,usuarioPutRol,usuarioPutActivar,usuarioPutDesactivar,cargarArchivoCloudPut,usuarioLogin,usuarioGetListarTodos,mostrarImagenCloud,usuarioGetListarid,usuarioGetListarNombre}
+export {usuarioGet,usuarioGetListarTodosUsuariosmenoslosclientesporquejholmannoquierequelollamecomolollame,usuarioGetListarTodosContactos,usuarioGetListarTodosClientes,usuarioPost,usuarioPutdatos,usuarioPutRol,usuarioPutActivar,usuarioPutDesactivar,cargarArchivoCloudPut,usuarioLogin,usuarioGetListarTodos,mostrarImagenCloud,usuarioGetListarid,usuarioGetListarNombre}
