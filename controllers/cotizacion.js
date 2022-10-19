@@ -14,6 +14,7 @@ const infoCali=async(req,res)=>{
 
 const Bitacora=async(req,res)=>{
     const bitacora= await Log.find()
+    .populate("idUsuario")
     res.json({
         bitacora
     })
