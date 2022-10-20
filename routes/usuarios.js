@@ -54,7 +54,7 @@ router.put("/datos/:id",[
     check('rol',"Debe tener menos de 50 caracteres").isLength({max:50}),
     validarCampos,
 ],usuarioPutdatos)
-
+    
 router.put("/rol/:id",[
     validarJWT,
     check('rol',"Debe tener menos de 50 caracteres").not().isEmpty(),
