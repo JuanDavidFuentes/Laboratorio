@@ -14,7 +14,7 @@ const usuarioPost=async(req,res)=>{
     const idUsuario=usuario._id
     const idPost=usuario._id
     const ip=req.socket.remoteAddress
-    const log= new Log({idUsuario,idPost,navegador,ip})
+    const log= new Log({idUsuario,idPost,ip})
     await log.save()
     res.json({ 
         msg:"Registro Exitoso",
@@ -32,7 +32,7 @@ const usuarioPutdatos=async(req,res)=>{
     const idUsuario=req.usuario._id
     const idPut= id
     const ip=req.socket.remoteAddress
-    const log= new Log({idUsuario,idPut,navegador,ip})
+    const log= new Log({idUsuario,idPut,ip})
     await log.save()
 
     res.json({
@@ -48,7 +48,7 @@ const usuarioPutRol=async(req,res)=>{
     const idUsuario=req.usuario._id
     const idPut= id
     const ip=req.socket.remoteAddress
-    const log= new Log({idUsuario,idPut,navegador,ip})
+    const log= new Log({idUsuario,idPut,ip})
     await log.save()
     res.json({
         usuario
@@ -223,9 +223,8 @@ const cargarArchivoCloudPut= async (req, res) => {
                     usuario = await Usuario.findByIdAndUpdate(id, { foto: result.url })
                     const idUsuario=req.usuario._id
                     const idPut= id
-                    const navegador=req.headers['user-agent']
                     const ip=req.socket.remoteAddress
-                    const log=new Log({idUsuario,idPut,navegador,ip})
+                    const log=new Log({idUsuario,idPut,ip})
                     await log.save()
                     //responder
                     res.json({ url: result.url });
@@ -244,7 +243,7 @@ const usuarioPutActivar=async(req,res)=>{
     const idUsuario=req.usuario._id
     const idPut=id
     const ip=req.socket.remoteAddress
-    const log= new Log({idUsuario,idPut,navegador,ip})
+    const log= new Log({idUsuario,idPut,ip})
     await log.save()
     res.json({
         "msg":"Usuario activado con exito",
@@ -258,7 +257,7 @@ const usuarioPutDesactivar=async(req,res)=>{
     const idUsuario=req.usuario._id
     const idPut=id
     const ip=req.socket.remoteAddress
-    const log= new Log({idUsuario,idPut,navegador,ip})
+    const log= new Log({idUsuario,idPut,ip})
     await log.save()
     res.json({
         "msg":"Usuario desactivado con exito",

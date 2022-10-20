@@ -47,7 +47,7 @@ const modificarordenPut=async(req,res)=>{
         const idPost=id
         
         const ip=req.socket.remoteAddress
-        const log=new Log({idUsuario,idPost,navegador,ip})
+        const log=new Log({idUsuario,idPost,ip})
         await log.save()
         res.json({
             "msg":'Modificacion realizada con exito',
@@ -71,7 +71,7 @@ const modificarsupervisadoPut=async(req,res)=>{
         const idPost=id
         
         const ip=req.socket.remoteAddress
-        const log=new Log({idUsuario,idPost,navegador,ip})
+        const log=new Log({idUsuario,idPost,ip})
         await log.save()
         res.json({
             "msg":'Modificacion realizada con exito',
@@ -88,7 +88,7 @@ const OrdenactivarPUt=async(req,res)=>{
     const idPut= id
     
     const ip=req.socket.remoteAddress
-    const log=new Log({idUsuario,idPut,navegador,ip})
+    const log=new Log({idUsuario,idPut,ip})
     res.json({
         "msg":"Usuario activado con exito"
     })
@@ -102,7 +102,7 @@ const OrdenDesactivarPUt=async(req,res)=>{
     const idPut= id
     
     const ip=req.socket.remoteAddress
-    const log=new Log({idUsuario,idPut,navegador,ip})
+    const log=new Log({idUsuario,idPut,ip})
     res.json({
         "msg":"Usuario desactivado con exito"
     })

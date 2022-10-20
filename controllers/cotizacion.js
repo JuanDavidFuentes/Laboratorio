@@ -51,7 +51,7 @@ const cotizacionPost=async(req,res)=>{
         const idUsuario=req.usuario._id
         const idPost=coti._id
         const ip=req.socket.remoteAddress
-        const log=new Log({idUsuario,idPost,navegador,ip})
+        const log=new Log({idUsuario,idPost,ip})
         await log.save()
         res.json({
             "msg":"Cotizacion creada exitosamente."
@@ -66,7 +66,7 @@ const crearConsecutivo =async(req, res) => {
     const idUsuario=req.usuario._id
     const idPost=consecutivoo._id
     const ip=req.socket.remoteAddress
-    const log=new Log({idUsuario,idPost,navegador,ip})
+    const log=new Log({idUsuario,idPost,ip})
     await log.save()
     res.json({
         "msg":"Consecutivo Creado"
@@ -185,7 +185,7 @@ const editarCotizacionPut=async(req, res)=>{
     const idUsuario=req.usuario._id
     const idPut= id
     const ip=req.socket.remoteAddress
-    const log=new Log({idUsuario,idPut,navegador,ip})
+    const log=new Log({idUsuario,idPut,ip})
     await log.save()
     res.json({
         "msg":"Cotizacion editada con exito"
@@ -199,7 +199,7 @@ const activarPut=async(req, res)=>{
     const idUsuario=req.usuario._id
     const idPut= id
     const ip=req.socket.remoteAddress
-    const log=new Log({idUsuario,idPut,navegador,ip})
+    const log=new Log({idUsuario,idPut,ip})
     await log.save()
 
     res.json({
@@ -213,7 +213,7 @@ const desactivarPut=async(req, res)=>{
     const idUsuario=req.usuario._id
     const idPut= id
     const ip=req.socket.remoteAddress
-    const log=new Log({idUsuario,idPut,navegador,ip})
+    const log=new Log({idUsuario,idPut,ip})
     await log.save()
     res.json({
         "msg":"La cotizacion esta desactivada"
@@ -226,7 +226,7 @@ const actualizarInfo=async(req, res)=>{
     const idUsuario=req.usuario._id
     const idPut= id
     const ip=req.socket.remoteAddress
-    const log=new Log({idUsuario,idPut,navegador,ip})
+    const log=new Log({idUsuario,idPut,ip})
     await log.save()
     res.json({
         "msg":"Actualizacion con exito",

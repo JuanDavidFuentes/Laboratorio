@@ -8,7 +8,7 @@ const ciudadPost=async(req,res)=>{
     const idUsuario=req.usuario._id
     const idPost=ciudadPost._id
     const ip=req.socket.remoteAddress
-    const log= new Log({idUsuario,idPost,navegador,ip})
+    const log= new Log({idUsuario,idPost,ip})
     await log.save()
 
     res.json({
@@ -23,7 +23,7 @@ const ciudadPut=async(req,res)=>{
     const idUsuario=req.usuario._id
     const idPut=id
     const ip=req.socket.remoteAddress
-    const log= new Log({idUsuario,idPut,navegador,ip})
+    const log= new Log({idUsuario,idPut,ip})
     await log.save()
     res.json({
         "msg":`Actualizacion Exitosa!${ciudadPut}`

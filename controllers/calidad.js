@@ -17,7 +17,7 @@ const listadoPut=async(req,res)=>{
     const idUsuario=req.usuario._id
     const idPut=id
     const ip=req.socket.remoteAddress
-    const log=new Log({idUsuario,idPut,navegador,ip})
+    const log=new Log({idUsuario,idPut,ip})
     await log.save()
     res.json({
         "msg":"Cambio realizado con exito"

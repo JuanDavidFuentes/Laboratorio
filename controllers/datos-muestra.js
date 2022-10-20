@@ -58,7 +58,7 @@ const datosMuestraPost1 = async (req, res) => {
         const idPost = coti._id
     
         const ip = req.socket.remoteAddress
-        const log = new Log({ idUsuario, idPost, navegador, ip })
+        const log = new Log({ idUsuario, idPost, ip })
         await log.save()
 
         const cotiza = await Cotizacion.findById(coti.cotizacion)
@@ -221,7 +221,7 @@ const editarMuestraPut = async (req, res) => {
     const idPut = id
 
     const ip = req.socket.remoteAddress
-    const log = new Log({ idUsuario, idPut, navegador, ip })
+    const log = new Log({ idUsuario, idPut, ip })
     await log.save()
     res.json({
         "msg": "Vuelve a activar la muestra",
@@ -236,7 +236,7 @@ const activarPut = async (req, res) => {
     const idPut = id
 
     const ip = req.socket.remoteAddress
-    const log = new Log({ idUsuario, idPut, navegador, ip })
+    const log = new Log({ idUsuario, idPut, ip })
     await log.save()
     res.json({
         "msg": "Muestra activada",
