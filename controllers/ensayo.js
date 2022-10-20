@@ -7,7 +7,6 @@ const ensayoPost=async(req,res)=>{
     await ensayoPostt.save()
     const idUsuario=req.usuario._id
     const idPost=ensayoPostt._id
-    const navegador=req.headers['user-agent']
     const ip=req.socket.remoteAddress
     const log=new Log({idUsuario,idPost,navegador,ip})
     await log.save()
@@ -23,7 +22,6 @@ const ensayoPut = async (req,res)=>{
 
     const idUsuario=req.usuario._id
     const idPut= id
-    const navegador=req.headers['user-agent']
     const ip=req.socket.remoteAddress
     const log=new Log({idUsuario,idPut,navegador,ip})
     await log.save()
@@ -37,7 +35,6 @@ const ensayoPutActivar=async(req,res)=>{
     const activar =await Ensayo.findByIdAndUpdate(id,{estado:1})
     const idUsuario=req.usuario._id
     const idPut= id
-    const navegador=req.headers['user-agent']
     const ip=req.socket.remoteAddress
     const log=new Log({idUsuario,idPut,navegador,ip})
     await log.save()
@@ -51,7 +48,6 @@ const ensayoPutDesactivar=async(req,res)=>{
     const desactivar =await Ensayo.findByIdAndUpdate(id,{estado:0})
     const idUsuario=req.usuario._id
     const idPut= id
-    const navegador=req.headers['user-agent']
     const ip=req.socket.remoteAddress
     const log=new Log({idUsuario,idPut,navegador,ip})
     await log.save()

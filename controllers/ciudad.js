@@ -7,7 +7,6 @@ const ciudadPost=async(req,res)=>{
     await ciudadPost.save()
     const idUsuario=req.usuario._id
     const idPost=ciudadPost._id
-    const navegador=req.headers['user-agent']
     const ip=req.socket.remoteAddress
     const log= new Log({idUsuario,idPost,navegador,ip})
     await log.save()
@@ -23,7 +22,6 @@ const ciudadPut=async(req,res)=>{
     const ciudadPut=await Ciudad.findByIdAndUpdate(id,{coddepartamento,departamento,ciudad,codciudad})
     const idUsuario=req.usuario._id
     const idPut=id
-    const navegador=req.headers['user-agent']
     const ip=req.socket.remoteAddress
     const log= new Log({idUsuario,idPut,navegador,ip})
     await log.save()

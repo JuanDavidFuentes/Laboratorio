@@ -45,7 +45,7 @@ const modificarordenPut=async(req,res)=>{
         const editar=await Orden_del_servicio.findByIdAndUpdate(id,{ensayo:orden.ensayo})
         const idUsuario=req.usuario._id
         const idPost=id
-        const navegador=req.headers['user-agent']
+        
         const ip=req.socket.remoteAddress
         const log=new Log({idUsuario,idPost,navegador,ip})
         await log.save()
@@ -69,7 +69,7 @@ const modificarsupervisadoPut=async(req,res)=>{
         const editar=await Orden_del_servicio.findByIdAndUpdate(id,{ensayo:orden.ensayo})
         const idUsuario=req.usuario._id
         const idPost=id
-        const navegador=req.headers['user-agent']
+        
         const ip=req.socket.remoteAddress
         const log=new Log({idUsuario,idPost,navegador,ip})
         await log.save()
@@ -86,7 +86,7 @@ const OrdenactivarPUt=async(req,res)=>{
     const activar =await Orden_del_servicio.findByIdAndUpdate(id,{estado:1})
     const idUsuario=req.usuario._id
     const idPut= id
-    const navegador=req.headers['user-agent']
+    
     const ip=req.socket.remoteAddress
     const log=new Log({idUsuario,idPut,navegador,ip})
     res.json({
@@ -100,7 +100,7 @@ const OrdenDesactivarPUt=async(req,res)=>{
     const desactivar =await Orden_del_servicio.findByIdAndUpdate(id,{estado:0})
     const idUsuario=req.usuario._id
     const idPut= id
-    const navegador=req.headers['user-agent']
+    
     const ip=req.socket.remoteAddress
     const log=new Log({idUsuario,idPut,navegador,ip})
     res.json({

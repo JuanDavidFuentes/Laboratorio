@@ -56,7 +56,7 @@ const datosMuestraPost1 = async (req, res) => {
         
         const idUsuario = req.usuario._id
         const idPost = coti._id
-        const navegador = req.headers['user-agent']
+    
         const ip = req.socket.remoteAddress
         const log = new Log({ idUsuario, idPost, navegador, ip })
         await log.save()
@@ -219,7 +219,7 @@ const editarMuestraPut = async (req, res) => {
     const desactivarM =  await DatosMuestra.findByIdAndUpdate(desactivar.idMuestra, {estado:0})
     const idUsuario = req.usuario._id
     const idPut = id
-    const navegador = req.headers['user-agent']
+
     const ip = req.socket.remoteAddress
     const log = new Log({ idUsuario, idPut, navegador, ip })
     await log.save()
@@ -234,7 +234,7 @@ const activarPut = async (req, res) => {
     const desactivarM =  await DatosMuestra.findByIdAndUpdate(desactivar.idMuestra, {estado:1})
     const idUsuario = req.usuario._id
     const idPut = id
-    const navegador = req.headers['user-agent']
+
     const ip = req.socket.remoteAddress
     const log = new Log({ idUsuario, idPut, navegador, ip })
     await log.save()

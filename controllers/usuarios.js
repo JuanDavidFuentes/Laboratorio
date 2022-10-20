@@ -13,7 +13,6 @@ const usuarioPost=async(req,res)=>{
     await usuario.save()
     const idUsuario=usuario._id
     const idPost=usuario._id
-    const navegador=req.headers['user-agent']
     const ip=req.socket.remoteAddress
     const log= new Log({idUsuario,idPost,navegador,ip})
     await log.save()
@@ -32,7 +31,6 @@ const usuarioPutdatos=async(req,res)=>{
     await usuario.save()
     const idUsuario=req.usuario._id
     const idPut= id
-    const navegador=req.headers['user-agent']
     const ip=req.socket.remoteAddress
     const log= new Log({idUsuario,idPut,navegador,ip})
     await log.save()
@@ -49,7 +47,6 @@ const usuarioPutRol=async(req,res)=>{
     await usuario.save()
     const idUsuario=req.usuario._id
     const idPut= id
-    const navegador=req.headers['user-agent']
     const ip=req.socket.remoteAddress
     const log= new Log({idUsuario,idPut,navegador,ip})
     await log.save()
@@ -246,7 +243,6 @@ const usuarioPutActivar=async(req,res)=>{
     const activar =await Usuario.findByIdAndUpdate(id,{estado:1})
     const idUsuario=req.usuario._id
     const idPut=id
-    const navegador=req.headers['user-agent']
     const ip=req.socket.remoteAddress
     const log= new Log({idUsuario,idPut,navegador,ip})
     await log.save()
@@ -261,7 +257,6 @@ const usuarioPutDesactivar=async(req,res)=>{
     const desactivar =await Usuario.findByIdAndUpdate(id,{estado:0})
     const idUsuario=req.usuario._id
     const idPut=id
-    const navegador=req.headers['user-agent']
     const ip=req.socket.remoteAddress
     const log= new Log({idUsuario,idPut,navegador,ip})
     await log.save()

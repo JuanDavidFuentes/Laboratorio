@@ -50,7 +50,6 @@ const cotizacionPost=async(req,res)=>{
         await Consecutivo.findByIdAndUpdate(consecutivo._id,{numero_cotizacion:nuevo})
         const idUsuario=req.usuario._id
         const idPost=coti._id
-        const navegador=req.headers['user-agent']
         const ip=req.socket.remoteAddress
         const log=new Log({idUsuario,idPost,navegador,ip})
         await log.save()
@@ -66,7 +65,6 @@ const crearConsecutivo =async(req, res) => {
     await consecutivoo.save()
     const idUsuario=req.usuario._id
     const idPost=consecutivoo._id
-    const navegador=req.headers['user-agent']
     const ip=req.socket.remoteAddress
     const log=new Log({idUsuario,idPost,navegador,ip})
     await log.save()
@@ -186,7 +184,6 @@ const editarCotizacionPut=async(req, res)=>{
     const desactivar=await Cotizacion.findByIdAndUpdate(id,{estado:0})
     const idUsuario=req.usuario._id
     const idPut= id
-    const navegador=req.headers['user-agent']
     const ip=req.socket.remoteAddress
     const log=new Log({idUsuario,idPut,navegador,ip})
     await log.save()
@@ -201,7 +198,6 @@ const activarPut=async(req, res)=>{
 
     const idUsuario=req.usuario._id
     const idPut= id
-    const navegador=req.headers['user-agent']
     const ip=req.socket.remoteAddress
     const log=new Log({idUsuario,idPut,navegador,ip})
     await log.save()
@@ -216,7 +212,6 @@ const desactivarPut=async(req, res)=>{
     const desactivar=await Cotizacion.findByIdAndUpdate(id,{estado:0})
     const idUsuario=req.usuario._id
     const idPut= id
-    const navegador=req.headers['user-agent']
     const ip=req.socket.remoteAddress
     const log=new Log({idUsuario,idPut,navegador,ip})
     await log.save()
@@ -230,7 +225,6 @@ const actualizarInfo=async(req, res)=>{
     const actualizar=await Consecutivo.findByIdAndUpdate(id,{numero_cotizacion,informe_No,codMuestra,iva,descripcion,nit,direccion,telefono,correo})
     const idUsuario=req.usuario._id
     const idPut= id
-    const navegador=req.headers['user-agent']
     const ip=req.socket.remoteAddress
     const log=new Log({idUsuario,idPut,navegador,ip})
     await log.save()
