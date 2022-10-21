@@ -11,5 +11,5 @@ router.post("/",listadoPost)
 router.put("/calidadPut/id:",listadoPut)
 
 router.get("/listar",listarGet)
-
+    
 export default router
