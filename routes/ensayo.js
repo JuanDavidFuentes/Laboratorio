@@ -29,7 +29,7 @@ router.put("/:id",[
     check('id').isMongoId(),
     check('id').custom(HelpersEnsayo.existeEnsayoById),
     check('ensayo',"el ensayo es requerido").not().isEmpty(),
-    check('ensayo').custom(HelpersEnsayo.existeEnsayo),
+    // check('ensayo').custom(HelpersEnsayo.existeEnsayo),
     check('metodo',"el metodo es requerido").not().isEmpty(),
     check('tecnica',"la tecnica es requerido").not().isEmpty(),
     check('valorMinimo',"el valorMinimo es requerido").not().isEmpty(),
