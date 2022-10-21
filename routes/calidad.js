@@ -6,7 +6,7 @@ import { validarJWT } from "../middlewares/validar_jwt.js";
 
 const router=Router() 
 
-router.post("/",listadoPost)
+router.post("/",listadoPost)    
       
 router.put("/calidadPut/id:",listadoPut)
 
