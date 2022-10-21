@@ -53,10 +53,8 @@ const datosMuestraPost1 = async (req, res) => {
         await coti.save()
         const nuevo = consecutivo.codMuestra + 1
         await Consecutivo.findByIdAndUpdate(consecutivo._id, { codMuestra: nuevo })
-        
         const idUsuario = req.usuario._id
         const idPost = coti._id
-    
         const ip = req.socket.remoteAddress
         const log = new Log({ idUsuario, idPost, ip })
         await log.save()
@@ -196,7 +194,7 @@ const buscarFechaGet = async (req, res) => {
 
 const muestraCodigoGet = async (req, res) => {
     const { codMuestra } = req.query;
-    const codigoo = await DatosMuestra.find({ codMuestra })
+    const codigoo = await DatosMuestra.find({ codMuestra })    
     res.json({ codigoo })
 }
 
