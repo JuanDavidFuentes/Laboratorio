@@ -207,7 +207,7 @@ const listarMuestrasxIdGet = async (req, res) => {
 
 const listarMuestrasGet = async (req, res) => {
     const muestras = await DatosMuestra.find()
-        .populate("codMuestra", "solicitante")
+        .populate("codMuestra","cotizacion","solicitante")
     res.json({ muestras }) //lte < o = gte > o =
 }
 
