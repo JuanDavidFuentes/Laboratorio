@@ -158,7 +158,31 @@ const buscarPorCodigoGet=async(req, res)=>{
 
 const buscarPorIdClienteGet=async(req, res)=>{
     const {id}=req.params;
-    const coti=await Cotizacion.find().where('idCliente').in(id).exec();
+    const coti=await Cotizacion.find({idCliente:id})
+    .populate({
+        path:'idCliente',
+        populate:{
+            path:"ciudad"
+        }
+    })
+    .populate({
+        path:"idCliente",
+        populate:{
+            path:"contacto",
+            populate:{
+                path:"ciudad"
+            }
+        }
+    })
+    .populate({
+        path:'elabordo_por',
+        populate:{
+            path:"ciudad"
+        }
+    })
+    .populate("items.item1.itemsEnsayo.ensayo")
+    .populate("items.item2.itemsEnsayo.ensayo")
+    .populate("items.item3.itemsEnsayo.ensayo")
     res.json({coti})
 }
 
