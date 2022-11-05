@@ -9,11 +9,11 @@ const router=Router()
 
 router.post("/",[
     validarJWT,
-    check('coddepartamento',"El coddepartamento es obligatorio").not().isEmpty(),
+    check('coddepartamento',"El codigo del departamento es obligatorio").not().isEmpty(),
     check('coddepartamento').isNumeric(),
     check('departamento',"El departamento es obligatorio").not().isEmpty(),
     check('ciudad',"La ciudad es obligatoria").not().isEmpty(),
-    check('codciudad',"El codciudad es obligatorio").not().isEmpty(),
+    check('codciudad',"El codigo de la ciudad es obligatoria").not().isEmpty(),
     check('codciudad').isNumeric(),
     check('codciudad').custom(HelpersCiudad.existeciudadPorCodigo),
     validarCampos,
@@ -21,27 +21,27 @@ router.post("/",[
 
 router.put("/:id",[
     validarJWT,
-    check('coddepartamento',"El coddepartamento es obligatorio").not().isEmpty(),
+    check('coddepartamento',"El codigo del departamento es obligatorio").not().isEmpty(),
     check('ciudad',"La ciudad es obligatoria").not().isEmpty(),
-    check('codciudad',"El codciudad es obligatorio").not().isEmpty(),
+    check('codciudad',"El codigo de la ciudad es obligatorio").not().isEmpty(),
     validarCampos,
 ],ciudadPut)
 
 router.get("/CiudadDepartamento",ciudadGetListarTodos)
 
 router.get("/departamento",[
-    check('coddepartamento',"el codigo del departamento es obligatoria").not().isEmpty(),
+    check('coddepartamento',"El codigo del departamento es obligatorio").not().isEmpty(),
     check('coddepartamento').custom(HelpersCiudad.existedeoartamentoById),
     validarCampos
 ],ciudadesdepartamentoGet)
 
 router.get("/ciudadnombre",[
-    check('ciudad',"el nombre de la ciudad es obligatorio").not().isEmpty(),
+    check('ciudad',"El nombre de la ciudad es obligatorio").not().isEmpty(),
     validarCampos
 ],buscarCiudadNombreGet)
 
 router.get("/departamentonombre",[
-    check('departamento',"El nombre del departamento es requerido").not().isEmpty(),
+    check('departamento',"El nombre del departamento es obligatorio").not().isEmpty(),
     validarCampos
 ],buscarDepartamentoNombreGet)
 
