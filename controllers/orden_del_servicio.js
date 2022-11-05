@@ -28,7 +28,7 @@ const supervisadoGet=async(req, res)=>{
 //GET realisada por
 const Getrealizadopor=async(req, res)=>{
     const {id}=req.params
-    const realizadopor=await Orden_del_servicio.find({realizado:id})
+    const realizadopor=await Orden_del_servicio.find({"ensayo.realizado":id})
     res.json({realizadopor})
 }
 

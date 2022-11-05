@@ -200,9 +200,9 @@ const muestraCodigoGet = async (req, res) => {
 
 
 const listarMuestrasxIdGet = async (req, res) => {
-
-    const muestras = await DatosMuestra.find()
-    res.json({ muestras })
+    const{id}=req.params;
+    const muestras = await DatosMuestra.findOne({id})
+    res.json({ muestras })// fata los populate
 }
 
 const listarMuestrasGet = async (req, res) => {
