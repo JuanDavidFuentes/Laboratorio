@@ -158,7 +158,7 @@ const buscarPorCodigoGet=async(req, res)=>{
 
 const buscarPorIdClienteGet=async(req, res)=>{
     const {id}=req.params;
-    const coti=await Cotizacion.find({idCliente:id})
+    const coti=await Cotizacion.find({$and:[{idCliente:{$eq:id}},{estado:{$eq:1}}]}) //{idCliente:id}
     .populate({
         path:'idCliente',
         populate:{
