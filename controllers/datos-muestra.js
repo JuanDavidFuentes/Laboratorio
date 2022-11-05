@@ -207,7 +207,39 @@ const listarMuestrasxIdGet = async (req, res) => {
 
 const listarMuestrasGet = async (req, res) => {
     const muestras = await DatosMuestra.find()
-        .populate("codMuestra","cotizacion","solicitante")
+        .populate({
+            path:"solicitante",
+            populate:{
+                path:"contacto",
+                    populate:{
+                        path:"ciudad"
+                    }
+            }
+        })
+        .populate({
+            path:"munRecoleccion"
+        })
+        .populate({
+            path:"cotizacion",
+            populate:{
+                path:"idCliente",
+                populate:{
+                    path:"ciudad"
+                }
+            }
+        })
+        .populate({
+            path:"cotizacion",
+            populate:{
+                path:"idCliente",
+                populate:{
+                    path:"contacto",
+                    populate:{
+                        path:"ciudad"
+                    }
+                }
+            }
+        })
     res.json({ muestras }) //lte < o = gte > o =
 }
 
