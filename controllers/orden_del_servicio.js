@@ -29,6 +29,9 @@ const supervisadoGet=async(req, res)=>{
 const Getrealizadopor=async(req, res)=>{
     const {id}=req.params
     const realizadopor=await Orden_del_servicio.find({"ensayo.realizado":id})
+    .populate({
+        path:"ensayo.idensayo"
+    })
     res.json({realizadopor})
 }
 
