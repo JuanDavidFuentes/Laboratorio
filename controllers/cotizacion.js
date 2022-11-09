@@ -188,7 +188,7 @@ const buscarPorCodigoGet=async(req, res)=>{
 
 const buscarPorIdClienteGet=async(req, res)=>{
     const {id}=req.params;
-    const coti=await Cotizacion.find({$and:[{idCliente:{$eq:id}},{estado:{$eq:1}}]}) //{idCliente:id}
+    const coti=await Cotizacion.find({$and:[{idCliente:{$eq:id}},{estado:{$eq:2}}]}) //{idCliente:id}
     .populate({
         path:'idCliente',
         populate:{
@@ -257,7 +257,7 @@ const activarPut=async(req, res)=>{
     await log.save()
 
     res.json({
-        "msg":"La cotizacion esta activada"
+        "msg":"La cotizacion esta en estado confirmad0"
     })
 }
 
@@ -270,7 +270,7 @@ const desactivarPut=async(req, res)=>{
     const log=new Log({idUsuario,idPut,ip})
     await log.save()
     res.json({
-        "msg":"La cotizacion esta desactivada"
+        "msg":"La cotizacion esta en estado rechazado"
     })
 }
 const actualizarInfo=async(req, res)=>{
