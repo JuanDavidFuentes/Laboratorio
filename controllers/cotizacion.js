@@ -150,6 +150,36 @@ const listarTodasCotizacionesGet=async(req, res)=>{
     res.json({coti})
 }
 
+const listarTodasCotizacionesEnProceso=async(req, res)=>{
+    const coti=await Cotizacion.find({estado:2})
+    .populate({
+        path:'idCliente',
+        populate:{
+            path:"ciudad"
+        }
+    })
+    .populate({
+        path:"idCliente",
+        populate:{
+            path:"contacto",
+            populate:{
+                path:"ciudad"
+            }
+        }
+    })
+    .populate({
+        path:'elabordo_por',
+        populate:{
+            path:"ciudad"
+        }
+    })
+    .populate("items.item1.itemsEnsayo.ensayo")
+    .populate("items.item2.itemsEnsayo.ensayo")
+    .populate("items.item3.itemsEnsayo.ensayo")
+    res.json({coti})
+}
+
+
 const buscarPorCodigoGet=async(req, res)=>{
     const {numero_cotizacion}=req.query;
     const coti=await Cotizacion.find({numero_cotizacion})
@@ -281,4 +311,4 @@ const ListarConsecutivo=async(req, res)=>{
 // PUT Inactivar cotización +
 
 
-export {listarTodasCotizacionesGet,Bitacora,ListarConsecutivo,infoCali,actualizarInfo,buscarPorId,cotizacionPost,listarcotizacionesGet,buscarPorCodigoGet,buscarPorIdClienteGet,editarCotizacionPut,activarPut,desactivarPut,crearConsecutivo,buscarPorIdUsuarioGet,buscarFechaGet}
+export {listarTodasCotizacionesEnProceso,listarTodasCotizacionesGet,Bitacora,ListarConsecutivo,infoCali,actualizarInfo,buscarPorId,cotizacionPost,listarcotizacionesGet,buscarPorCodigoGet,buscarPorIdClienteGet,editarCotizacionPut,activarPut,desactivarPut,crearConsecutivo,buscarPorIdUsuarioGet,buscarFechaGet}

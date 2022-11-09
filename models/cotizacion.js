@@ -32,11 +32,12 @@ const CotizacionSchema= new mongoose.Schema({
         },
     },
     observaciones:{type:String,default:""},
+    motivo:{type:String,default:""},
     subtotal:{type:Number,required:true},
     descuento:{type:Number,required:true},
     iva:{type:Number,required:true},
     total:{type:Number,required:true},
-    estado:{type:Number,default:1},
+    estado:{type:Number,default:2}, // 0:rechasada 1:confirmada 2:en proceso
     createdAt:{type:Date,default:Date.now()}
 })
 
