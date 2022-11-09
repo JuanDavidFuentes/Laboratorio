@@ -260,6 +260,20 @@ const activarPut=async(req, res)=>{
     })
 }
 
+const activarPutR=async(req, res)=>{
+    const {id}=req.params;
+    const activar=await Cotizacion.findByIdAndUpdate(id,{estado:1,motivo:""}) // falta un put para que este en estado 1
+    const idUsuario=req.usuario._id
+    const idPut= id
+    const ip=req.socket.remoteAddress
+    const log=new Log({idUsuario,idPut,ip})
+    await log.save()
+
+    res.json({
+        "msg":"La cotizacion esta en estado 'En proceso'"
+    })
+}
+
 const desactivarPut=async(req, res)=>{
     const {id}=req.params;
     const {motivo}=req.body;
