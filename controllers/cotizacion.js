@@ -249,7 +249,6 @@ const editarCotizacionPut=async(req, res)=>{
 const activarPut=async(req, res)=>{
     const {id}=req.params;
     const activar=await Cotizacion.findByIdAndUpdate(id,{estado:1})
-
     const idUsuario=req.usuario._id
     const idPut= id
     const ip=req.socket.remoteAddress
@@ -263,7 +262,8 @@ const activarPut=async(req, res)=>{
 
 const desactivarPut=async(req, res)=>{
     const {id}=req.params;
-    const desactivar=await Cotizacion.findByIdAndUpdate(id,{estado:0})
+    const {motivo}=req.body;
+    const desactivar=await Cotizacion.findByIdAndUpdate(id,{estado:0,motivo:motivo})
     const idUsuario=req.usuario._id
     const idPut= id
     const ip=req.socket.remoteAddress
