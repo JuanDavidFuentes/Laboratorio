@@ -248,7 +248,7 @@ const editarCotizacionPut=async(req, res)=>{
 
 const activarPut=async(req, res)=>{
     const {id}=req.params;
-    const activar=await Cotizacion.findByIdAndUpdate(id,{estado:2,motivo:""})
+    const activar=await Cotizacion.findByIdAndUpdate(id,{estado:2,motivo:""}) // falta un put para que este en estado 1
     const idUsuario=req.usuario._id
     const idPut= id
     const ip=req.socket.remoteAddress
