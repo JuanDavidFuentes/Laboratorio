@@ -325,4 +325,4 @@ const ListarConsecutivo=async(req, res)=>{
 // PUT Inactivar cotización +
 
 
-export {listarTodasCotizacionesEnProceso,listarTodasCotizacionesGet,Bitacora,ListarConsecutivo,infoCali,actualizarInfo,buscarPorId,cotizacionPost,listarcotizacionesGet,buscarPorCodigoGet,buscarPorIdClienteGet,editarCotizacionPut,activarPut,desactivarPut,crearConsecutivo,buscarPorIdUsuarioGet,buscarFechaGet}
+export {activarPutR,listarTodasCotizacionesEnProceso,listarTodasCotizacionesGet,Bitacora,ListarConsecutivo,infoCali,actualizarInfo,buscarPorId,cotizacionPost,listarcotizacionesGet,buscarPorCodigoGet,buscarPorIdClienteGet,editarCotizacionPut,activarPut,desactivarPut,crearConsecutivo,buscarPorIdUsuarioGet,buscarFechaGet}
