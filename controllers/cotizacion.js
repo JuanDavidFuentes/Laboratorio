@@ -273,7 +273,7 @@ const activarPutR=async(req, res)=>{
         "msg":"La cotizacion esta en estado confirmado"
     })
 }
-
+ 
 const desactivarPut=async(req, res)=>{
     const {id}=req.params;
     const {motivo}=req.body;
