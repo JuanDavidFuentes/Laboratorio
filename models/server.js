@@ -11,6 +11,7 @@ import ordenServidor from "../routes/orden_del_servicio.js";
 import tipo_muestra from "../routes/tipo_muestra.js";
 import ensayo from "../routes/ensayo.js";
 import calidad from "../routes/calidad.js";
+import color from "../routes/colores.js";
 
 class Server{
     constructor(){
@@ -46,6 +47,7 @@ class Server{
         this.app.use("/api/Tipo_muestra",tipo_muestra)
         this.app.use("/api/ensayo",ensayo)
         this.app.use("/api/calidad",calidad)
+        this.app.use("/api/colores",color)
     }
 
     listen(){
