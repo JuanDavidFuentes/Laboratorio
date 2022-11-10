@@ -321,7 +321,7 @@ const ListarConsecutivo=async(req, res)=>{
 // GET traer cotixacion entre fechas
 // POST Insertar cotización ++++++++++++
 // PUT Modificar datos de la cotización +
-// PUT Activar cotización +
+// PUT Activar cotización + 
 // PUT Inactivar cotización +
 
 
