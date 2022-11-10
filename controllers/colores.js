@@ -18,4 +18,11 @@ const coloresPut = async (req, res) => {
     })
 }
 
-export { coloresPost, coloresPut }
+const coloresGet = async (req, res) => {
+    const color = await Colores.find()
+    res.json({
+        color
+    })
+}
+
+export { coloresPost, coloresPut , coloresGet}
