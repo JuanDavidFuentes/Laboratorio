@@ -256,7 +256,7 @@ const activarPut=async(req, res)=>{
     await log.save()
 
     res.json({
-        "msg":"La cotizacion esta en estado confirmad0"
+        "msg":"La cotizacion esta en estado 'En proceso"
     })
 }
 
@@ -270,7 +270,7 @@ const activarPutR=async(req, res)=>{
     await log.save()
 
     res.json({
-        "msg":"La cotizacion esta en estado 'En proceso'"
+        "msg":"La cotizacion esta en estado confirmado"
     })
 }
 
