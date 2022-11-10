@@ -5,6 +5,6 @@ const router=Router()
 
 router.post('/', coloresPost)
 
-router.put('/', coloresPut)
+router.put('/:id', coloresPut)
 
 export default router
