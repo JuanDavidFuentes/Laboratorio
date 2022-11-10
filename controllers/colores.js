@@ -4,6 +4,9 @@ const coloresPost = async (req, res) => {
     const { logo, formato, interfaz, temporal } = req.body
     const color = new Colores({ logo, formato, interfaz, temporal })
     await color.save()
+    res.json({
+        color
+    })
 }
 
 const coloresPut = async (req, res) => {
