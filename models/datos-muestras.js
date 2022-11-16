@@ -12,6 +12,7 @@ const DatosMuestraSchema = new mongoose.Schema({
     fechaRecoleccion: {type: Date,required: true},///UTC horario estandar global +5 UTC colombia
     cotizacion: {type: mongoose.Schema.ObjectId,ref: "Cotizacion",required: true},
     item: {type: String,required: true,default:"Item1"},
+    observacion: {type: String},
     estado: {type: Number,default: 1},
     createdAt: {type: Date,default: Date.now()},
 })

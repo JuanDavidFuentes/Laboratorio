@@ -220,6 +220,9 @@ const listarMuestrasGet = async (req, res) => {
             path:"munRecoleccion"
         })
         .populate({
+            path:"tipoMuestra"
+        })
+        .populate({
             path:"cotizacion",
             populate:{
                 path:"idCliente",
