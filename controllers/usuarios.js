@@ -81,7 +81,7 @@ const usuarioLogin=async(req, res)=>{
             const token = await generarJWT(usuario.id);
             const idUsuario=usuario._id
             const idPost=usuario._id
-            const texto=`El usuario: ${req.usuario.nombre} ha iniciado sesión`
+            const texto=`El usuario: ${usuario.nombre} ha iniciado sesión`
             const navegador=req.headers['user-agent']
             const ip=req.socket.remoteAddress
             const log= new Log({idUsuario,idPost,navegador,texto,ip})
