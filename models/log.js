@@ -5,6 +5,7 @@ const logSchema = new mongoose.Schema({
     idPut: { type: String },
     idPost: { type: String },
     navegador: { type: String },
+    texto:{type: String},
     ip: { type: String },
     fecha: { type: Date, default: Date.now }
 })

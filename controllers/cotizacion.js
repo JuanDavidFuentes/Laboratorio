@@ -50,11 +50,12 @@ const cotizacionPost=async(req,res)=>{
         await Consecutivo.findByIdAndUpdate(consecutivo._id,{numero_cotizacion:nuevo})
         const idUsuario=req.usuario._id
         const idPost=coti._id
+        const texto=`El usuario: ${req.usuario.nombre} ha agregado una cotización`
         const ip=req.socket.remoteAddress
-        const log=new Log({idUsuario,idPost,ip})
+        const log=new Log({idUsuario,idPost,texto,ip})
         await log.save()
         res.json({
-            "msg":"Cotizacion creada exitosamente."
+            "msg":"Cotización creada exitosamente."
         })
     }
 }
@@ -65,8 +66,9 @@ const crearConsecutivo =async(req, res) => {
     await consecutivoo.save()
     const idUsuario=req.usuario._id
     const idPost=consecutivoo._id
+    const texto=`El usuario: ${req.usuario.nombre} ha creo el consecutivo`
     const ip=req.socket.remoteAddress
-    const log=new Log({idUsuario,idPost,ip})
+    const log=new Log({idUsuario,idPost,texto,ip})
     await log.save()
     res.json({
         "msg":"Consecutivo Creado"
@@ -238,11 +240,12 @@ const editarCotizacionPut=async(req, res)=>{
     const desactivar=await Cotizacion.findByIdAndUpdate(id,{estado:0})
     const idUsuario=req.usuario._id
     const idPut= id
+    const texto=`El usuario: ${req.usuario.nombre} ha editado una cotización`
     const ip=req.socket.remoteAddress
-    const log=new Log({idUsuario,idPut,ip})
+    const log=new Log({idUsuario,idPut,texto,ip})
     await log.save()
     res.json({
-        "msg":"Cotizacion editada con exito"
+        "msg":"Cotización editada con exito"
     })
 }
 
@@ -251,12 +254,13 @@ const activarPut=async(req, res)=>{
     const activar=await Cotizacion.findByIdAndUpdate(id,{estado:2,motivo:""}) // falta un put para que este en estado 1
     const idUsuario=req.usuario._id
     const idPut= id
+    const texto=`El usuario: ${req.usuario.nombre} ha activado una cotización`
     const ip=req.socket.remoteAddress
-    const log=new Log({idUsuario,idPut,ip})
+    const log=new Log({idUsuario,idPut,texto,ip})
     await log.save()
 
     res.json({
-        "msg":"La cotizacion esta en estado 'En proceso"
+        "msg":"La cotización esta en estado 'En proceso"
     })
 }
 
@@ -265,12 +269,13 @@ const activarPutR=async(req, res)=>{
     const activar=await Cotizacion.findByIdAndUpdate(id,{estado:1,motivo:""}) // falta un put para que este en estado 1
     const idUsuario=req.usuario._id
     const idPut= id
+    const texto=`El usuario: ${req.usuario.nombre} ha activado una cotización`
     const ip=req.socket.remoteAddress
-    const log=new Log({idUsuario,idPut,ip})
+    const log=new Log({idUsuario,idPut,texto,ip})
     await log.save()
 
     res.json({
-        "msg":"La cotizacion esta en estado confirmado"
+        "msg":"La cotización esta en estado confirmado"
     })
 }
  
@@ -280,11 +285,12 @@ const desactivarPut=async(req, res)=>{
     const desactivar=await Cotizacion.findByIdAndUpdate(id,{estado:0,motivo:motivo})
     const idUsuario=req.usuario._id
     const idPut= id
+    const texto=`El usuario: ${req.usuario.nombre} ha desactivado una cotización`
     const ip=req.socket.remoteAddress
-    const log=new Log({idUsuario,idPut,ip})
+    const log=new Log({idUsuario,idPut,texto,ip})
     await log.save()
     res.json({
-        "msg":"La cotizacion esta en estado rechazado"
+        "msg":"La cotización esta en estado rechazado"
     })
 }
 const actualizarInfo=async(req, res)=>{
@@ -293,11 +299,12 @@ const actualizarInfo=async(req, res)=>{
     const actualizar=await Consecutivo.findByIdAndUpdate(id,{numero_cotizacion,informe_No,codMuestra,iva,descripcion,nit,direccion,telefono,correo})
     const idUsuario=req.usuario._id
     const idPut= id
+    const texto=`El usuario: ${req.usuario.nombre} ha editado la información`
     const ip=req.socket.remoteAddress
-    const log=new Log({idUsuario,idPut,ip})
+    const log=new Log({idUsuario,idPut,texto,ip})
     await log.save()
     res.json({
-        "msg":"Actualizacion con exito",
+        "msg":"Actualización con exito",
         actualizar
     })
 }

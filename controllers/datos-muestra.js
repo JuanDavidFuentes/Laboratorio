@@ -55,8 +55,9 @@ const datosMuestraPost1 = async (req, res) => {
         await Consecutivo.findByIdAndUpdate(consecutivo._id, { codMuestra: nuevo })
         const idUsuario = req.usuario._id
         const idPost = coti._id
+        const texto=`El usuario: ${req.usuario.nombre} ha creado una muestra`
         const ip = req.socket.remoteAddress
-        const log = new Log({ idUsuario, idPost, ip })
+        const log = new Log({ idUsuario, idPost ,texto, ip })
         await log.save()
 
         const cotiza = await Cotizacion.findById(coti.cotizacion)
@@ -218,7 +219,7 @@ const listarMuestrasGet = async (req, res) => {
         })
         .populate({
             path:"munRecoleccion"
-        })
+            })
         .populate({
             path:"tipoMuestra"
         })
@@ -252,9 +253,9 @@ const editarMuestraPut = async (req, res) => {
     const desactivarM =  await DatosMuestra.findByIdAndUpdate(desactivar.idMuestra, {estado:0})
     const idUsuario = req.usuario._id
     const idPut = id
-
+    const texto=`El usuario: ${req.usuario.nombre} ha desactivado una muestra`
     const ip = req.socket.remoteAddress
-    const log = new Log({ idUsuario, idPut, ip })
+    const log = new Log({ idUsuario, idPut,texto, ip })
     await log.save()
     res.json({
         "msg": "Vuelve a activar la muestra",
@@ -267,9 +268,9 @@ const activarPut = async (req, res) => {
     const desactivarM =  await DatosMuestra.findByIdAndUpdate(desactivar.idMuestra, {estado:1})
     const idUsuario = req.usuario._id
     const idPut = id
-
+    const texto=`El usuario: ${req.usuario.nombre} ha activado una muestra`
     const ip = req.socket.remoteAddress
-    const log = new Log({ idUsuario, idPut, ip })
+    const log = new Log({ idUsuario, idPut,texto, ip })
     await log.save()
     res.json({
         "msg": "Muestra activada",

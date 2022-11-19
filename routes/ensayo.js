@@ -9,7 +9,6 @@ const router =Router ()
 
 router.post("/",[
     validarJWT,
-    check('ensayo',"El ensayo es requerido").not().isEmpty(),
     check('ensayo').custom(HelpersEnsayo.existeEnsayo),
     check('metodo',"El metodo es requerido").not().isEmpty(),
     check('tecnica',"La tecnica es requerida").not().isEmpty(),
@@ -28,7 +27,6 @@ router.put("/:id",[
     validarJWT,
     check('id').isMongoId(),
     check('id').custom(HelpersEnsayo.existeEnsayoById),
-    check('ensayo',"El ensayo es requerido").not().isEmpty(),
     // check('ensayo').custom(HelpersEnsayo.existeEnsayo),
     check('metodo',"El metodo es requerido").not().isEmpty(),
     check('tecnica',"La tecnica es requerido").not().isEmpty(),

@@ -1,18 +1,43 @@
  import Ensayo from "../models/ensayo.js";
  import Log from "../models/log.js";
+ import Consecutivo from "../models/consecutivo.js";
+
+
+//  if (consecutivo) {
+//     const codMuestra = numeros(consecutivo.codMuestra)
+//     const { solicitante, munRecoleccion, direccionTomaMuestra, lugarTomaMuestra, muestraRecolectadaPor, procedimientoMuestreo, tipoMuestra, matrizMuestra, fechaRecoleccion, cotizacion, item, estado } = req.body
+//     const coti = new DatosMuestra({ solicitante, codMuestra, munRecoleccion, direccionTomaMuestra, lugarTomaMuestra, muestraRecolectadaPor, procedimientoMuestreo, tipoMuestra, matrizMuestra, fechaRecoleccion, cotizacion, item, estado })
+//     await coti.save()
+//     const nuevo = consecutivo.codMuestra + 1
+//     await Consecutivo.findByIdAndUpdate(consecutivo._id, { codMuestra: nuevo })
+//     const idUsuario = req.usuario._id
+//     const idPost = coti._id
+//     const texto=`El usuario: ${req.usuario.nombre} ha creado una muestra`
+//     const ip = req.socket.remoteAddress
+//     const log = new Log({ idUsuario, idPost ,texto, ip })
+//     await log.save()
+//  }
+
 
 const ensayoPost=async(req,res)=>{
-    const {ensayo,metodo,tecnica,valorMinimo,valorMaximo,unidades,costo,descripcion,limiteCuantificacion,responsables}=req.body
-    const ensayoPostt = new Ensayo ({ensayo,metodo,tecnica,valorMinimo,valorMaximo,unidades,costo,descripcion,limiteCuantificacion,responsables})
-    await ensayoPostt.save()
-    const idUsuario=req.usuario._id
-    const idPost=ensayoPostt._id
-    const ip=req.socket.remoteAddress
-    const log=new Log({idUsuario,idPost,ip})
-    await log.save()
-    res.json({
-        ensayoPostt
-    })
+    const consecutivo = await Consecutivo.findOne()
+    if(consecutivo){
+        const numero=consecutivo.informe_No
+        const {metodo,tecnica,valorMinimo,valorMaximo,unidades,costo,descripcion,limiteCuantificacion,responsables}=req.body
+        const ensayoPostt = new Ensayo ({numero,metodo,tecnica,valorMinimo,valorMaximo,unidades,costo,descripcion,limiteCuantificacion,responsables})
+        await ensayoPostt.save()
+        const nuevo =consecutivo.informe_No + 1
+        await Consecutivo.findByIdAndUpdate(consecutivo._id, { informe_No: nuevo })
+        const idUsuario=req.usuario._id
+        const idPost=ensayoPostt._id
+        const texto=`El usuario: ${req.usuario.nombre} ha creado un ensayo`
+        const ip=req.socket.remoteAddress
+        const log=new Log({idUsuario,idPost,texto,ip})
+        await log.save()
+        res.json({
+            ensayoPostt
+        })
+    }
 }
 
 const ensayoPut = async (req,res)=>{
@@ -22,8 +47,9 @@ const ensayoPut = async (req,res)=>{
 
     const idUsuario=req.usuario._id
     const idPut= id
+    const texto=`El usuario: ${req.usuario.nombre} ha editado un ensayo`
     const ip=req.socket.remoteAddress
-    const log=new Log({idUsuario,idPut,ip})
+    const log=new Log({idUsuario,idPut,texto,ip})
     await log.save()
 
     res.json({
@@ -35,8 +61,9 @@ const ensayoPutActivar=async(req,res)=>{
     const activar =await Ensayo.findByIdAndUpdate(id,{estado:1})
     const idUsuario=req.usuario._id
     const idPut= id
+    const texto=`El usuario: ${req.usuario.nombre} ha activado un ensayo`
     const ip=req.socket.remoteAddress
-    const log=new Log({idUsuario,idPut,ip})
+    const log=new Log({idUsuario,idPut,texto,ip})
     await log.save()
     res.json({
         "msg":"Ensayo activado con exito"
@@ -48,8 +75,9 @@ const ensayoPutDesactivar=async(req,res)=>{
     const desactivar =await Ensayo.findByIdAndUpdate(id,{estado:0})
     const idUsuario=req.usuario._id
     const idPut= id
+    const texto=`El usuario: ${req.usuario.nombre} ha desactivado un ensayo`
     const ip=req.socket.remoteAddress
-    const log=new Log({idUsuario,idPut,ip})
+    const log=new Log({idUsuario,idPut,texto,ip})
     await log.save()
     res.json({
         "msg":"Ensayo desactivado con exito"

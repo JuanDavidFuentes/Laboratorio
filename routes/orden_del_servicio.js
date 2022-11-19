@@ -1,5 +1,5 @@
 import {Router} from "express"
-import {getInformeResultados,listartodaslasordenesGet,listaridGet,modificarordenPut,modificarsupervisadoPut,Getrealizadopor,supervisadoGet,OrdenactivarPUt,OrdenDesactivarPUt} from "../controllers/orden_del_servicio.js";
+import {resultadosPut,getInformeResultados,listartodaslasordenesGet,listaridGet,modificarordenPut,modificarsupervisadoPut,Getrealizadopor,supervisadoGet,OrdenactivarPUt,OrdenDesactivarPUt} from "../controllers/orden_del_servicio.js";
 import { check } from "express-validator";
 import { validarCampos } from "../middlewares/validar_campos.js";
 import { validarJWT } from "../middlewares/validar_jwt.js";
@@ -115,15 +115,7 @@ router.put("/editar_orden/:id",[
     validarJWT,
     check('id').isMongoId(),
     check('id').custom(HerlpersOdenServicio.existeOrdenById),
-    check('idMuestra').isMongoId(),
-    check('idMuestra').custom(HerlpersDatosMuestra.existeDatosMuestraById),
-    // check('ensayo').isMongoId(),
-    // check('ensayo').custom(HerlpersEnsayo.existeEnsayoById),
-    check('realizado').isMongoId(),
-    check('realizado').custom(HerlpersUsuario.existeUsuarioById),
-    check('supervisado').isMongoId(),
-    check('supervisado').custom(HerlpersUsuario.existeUsuarioById),
     validarCampos    
-],modificarordenPut);
+],resultadosPut);
 
 export default router;

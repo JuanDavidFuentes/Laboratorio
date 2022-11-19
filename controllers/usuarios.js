@@ -13,10 +13,11 @@ const usuarioPost=async(req,res)=>{
     await usuario.save()
     const idUsuario=usuario._id
     const idPost=usuario._id
+    const texto=`El usuario ${nombre} ha sido creado por ${req.usuario.nombre}`
     const ip=req.socket.remoteAddress
-    const log= new Log({idUsuario,idPost,ip})
+    const log= new Log({idUsuario,idPost,texto,ip})
     await log.save()
-    res.json({ 
+    res.json({
         msg:"Registro Exitoso",
         usuario
     })
@@ -31,8 +32,9 @@ const usuarioPutdatos=async(req,res)=>{
     await usuario.save()
     const idUsuario=req.usuario._id
     const idPut= id
+    const texto=`El usuario: ${req.usuario.nombre} ha editado a un usuario`
     const ip=req.socket.remoteAddress
-    const log= new Log({idUsuario,idPut,ip})
+    const log= new Log({idUsuario,idPut,texto,ip})
     await log.save()
 
     res.json({
@@ -79,9 +81,10 @@ const usuarioLogin=async(req, res)=>{
             const token = await generarJWT(usuario.id);
             const idUsuario=usuario._id
             const idPost=usuario._id
+            const texto=`El usuario: ${req.usuario.nombre} ha iniciado sesión`
             const navegador=req.headers['user-agent']
             const ip=req.socket.remoteAddress
-            const log= new Log({idUsuario,idPost,navegador,ip})
+            const log= new Log({idUsuario,idPost,navegador,texto,ip})
             await log.save()
             res.json({
                 usuario,
