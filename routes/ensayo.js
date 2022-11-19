@@ -9,7 +9,6 @@ const router =Router ()
 
 router.post("/",[
     validarJWT,
-    check('ensayo').custom(HelpersEnsayo.existeEnsayo),
     check('metodo',"El metodo es requerido").not().isEmpty(),
     check('tecnica',"La tecnica es requerida").not().isEmpty(),
     check('valorMinimo',"El valor minimo es requerido").not().isEmpty(),

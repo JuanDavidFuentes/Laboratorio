@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 
 const EnsayoSchema= new mongoose.Schema({
-    ensayo:{type: String,required: true,unique:true},
+    ensayo:{type: Number},
     metodo:{type: String,required: true,},
     tecnica:{type: String,required: true,},
     valorMinimo:{type: String,required: true,default:"N.A."},

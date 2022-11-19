@@ -22,9 +22,9 @@
 const ensayoPost=async(req,res)=>{
     const consecutivo = await Consecutivo.findOne()
     if(consecutivo){
-        const numero=consecutivo.informe_No
+        const ensayo=consecutivo.informe_No
         const {metodo,tecnica,valorMinimo,valorMaximo,unidades,costo,descripcion,limiteCuantificacion,responsables}=req.body
-        const ensayoPostt = new Ensayo ({numero,metodo,tecnica,valorMinimo,valorMaximo,unidades,costo,descripcion,limiteCuantificacion,responsables})
+        const ensayoPostt = new Ensayo ({ensayo,metodo,tecnica,valorMinimo,valorMaximo,unidades,costo,descripcion,limiteCuantificacion,responsables})
         await ensayoPostt.save()
         const nuevo =consecutivo.informe_No + 1
         await Consecutivo.findByIdAndUpdate(consecutivo._id, { informe_No: nuevo })
