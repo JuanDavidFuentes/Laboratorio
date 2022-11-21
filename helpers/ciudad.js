@@ -7,7 +7,7 @@ const HelpersCiudad = {
           const existe = await Ciudad.findOne({ coddepartamento });
           if (!existe) throw new Error(`codigo ${coddepartamento} no existe en la base de datos`);
       }
-    },
+    }, 
 
     existeciudadById: async (id) => {
         const existe=await Ciudad.findById(id)
