@@ -201,7 +201,7 @@ const resultadosPut = async (req, res) => {
         const idPost = id
         const texto=`El usuario: ${req.usuario.nombre} ha editado una orden`
         const ip = req.socket.remoteAddress
-        const log = new Log({ idUsuario, idPost, ip })
+        const log = new Log({ idUsuario, idPost,texto, ip })
         await log.save()
         res.json({
             "msg": 'Modificacion realizada con exito',
