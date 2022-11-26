@@ -9,6 +9,7 @@ const router=Router()
 router.post("/",listadoPost)    
       
 router.put("/calidadPut/:id",[
+    validarJWT,
     check('id').isMongoId(),
     validarCampos
 ],listadoPut)
