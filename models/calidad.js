@@ -42,6 +42,7 @@ OfertaServicios:[{
   codigo:{type:String, default:"CAT–ST–OC–F–002"},
   aprobacion:{type:String, default:"2021-08-30"},
   version:{type:String, default:"1"},
+  observacionesdelservicio:{type:String},
   anexodecotizaciones:{
     aceptaciondelservicio:{type:String},
     condicionescomerciales:{type:String},
