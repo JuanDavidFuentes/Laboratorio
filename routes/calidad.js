@@ -8,7 +8,7 @@ const router=Router()
 
 router.post("/",listadoPost)    
       
-router.put("/calidadPut/id:",[
+router.put("/calidadPut/:id",[
     check('id').isMongoId(),
     validarCampos
 ],listadoPut)
