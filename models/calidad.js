@@ -41,7 +41,14 @@ Seguimiento:[{
 OfertaServicios:[{
   codigo:{type:String, default:"CAT–ST–OC–F–002"},
   aprobacion:{type:String, default:"2021-08-30"},
-  version:{type:String, default:"1"}
+  version:{type:String, default:"1"},
+  anexodecotizaciones:{
+    aceptaciondelservicio:{type:String},
+    condicionescomerciales:{type:String},
+    condicionestecnicas:{type:String},
+    garantiadelservicio:{type:String},
+    calidaddelservicio:{type:String},
+  }
 }],
 });
 
