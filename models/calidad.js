@@ -51,6 +51,6 @@ OfertaServicios:[{
     calidaddelservicio:{type:String},
   }
 }],
-});
+}); 
 
 export default mongoose.model("Calidad", CalidadSchema);
