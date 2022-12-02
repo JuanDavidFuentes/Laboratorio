@@ -40,7 +40,7 @@ class Server{
     routes(){
         this.app.use("/api/usuarios",usuario)
         this.app.use("/api/cotizacion",cotizacion)
-        this.app.use("/api/DMuestra",dmuestra)
+        this.app.use("/api/DMuestra",dmuestra) 
         this.app.use("/api/informeR",informeR)
         this.app.use("/api/ciudad",Ciudad)
         this.app.use("/api/Orden_servicio",ordenServidor)
