@@ -4,13 +4,15 @@ import HerlpersCotizacion from "../helpers/cotizacion.js"
 import { validarCampos } from "../middlewares/validar_campos.js";
 import { validarJWT } from "../middlewares/validar_jwt.js";
 import HerlpersUsuario from "../helpers/usuarios.js";
-import {activarPutR,listarTodasCotizacionesEnProceso,listarTodasCotizacionesGet,Bitacora, ListarConsecutivo, infoCali, actualizarInfo, buscarPorId, activarPut, buscarFechaGet, buscarPorCodigoGet, buscarPorIdClienteGet, cotizacionPost, desactivarPut, editarCotizacionPut, listarcotizacionesGet, crearConsecutivo } from "../controllers/cotizacion.js";
+import {reiniciar,activarPutR,listarTodasCotizacionesEnProceso,listarTodasCotizacionesGet,Bitacora, ListarConsecutivo, infoCali, actualizarInfo, buscarPorId, activarPut, buscarFechaGet, buscarPorCodigoGet, buscarPorIdClienteGet, cotizacionPost, desactivarPut, editarCotizacionPut, listarcotizacionesGet, crearConsecutivo } from "../controllers/cotizacion.js";
 
 const router = Router()
 router.put('/actualizarInfo/:id', [
     validarJWT,
     validarCampos,
 ], actualizarInfo)
+
+router.put('/reiniciar/:id',reiniciar)
 
 router.get('/traerInfo',infoCali)
 

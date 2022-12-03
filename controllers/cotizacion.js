@@ -309,6 +309,22 @@ const actualizarInfo=async(req, res)=>{
     })
 }
 
+const reiniciar=async(req, res)=>{
+    const {id}=req.params;
+    const {numero_cotizacion,informe_No,codMuestra}=req.body;
+    const actualizar=await Consecutivo.findByIdAndUpdate(id,{numero_cotizacion,informe_No,codMuestra})
+    const idUsuario=req.usuario._id
+    const idPut= id
+    const texto=`Se han reiniciado los concecutivos`
+    const ip=req.socket.remoteAddress
+    const log=new Log({idUsuario,idPut,texto,ip})
+    await log.save()
+    res.json({
+        "msg":"Actualización con exito",
+        actualizar
+    })
+}
+
 const cambiar=(numero_cotizacion)=>{
     const division=Number(numero_cotizacion.split("")[numero_cotizacion.length-1])
     const sumar=division+1
@@ -332,4 +348,4 @@ const ListarConsecutivo=async(req, res)=>{
 // PUT Inactivar cotización +
 
 
-export {activarPutR,listarTodasCotizacionesEnProceso,listarTodasCotizacionesGet,Bitacora,ListarConsecutivo,infoCali,actualizarInfo,buscarPorId,cotizacionPost,listarcotizacionesGet,buscarPorCodigoGet,buscarPorIdClienteGet,editarCotizacionPut,activarPut,desactivarPut,crearConsecutivo,buscarPorIdUsuarioGet,buscarFechaGet}
+export {reiniciar,activarPutR,listarTodasCotizacionesEnProceso,listarTodasCotizacionesGet,Bitacora,ListarConsecutivo,infoCali,actualizarInfo,buscarPorId,cotizacionPost,listarcotizacionesGet,buscarPorCodigoGet,buscarPorIdClienteGet,editarCotizacionPut,activarPut,desactivarPut,crearConsecutivo,buscarPorIdUsuarioGet,buscarFechaGet}
