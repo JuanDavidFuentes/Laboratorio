@@ -313,11 +313,10 @@ const reiniciar=async(req, res)=>{
     const {id}=req.params;
     const {numero_cotizacion,informe_No,codMuestra}=req.body;
     const actualizar=await Consecutivo.findByIdAndUpdate(id,{numero_cotizacion,informe_No,codMuestra})
-    const idUsuario=req.usuario._id
     const idPut= id
     const texto=`Se han reiniciado los concecutivos`
     const ip=req.socket.remoteAddress
-    const log=new Log({idUsuario,idPut,texto,ip})
+    const log=new Log({idPut,texto,ip})
     await log.save()
     res.json({
         "msg":"Actualización con exito",

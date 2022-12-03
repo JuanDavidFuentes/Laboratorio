@@ -12,7 +12,7 @@ router.put('/actualizarInfo/:id', [
     validarCampos,
 ], actualizarInfo)
 
-router.put('/reiniciar/:id',reiniciar)
+router.put('/reiniciar/:id', reiniciar)
 
 router.get('/traerInfo',infoCali)
 
