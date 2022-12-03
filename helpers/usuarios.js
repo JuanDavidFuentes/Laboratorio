@@ -1,5 +1,5 @@
 import Usuario from "../models/usuarios.js";
-
+//mongodb://localhost:27017/laboratorio
 const HerlpersUsuario = {
   existeEmail: async (email) => {
     if (email) {
