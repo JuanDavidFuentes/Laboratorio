@@ -9,13 +9,13 @@ import {reiniciar,activarPutR,listarTodasCotizacionesEnProceso,listarTodasCotiza
 const router = Router()
 router.put('/actualizarInfo/:id', [
     validarJWT,
-    check('iva').not().isEmpty(),
-    check('iva').isNumeric(),
-    check('descripcion').not().isEmpty(),
-    check('nit').not().isEmpty(),
-    check('direccion').not().isEmpty(),
-    check('telefono').not().isEmpty(),
-    check('correo').not().isEmpty(),
+    check('iva',"El iva es obligatorio").not().isEmpty(),
+    check('iva',"El iva debe de ser numerico").isNumeric(),
+    check('descripcion',"La descripción es obligatoria").not().isEmpty(),
+    check('nit',"El nit es obligatorio").not().isEmpty(),
+    check('direccion',"La dirección es obligatoria").not().isEmpty(),
+    check('telefono',"El telefono es obligatorio").not().isEmpty(),
+    check('correo',"El correo es obligatorio").not().isEmpty(),
     validarCampos,
 ], actualizarInfo)
 
