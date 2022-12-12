@@ -9,6 +9,13 @@ import {reiniciar,activarPutR,listarTodasCotizacionesEnProceso,listarTodasCotiza
 const router = Router()
 router.put('/actualizarInfo/:id', [
     validarJWT,
+    check('iva').not().isEmpty(),
+    check('iva').isNumeric(),
+    check('descripcion').not().isEmpty(),
+    check('nit').not().isEmpty(),
+    check('direccion').not().isEmpty(),
+    check('telefono').not().isEmpty(),
+    check('correo').not().isEmpty(),
     validarCampos,
 ], actualizarInfo)
 
