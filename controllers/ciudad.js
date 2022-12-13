@@ -7,7 +7,7 @@ const ciudadPost=async(req,res)=>{
     await ciudadPost.save()
     const idUsuario=req.usuario._id
     const idPost=ciudadPost._id
-    const texto=`El usuario: ${req.usuario.nombre} ha agregado una ciudad`
+    const texto=`El usuario: ${req.usuario.nombre} ha agregado la ciudad: ${ciudad}`
     const ip=req.socket.remoteAddress
     const log= new Log({idUsuario,idPost,texto,ip})
     await log.save()
@@ -23,7 +23,7 @@ const ciudadPut=async(req,res)=>{
     const ciudadPut=await Ciudad.findByIdAndUpdate(id,{coddepartamento,departamento,ciudad,codciudad})
     const idUsuario=req.usuario._id
     const idPut=id
-    const texto=`El usuario: ${req.usuario.nombre} ha editado una ciudad`
+    const texto=`El usuario: ${req.usuario.nombre} ha editado la ciudad ${ciudadPut.ciudad}`
     const ip=req.socket.remoteAddress
     const log= new Log({idUsuario,idPut,texto,ip})
     await log.save()
