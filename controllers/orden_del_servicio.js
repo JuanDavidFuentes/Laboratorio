@@ -173,7 +173,7 @@ const getInformeResultados = async (req, res) => {
             }
         })
         .populate({
-            path: "ensayo.idensayo"
+            path: "ensayo.idensayo" 
         })
         .populate({
             path: "ensayo.realizado"
