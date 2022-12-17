@@ -15,7 +15,7 @@ const getTipoMuestra = async(req, res)=>{
         tipo
     })
 }
- 
+  
 const putTipoMuestra = async(req, res)=>{
     const {id}=req.params;
     const {tipos}=req.body
