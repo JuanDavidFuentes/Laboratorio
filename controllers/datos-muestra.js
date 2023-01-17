@@ -86,7 +86,7 @@ const datosMuestraPost1 = async (req, res) => {
                     const c = await Usuario.findOne({ rol: "SUPERVISOR" })
                     const supervisado = c._id
                     guardarEnsayo.push({ idensayo, realizado, supervisado })
-                }
+                } 
             }
             const oferta = new Orden_del_servicio({ idMuestra, guardarEnsayo })
             await oferta.save()
