@@ -62,14 +62,14 @@ const datosMuestraPost1 = async (req, res) => {
         const idMuestra = coti._id
         const cotiza = await Cotizacion.findById(coti.cotizacion)
         if (item === "item1") {
-            const guardarEnsayo=[]
+            const ensayo=[]
             for (let i = 0; i < cotiza.items.item1.itemsEnsayo.length; i++) {
                 const idensayo = cotiza.items.item1.itemsEnsayo[i].ensayo
-                const ensayo = await Ensayo.findById(idensayo)
-                const titular = ensayo.responsables.titular
+                const ensayo2 = await Ensayo.findById(idensayo)
+                const titular = ensayo2.responsables.titular
                 const a = await Usuario.findById(titular)
                 if (a.estado !== 1) {
-                    const suplente = ensayo.responsables.suplente
+                    const suplente = ensayo2.responsables.suplente
                     const b = await Usuario.findById(suplente)
                     if (b.estado !== 1) {
                         const c = await Usuario.findOne({ rol: "SUPERVISOR" })
@@ -88,7 +88,7 @@ const datosMuestraPost1 = async (req, res) => {
                     guardarEnsayo.push({ idensayo, realizado, supervisado })
                 } 
             }
-            const oferta = new Orden_del_servicio({ idMuestra, guardarEnsayo })
+            const oferta = new Orden_del_servicio({ idMuestra, ensayo })
             await oferta.save()
         }
         if (item === "item2") {
