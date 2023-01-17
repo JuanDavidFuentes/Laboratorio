@@ -74,18 +74,18 @@ const datosMuestraPost1 = async (req, res) => {
                     if (b.estado !== 1) {
                         const c = await Usuario.findOne({ rol: "SUPERVISOR" })
                         const supervisado = c._id
-                        guardarEnsayo.push({ idensayo, supervisado })
+                        ensayo.push({ idensayo, supervisado })
                     } else {
                         const realizado = b._id
                         const c = await Usuario.findOne({ rol: "SUPERVISOR" })
                         const supervisado = c._id
-                        guardarEnsayo.push({ idensayo, realizado, supervisado })
+                        ensayo.push({ idensayo, realizado, supervisado })
                     }
                 } else {
                     const realizado = a._id
                     const c = await Usuario.findOne({ rol: "SUPERVISOR" })
                     const supervisado = c._id
-                    guardarEnsayo.push({ idensayo, realizado, supervisado })
+                    ensayo.push({ idensayo, realizado, supervisado })
                 } 
             }
             const oferta = new Orden_del_servicio({ idMuestra, ensayo })
