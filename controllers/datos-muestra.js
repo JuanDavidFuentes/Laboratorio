@@ -59,9 +59,10 @@ const datosMuestraPost1 = async (req, res) => {
         const ip = req.socket.remoteAddress
         const log = new Log({ idUsuario, idPost ,texto, ip })
         await log.save()
-
+        const idMuestra = coti._id
         const cotiza = await Cotizacion.findById(coti.cotizacion)
         if (item === "item1") {
+            const guardarEnsayo=[]
             for (let i = 0; i < cotiza.items.item1.itemsEnsayo.length; i++) {
                 const idensayo = cotiza.items.item1.itemsEnsayo[i].ensayo
                 const ensayo = await Ensayo.findById(idensayo)
@@ -71,35 +72,24 @@ const datosMuestraPost1 = async (req, res) => {
                     const suplente = ensayo.responsables.suplente
                     const b = await Usuario.findById(suplente)
                     if (b.estado !== 1) {
-                        const ensayo = []
-                        const idMuestra = coti._id
                         const c = await Usuario.findOne({ rol: "SUPERVISOR" })
                         const supervisado = c._id
-                        ensayo.push({ idensayo, supervisado })
-                        const oferta = new Orden_del_servicio({ idMuestra, ensayo })
-                        await oferta.save()
+                        guardarEnsayo.push({ idensayo, supervisado })
                     } else {
-   
-                        const ensayo = []
-                        const idMuestra = coti._id
                         const realizado = b._id
                         const c = await Usuario.findOne({ rol: "SUPERVISOR" })
                         const supervisado = c._id
-                        ensayo.push({ idensayo, realizado, supervisado })
-                        const oferta = new Orden_del_servicio({ idMuestra, ensayo })
-                        await oferta.save()
+                        guardarEnsayo.push({ idensayo, realizado, supervisado })
                     }
                 } else {
-                    const ensayo = []
-                    const idMuestra = coti._id
                     const realizado = a._id
                     const c = await Usuario.findOne({ rol: "SUPERVISOR" })
                     const supervisado = c._id
-                    ensayo.push({ idensayo, realizado, supervisado })
-                    const oferta = new Orden_del_servicio({ idMuestra, ensayo })
-                    await oferta.save()
+                    guardarEnsayo.push({ idensayo, realizado, supervisado })
                 }
             }
+            const oferta = new Orden_del_servicio({ idMuestra, guardarEnsayo })
+            await oferta.save()
         }
         if (item === "item2") {
             for (let i = 0; i < cotiza.items.item2.itemsEnsayo.length; i++) {
