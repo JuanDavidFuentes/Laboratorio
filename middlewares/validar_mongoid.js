@@ -8,7 +8,7 @@ const validarMongoId = async (itemsEnsayo) => {
     if (!valido) {
         return "id no valido"
     }
-    const xx = await HerlpersEnsayo.existeEnsayoById2(itemsEnsayo);
+    const xx = await HerlpersEnsayo.existeEnsayoById2(itemsEnsayo); 
     console.log(xx);
     if (!xx) {
         return "id no existe"
