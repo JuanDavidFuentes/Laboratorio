@@ -13,7 +13,7 @@ const usuarioPost=async(req,res)=>{
     await usuario.save()
     const idUsuario=usuario._id
     const idPost=usuario._id
-    const texto=`El usuario ${nombre} ha sido creado por ${req.usuario.nombre}`
+    const texto=`El usuario ${nombre} ha sido creado`
     const ip=req.socket.remoteAddress
     const log= new Log({idUsuario,idPost,texto,ip})
     await log.save()
